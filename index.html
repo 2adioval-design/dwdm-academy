@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="dark" />
+<title>DWDM Architect Academy</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{bg:{1:'#07090f',2:'#0d1117',3:'#0f1629',4:'#151d3a'},cy:{4:'#00d4ff',5:'#00b8d9',6:'#0097b2'},vi:{4:'#a78bfa',5:'#7c3aed',6:'#6d28d9'},em:{4:'#34d399',5:'#10b981'},am:{4:'#fbbf24',5:'#f59e0b'},rd:{4:'#f87171',5:'#ef4444'},tx:{1:'#e2e8f0',2:'#94a3b8',3:'#64748b'}},fontFamily:{inter:['Inter','system-ui','sans-serif']}}}}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg1:#07090f;--bg2:#0d1117;--bg3:#0f1629;--bg4:#151d3a;--cy:#00d4ff;--vi:#7c3aed;--em:#10b981;--am:#f59e0b;--rd:#ef4444;--tx1:#e2e8f0;--tx2:#94a3b8;--tx3:#64748b;--glow:0 0 20px rgba(0,212,255,0.2)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg1);color:var(--tx1);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg1)}
+::-webkit-scrollbar-thumb{background:rgba(0,212,255,0.25);border-radius:3px}
+.perspective-1000{perspective:1000px}
+.transform-style-preserve-3d{transform-style:preserve-3d}
+.backface-hidden{backface-visibility:hidden}
+.rotate-y-180{transform:rotateY(180deg)}
+.flipped .flip-inner{transform:rotateY(180deg)}
+.glow-cy{box-shadow:var(--glow)}
+.glow-cy-h:hover{box-shadow:var(--glow);transform:translateY(-3px)}
+.card{background:var(--bg3);border:1px solid rgba(0,212,255,0.12);border-radius:1rem;transition:all .25s ease}
+.card:hover{border-color:rgba(0,212,255,0.3);box-shadow:var(--glow)}
+.card-vi:hover{border-color:rgba(124,58,237,0.3);box-shadow:0 0 20px rgba(124,58,237,0.2)}
+.btn-cy{background:linear-gradient(135deg,#00d4ff,#0097b2);color:#07090f;font-weight:700;border:none;cursor:pointer;transition:all .2s}
+.btn-cy:hover{box-shadow:0 0 24px rgba(0,212,255,0.45);transform:translateY(-1px)}
+.btn-cy:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-out{border:1px solid rgba(0,212,255,0.35);color:var(--cy);background:transparent;cursor:pointer;transition:all .2s}
+.btn-out:hover{background:rgba(0,212,255,0.08);border-color:var(--cy)}
+.btn-ghost{background:transparent;border:none;color:var(--tx2);cursor:pointer;transition:color .2s}
+.btn-ghost:hover{color:var(--cy)}
+.inp{background:var(--bg1);border:1px solid rgba(255,255,255,0.1);color:var(--tx1);border-radius:.5rem;padding:.5rem .75rem;font-size:.875rem;width:100%;transition:border-color .2s}
+.inp:focus{outline:none;border-color:rgba(0,212,255,0.5);box-shadow:0 0 0 2px rgba(0,212,255,0.1)}
+select.inp{appearance:auto}
+.nav-top{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(13,17,23,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,212,255,0.08);z-index:100;display:flex;align-items:center;padding:0 1rem}
+.sidebar-l{width:280px;min-width:280px;background:var(--bg2);border-right:1px solid rgba(0,212,255,0.08);height:calc(100vh - 56px);position:sticky;top:56px;overflow-y:auto;flex-shrink:0}
+.sb-item{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;border-radius:.5rem;cursor:pointer;transition:all .15s;font-size:.8rem;color:var(--tx2)}
+.sb-item:hover{background:rgba(0,212,255,0.05);color:var(--tx1)}
+.sb-item.active{background:rgba(0,212,255,0.1);color:var(--cy);border-left:3px solid var(--cy)}
+.tab-b{padding:.5rem 1rem;cursor:pointer;border-bottom:2px solid transparent;font-size:.8rem;font-weight:500;color:var(--tx3);transition:all .15s;white-space:nowrap}
+.tab-b:hover{color:var(--tx1)}
+.tab-b.active{color:var(--cy);border-bottom-color:var(--cy)}
+.quiz-opt{cursor:pointer;border:1px solid rgba(255,255,255,0.1);padding:.65rem .85rem;border-radius:.5rem;transition:all .2s;font-size:.85rem}
+.quiz-opt:hover{border-color:rgba(0,212,255,0.35);background:rgba(0,212,255,0.04)}
+.quiz-opt.sel{border-color:var(--cy);background:rgba(0,212,255,0.08)}
+.quiz-opt.correct{border-color:var(--em)!important;background:rgba(16,185,129,0.12)!important}
+.quiz-opt.wrong{border-color:var(--rd)!important;background:rgba(239,68,68,0.12)!important}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:linear-gradient(135deg,#0f1629,#151d3a);border:1px solid rgba(245,158,11,0.3);border-radius:.75rem;padding:.75rem 1.25rem;z-index:200;display:flex;align-items:center;gap:.5rem;animation:toastIn .4s ease,toastOut .4s ease 2.5s forwards;box-shadow:0 0 20px rgba(245,158,11,0.15)}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
+.fiber-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,var(--cy),transparent);opacity:.12;animation:fiberMove linear infinite}
+@keyframes fiberMove{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+.fiber-dot{position:absolute;width:4px;height:4px;background:var(--cy);border-radius:50%;box-shadow:0 0 8px var(--cy);animation:dotPulse 3s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:1;transform:scale(1.6)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .35s ease-out}
+table{border-collapse:collapse;width:100%}
+th{background:rgba(0,212,255,0.06);text-align:left;padding:.5rem .6rem;font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--cy);border-bottom:1px solid rgba(0,212,255,0.12)}
+td{padding:.5rem .6rem;border-bottom:1px solid rgba(255,255,255,0.04);font-size:.8rem;color:var(--tx2)}
+tr:hover td{background:rgba(0,212,255,0.02)}
+.formula-box{background:var(--bg1);border:1px solid rgba(0,212,255,0.15);border-radius:.75rem;padding:1rem;text-align:center;font-family:'Courier New',monospace;color:var(--cy);font-size:.95rem}
+.callout{background:rgba(124,58,237,0.06);border-left:3px solid var(--vi);border-radius:0 .5rem .5rem 0;padding:.75rem 1rem;margin:1rem 0}
+.badge-locked{filter:grayscale(1);opacity:.35}
+.step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;border:2px solid rgba(255,255,255,0.1);color:var(--tx3);transition:all .2s}
+.step-dot.done{background:var(--em);border-color:var(--em);color:#fff}
+.step-dot.cur{border-color:var(--cy);color:var(--cy);box-shadow:0 0 12px rgba(0,212,255,0.3)}
+.ch-slot{width:100%;height:22px;border-radius:3px;cursor:pointer;transition:all .15s;border:1px solid rgba(255,255,255,0.06);font-size:.55rem;display:flex;align-items:center;justify-content:center;color:var(--tx3)}
+.ch-slot.alloc{background:rgba(0,212,255,0.3);border-color:rgba(0,212,255,0.5);color:#fff}
+.ch-slot.prot{background:rgba(245,158,11,0.3);border-color:rgba(245,158,11,0.5);color:#fff}
+.ch-slot.resv{background:rgba(100,116,139,0.3);border-color:rgba(100,116,139,0.5);color:var(--tx3)}
+@media(max-width:767px){
+  .sidebar-l{position:fixed;left:-100%;top:56px;bottom:0;width:85%;max-width:320px;z-index:90;transition:left .3s ease}
+  .sidebar-l.open{left:0}
+  .sb-overlay{display:none;position:fixed;inset:0;top:56px;background:rgba(0,0,0,.5);z-index:89}
+  .sb-overlay.open{display:block}
+}
+.cert-card{background:linear-gradient(135deg,#0f1629,#1a1a3e);border:2px solid rgba(245,158,11,0.25);border-radius:1rem;padding:2rem;text-align:center;font-family:'Courier New',monospace}
+</style>
+</head>
+<body data-id="0">
+<app-icon data-id="1" hidden data-icon="radio-tower" data-palette="Blue"></app-icon>
+
+<!-- NAVBAR -->
+<nav data-id="2" class="nav-top" id="navbar-main-a1b2">
+  <div data-id="3" class="flex items-center justify-between w-full max-w-[1400px] mx-auto">
+    <div data-id="4" class="flex items-center gap-2 cursor-pointer" id="logo-btn-c3d4">
+      <div data-id="5" class="w-7 h-7 rounded-lg bg-gradient-to-br from-cy-4 to-vi-5 flex items-center justify-center">
+        <i data-id="6" data-lucide="radio-tower" class="w-4 h-4 text-white"></i>
+      </div>
+      <span data-id="7" class="font-bold text-sm tracking-tight hidden sm:inline">DWDM <span data-id="8" class="text-cy-4">Academy</span></span>
+    </div>
+    <div data-id="9" class="hidden md:flex items-center gap-1" id="desk-nav-e5f6"></div>
+    <div data-id="10" class="flex items-center gap-3">
+      <div data-id="11" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-am-5/10 border border-am-5/20 text-am-4 text-xs font-bold cursor-pointer" id="xp-badge-g7h8">
+        <i data-id="12" data-lucide="zap" class="w-3 h-3"></i>
+        <span data-id="13" id="xp-count-i9j0">0</span> XP
+      </div>
+      <div data-id="14" class="w-8 h-8 rounded-full bg-gradient-to-br from-cy-4 to-vi-5 flex items-center justify-center text-xs font-bold text-white cursor-pointer" id="avatar-btn-k1l2">D</div>
+      <button data-id="15" class="md:hidden p-1.5 text-tx-2 hover:text-cy-4" id="mob-menu-btn-m3n4">
+        <i data-id="16" data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div data-id="17" id="mob-menu-o5p6" class="hidden fixed inset-0 z-[101] bg-bg-1/95 backdrop-blur-lg flex flex-col p-5 pt-3">
+  <div data-id="18" class="flex justify-between items-center mb-6">
+    <div data-id="19" class="flex items-center gap-2">
+      <div data-id="20" class="w-7 h-7 rounded-lg bg-gradient-to-br from-cy-4 to-vi-5 flex items-center justify-center"><i data-id="21" data-lucide="radio-tower" class="w-4 h-4 text-white"></i></div>
+      <span data-id="22" class="font-bold text-sm">DWDM <span data-id="23" class="text-cy-4">Academy</span></span>
+    </div>
+    <button data-id="24" class="p-2 text-tx-2 hover:text-white" id="mob-close-q7r8"><i data-id="25" data-lucide="x" class="w-5 h-5"></i></button>
+  </div>
+  <nav data-id="26" class="flex flex-col gap-1" id="mob-nav-s9t0"></nav>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div data-id="27" id="toast-box-u1v2"></div>
+
+<!-- APP ROOT -->
+<div data-id="28" id="app-root" class="pt-[56px] min-h-screen"></div>
+
+<script>
+// ===================== DATA =====================
+const NAV_ITEMS=[
+  {id:'dashboard',label:'Dashboard',icon:'layout-dashboard'},
+  {id:'course',label:'Courses',icon:'book-open'},
+  {id:'labs',label:'Labs',icon:'flask-conical'},
+  {id:'tools',label:'Tools',icon:'wrench'},
+  {id:'capstone',label:'Capstone',icon:'trophy'},
+  {id:'portfolio',label:'Portfolio',icon:'folder-open'},
+  {id:'certs',label:'Certifications',icon:'award'}
+];
+
+const RANKS=[
+  {name:'Apprentice',icon:'🔰',min:0},
+  {name:'Optical Engineer',icon:'⚡',min:500},
+  {name:'DWDM Designer',icon:'🔷',min:1500},
+  {name:'DWDM Architect',icon:'🏆',min:3000}
+];
+
+const BADGES_DEF=[
+  {id:'link_budget',name:'Link Budget Master',desc:'Complete Lab 1.6 with PASS',icon:'calculator'},
+  {id:'otdr',name:'OTDR Analyst',desc:'Use OTDR tool 3+ times',icon:'activity'},
+  {id:'fiber_spec',name:'Fiber Design Specialist',desc:'Complete Fiber Selector tool',icon:'cable'},
+  {id:'roadm_ready',name:'ROADM Foundation Ready',desc:'Score 80%+ on Ch3 quiz',icon:'radio-tower'},
+  {id:'capstone_done',name:'Capstone Complete',desc:'Submit Level 1 capstone',icon:'trophy'},
+  {id:'l1_cert',name:'Level 1 Certified',desc:'Unlock all Level 1 cert requirements',icon:'award'}
+];
+
+const CHAPTERS=[
+  {id:1,title:'The Optical Networking Landscape',short:'Optical Landscape',time:'45 min'},
+  {id:2,title:'Light and Fiber Fundamentals',short:'Light & Fiber',time:'60 min'},
+  {id:3,title:'DWDM System Components',short:'Components',time:'55 min'},
+  {id:4,title:'Wavelength Grid and Channel Plans',short:'Channel Plans',time:'50 min'},
+  {id:5,title:'Optical Power and Link Budgets',short:'Link Budgets',time:'65 min'},
+  {id:6,title:'Modulation Formats & Coherent Optics',short:'Modulation',time:'55 min'},
+  {id:7,title:'DWDM Network Topologies',short:'Topologies',time:'50 min'},
+  {id:8,title:'Operations & Network Management',short:'Operations',time:'45 min'},
+  {id:9,title:'Standards & Interoperability',short:'Standards',time:'40 min'}
+];
+
+const LABS_DEF=[
+  {id:'1.1',ch:1,title:'DWDM Technology Selection',diff:2,time:'20 min'},
+  {id:'1.2',ch:2,title:'Fiber Loss Calculation',diff:2,time:'25 min'},
+  {id:'1.3',ch:2,title:'Fiber Type Identification',diff:1,time:'15 min'},
+  {id:'1.4',ch:3,title:'Component Role Assignment',diff:2,time:'20 min'},
+  {id:'1.5',ch:4,title:'Channel Plan Design (48ch)',diff:3,time:'30 min'},
+  {id:'1.6',ch:5,title:'Full Link Budget Calculator',diff:4,time:'40 min'},
+  {id:'1.7',ch:5,title:'Multi-Span OSNR Calculation',diff:4,time:'35 min'},
+  {id:'1.8',ch:6,title:'Modulation Format Selection',diff:3,time:'25 min'},
+  {id:'1.9',ch:7,title:'Topology & Protection Selection',diff:3,time:'30 min'},
+  {id:'1.10',ch:8,title:'PM Interpretation Scenario',diff:3,time:'25 min'}
+];
+
+const TOOL_DEFS=[
+  {id:'linkbudget',title:'Link Budget Calculator',desc:'Full span loss & OSNR analysis',icon:'calculator'},
+  {id:'dbconv',title:'dB / dBm Converter',desc:'Power unit conversions & cascade',icon:'arrow-left-right'},
+  {id:'osnrcalc',title:'OSNR Calculator',desc:'Multi-span noise accumulation',icon:'bar-chart-3'},
+  {id:'chanplan',title:'Channel Plan Builder',desc:'Visual C-band channel allocation',icon:'grid-3x3'},
+  {id:'fibersel',title:'Fiber Type Selector',desc:'Decision wizard for fiber selection',icon:'cable'},
+  {id:'otdr',title:'OTDR Trace Simulator',desc:'Visual trace analysis tool',icon:'activity'},
+  {id:'roadm',title:'ROADM Degree Planner',desc:'Node configuration & CDC-F check',icon:'radio-tower'}
+];
+
+// Chapter content - lessons, concepts, quizzes
+const CH_DATA={};
+
+// Ch1
+CH_DATA[1]={
+lesson:`<h2 class="text-xl font-bold mb-4">The Optical Networking Landscape</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">The evolution of optical networking — from basic TDM to sophisticated DWDM — is fundamental to architect-level thinking. Understanding this progression reveals why DWDM dominates modern transport.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">TDM → WDM → DWDM Evolution</h3>
+<p class="text-tx-2 text-sm leading-relaxed mb-2"><strong class="text-tx-1">TDM (Time Division Multiplexing)</strong> dominated early optical transport — SONET/SDH divided time into slots, carrying multiple signals on a single wavelength. But TDM had a ceiling.</p>
+<p class="text-tx-2 text-sm leading-relaxed mb-2"><strong class="text-tx-1">WDM</strong> broke this barrier by sending multiple wavelengths on a single fiber simultaneously. Early WDM: 2-8 channels with wide spacing (>20 nm).</p>
+<p class="text-tx-2 text-sm leading-relaxed mb-4"><strong class="text-tx-1">DWDM</strong> tightened spacing to 100 GHz (~0.8 nm) then 50 GHz (~0.4 nm), enabling 40-96+ channels in C-band. This capacity multiplication without new fiber is why DWDM dominates.</p>
+<div class="flex flex-wrap gap-2 mb-4 text-xs">${['1980s TDM','1990s WDM','1995 EDFA','2000s DWDM','2010 Coherent','2020s 400G/800G'].map((s,i)=>`<div class="flex items-center gap-1"><span class="w-6 h-6 rounded-full bg-cy-4/10 text-cy-4 flex items-center justify-center font-bold">${i+1}</span><span class="text-tx-2">${s}</span>${i<5?'<span class="text-tx-3 mx-1">→</span>':''}</div>`).join('')}</div>
+<h3 class="text-base font-bold text-cy-4 mb-2">EDFA: The Key Enabler</h3>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">The <strong class="text-tx-1">Erbium-Doped Fiber Amplifier (EDFA)</strong> amplifies all wavelengths simultaneously in the optical domain. Unlike electronic regenerators (O-E-O per channel), EDFAs eliminated per-channel amplification cost.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">DWDM vs CWDM vs ROADM</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Feature</th><th>CWDM</th><th>DWDM (Fixed)</th><th>DWDM + ROADM</th></tr></thead><tbody>
+<tr><td>Channel Spacing</td><td>20 nm</td><td>100/50 GHz</td><td>50/12.5 GHz (Flex)</td></tr>
+<tr><td>Max Channels</td><td>8-18</td><td>40-96</td><td>96+ (Flex-grid)</td></tr>
+<tr><td>Amplification</td><td>None</td><td>EDFA</td><td>EDFA + Raman</td></tr>
+<tr><td>Reach</td><td>&lt;80 km</td><td>1000+ km</td><td>1000+ km</td></tr>
+<tr><td>Reconfigurability</td><td>Fixed</td><td>Fixed</td><td>Software-defined</td></tr>
+</tbody></table></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">Key Vendor Platforms</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Vendor</th><th>Platform</th><th>Coherent DSP</th><th>Strength</th></tr></thead><tbody>
+<tr><td class="text-tx-1 font-medium">Ciena</td><td>6500 / Waveserver</td><td>WaveLogic 6</td><td>Adaptive networking</td></tr>
+<tr><td class="text-tx-1 font-medium">Nokia</td><td>1830 PSS</td><td>PSE-6s</td><td>Ultra-long-haul</td></tr>
+<tr><td class="text-tx-1 font-medium">Infinera</td><td>GX / ICE7</td><td>ICE7</td><td>Nyquist subcarriers</td></tr>
+<tr><td class="text-tx-1 font-medium">Huawei</td><td>OSN 9800</td><td>OptiXtreme</td><td>Global scale, OTN</td></tr>
+<tr><td class="text-tx-1 font-medium">Cisco</td><td>NCS 1004/2000</td><td>Acacia</td><td>Open networking</td></tr>
+</tbody></table></div>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">EDFA was the single invention that made commercial DWDM viable. Without simultaneous multi-channel amplification, long-haul DWDM transport was economically impossible.</p></div>`,
+concepts:[
+  {t:'TDM',d:'Time Division Multiplexing — sharing a single channel by dividing time into slots'},
+  {t:'WDM',d:'Wavelength Division Multiplexing — multiple wavelengths simultaneously on one fiber'},
+  {t:'DWDM',d:'Dense WDM — tightly spaced wavelengths (50/100 GHz) enabling 40-96+ channels in C-band'},
+  {t:'CWDM',d:'Coarse WDM — 20 nm spacing for short-reach, lower-cost applications without amplification'},
+  {t:'EDFA',d:'Erbium-Doped Fiber Amplifier — amplifies all C-band wavelengths simultaneously using erbium-doped fiber'},
+  {t:'ROADM',d:'Reconfigurable Optical Add/Drop Multiplexer — software-controlled wavelength routing'},
+  {t:'C-Band',d:'Conventional band (1530-1565 nm) — primary DWDM operating window with EDFA gain'},
+  {t:'Transponder',d:'Converts client signal to a DWDM wavelength for transport and back at the far end'},
+  {t:'OTN',d:'Optical Transport Network (G.709) — digital wrapper providing FEC, monitoring for optical signals'},
+  {t:'Spectral Efficiency',d:'Data throughput per unit of optical bandwidth, measured in bits/s/Hz'}
+],
+quiz:[
+  {q:'What invention made practical multi-channel DWDM amplification possible?',opts:['VCSEL','EDFA','DCM','MZM'],c:1,exp:'The EDFA amplifies all C-band wavelengths simultaneously, eliminating per-channel electronic regeneration.'},
+  {q:'What channel spacing does CWDM use?',opts:['100 GHz','50 GHz','20 nm','12.5 GHz'],c:2,exp:'CWDM uses 20 nm spacing per ITU-T G.694.2, much wider than DWDM.'},
+  {q:'DWDM operates at which OSI layer?',opts:['Layer 2','Layer 3','Layer 1 / Layer 0','Layer 4'],c:2,exp:'DWDM is a photonic transport technology at the Physical Layer (L1) or Photonic Layer (L0).'},
+  {q:'Which vendor platform uses WaveLogic DSP?',opts:['Nokia','Infinera','Ciena','Huawei'],c:2,exp:'WaveLogic is Ciena\'s coherent DSP family.'},
+  {q:'What does ROADM stand for?',opts:['Reconfigurable Optical Add/Drop Multiplexer','Remote Optical Amplifier Device Module','Routing of All Data at Maximum','Redundant Optical Domain Management'],c:0,exp:'ROADM = Reconfigurable Optical Add/Drop Multiplexer — enabling software-controlled wavelength routing.'}
+],
+labDesc:'Given requirements (distance, channel count, reconfigurability), select the right technology (CWDM, fixed DWDM, or DWDM+ROADM) and justify your choice.',
+drillQ:'A customer needs 80 channels over 3000 km between cities on G.652.D fiber. They ask if CWDM can meet this. Write your architect response.'
+};
+
+CH_DATA[2]={
+lesson:`<h2 class="text-xl font-bold mb-4">Light and Fiber Fundamentals</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">Every DWDM system begins with a photon traveling through glass. Understanding propagation, degradation, and fiber properties is the bedrock of optical architecture.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Fiber Types: ITU-T Standards</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Standard</th><th>Name</th><th>Loss @1550nm</th><th>CD @1550nm</th><th>DWDM Use</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">G.652</td><td>Standard SMF</td><td>0.20 dB/km</td><td>~17 ps/(nm·km)</td><td>Excellent — most deployed</td></tr>
+<tr><td class="font-medium text-tx-1">G.653</td><td>Dispersion-Shifted</td><td>0.20 dB/km</td><td>~0</td><td>Poor — severe FWM</td></tr>
+<tr><td class="font-medium text-tx-1">G.654</td><td>Cut-off Shifted</td><td>0.16 dB/km</td><td>~20 ps/(nm·km)</td><td>Excellent — submarine/ULH</td></tr>
+<tr><td class="font-medium text-tx-1">G.655</td><td>NZDSF</td><td>0.22 dB/km</td><td>~4-8 ps/(nm·km)</td><td>Good — reduced CD</td></tr>
+</tbody></table></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">Attenuation</h3>
+<div class="formula-box mb-4">Span Loss (dB) = α × L<br><span class="text-xs text-tx-3">Where α = attenuation coefficient (dB/km), L = fiber length (km)</span></div>
+<p class="text-tx-2 text-sm mb-4">G.652.D at 1550 nm: <strong class="text-tx-1">α ≈ 0.20 dB/km</strong>. Primary causes: Rayleigh scattering (dominant), absorption (OH⁻ ions), and bend loss.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Dispersion</h3>
+<p class="text-tx-2 text-sm mb-2"><strong class="text-tx-1">Chromatic Dispersion (CD):</strong> Different wavelengths travel at different speeds, causing pulse broadening. G.652: ~17 ps/(nm·km). Compensated by coherent DSP.</p>
+<p class="text-tx-2 text-sm mb-4"><strong class="text-tx-1">PMD:</strong> Polarization states travel at different speeds, measured in ps/√km. Modern fiber: &lt;0.1 ps/√km. Legacy: 0.5+ ps/√km — critical for 100G+ upgrades.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Nonlinear Effects</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Effect</th><th>Type</th><th>DWDM Impact</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">SPM</td><td>Kerr</td><td>Spectral broadening</td></tr>
+<tr><td class="font-medium text-tx-1">XPM</td><td>Kerr</td><td>Inter-channel crosstalk</td></tr>
+<tr><td class="font-medium text-tx-1">FWM</td><td>Kerr</td><td>Ghost channels — worst on G.653</td></tr>
+<tr><td class="font-medium text-tx-1">SRS</td><td>Scattering</td><td>Power tilt across WDM channels</td></tr>
+<tr><td class="font-medium text-tx-1">SBS</td><td>Scattering</td><td>Limits launch power ~7 dBm</td></tr>
+</tbody></table></div>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">Never set launch power based solely on OSNR. Always validate against the nonlinear threshold. On G.652, optimum is typically +1 to +3 dBm per channel for 50 GHz-spaced 100G coherent.</p></div>`,
+concepts:[
+  {t:'Attenuation',d:'Signal power loss in fiber, measured in dB/km. G.652.D: ~0.20 dB/km at 1550nm'},
+  {t:'Chromatic Dispersion',d:'Pulse broadening from wavelength-dependent speed. G.652: ~17 ps/(nm·km)'},
+  {t:'PMD',d:'Polarization Mode Dispersion — random differential delay, measured in ps/√km'},
+  {t:'FWM',d:'Four-Wave Mixing — three wavelengths generate a fourth. Worst on zero-dispersion fiber'},
+  {t:'SPM',d:'Self-Phase Modulation — signal\'s intensity modulates its own phase via Kerr effect'},
+  {t:'XPM',d:'Cross-Phase Modulation — one channel modulates neighboring channels\' phase'},
+  {t:'SRS',d:'Stimulated Raman Scattering — energy transfers short→long wavelengths, causing WDM power tilt'},
+  {t:'SBS',d:'Stimulated Brillouin Scattering — limits per-channel launch power to ~7 dBm'},
+  {t:'G.652',d:'Standard single-mode fiber — most deployed worldwide. 0.20 dB/km, 17 ps/(nm·km) CD'},
+  {t:'Rayleigh Scattering',d:'Intrinsic loss from molecular density variations — dominant mechanism, decreasing with λ⁴'}
+],
+quiz:[
+  {q:'What is the attenuation of G.652.D fiber at 1550nm?',opts:['0.35 dB/km','0.20 dB/km','0.50 dB/km','0.10 dB/km'],c:1,exp:'G.652.D: typical 0.20 dB/km at 1550nm.'},
+  {q:'Which fiber type has zero dispersion at 1550nm and is problematic for DWDM?',opts:['G.652','G.654','G.653','G.655'],c:2,exp:'G.653 (DSF) has zero CD at 1550nm, dramatically increasing FWM.'},
+  {q:'A 120 km G.652.D span at 0.20 dB/km has what fiber loss?',opts:['20 dB','24 dB','16 dB','12 dB'],c:1,exp:'0.20 × 120 = 24 dB.'},
+  {q:'Which connector polish is preferred for DWDM?',opts:['UPC','PC','APC','SC'],c:2,exp:'APC provides >65 dB return loss due to 8° angled polish.'},
+  {q:'PMD is measured in units of:',opts:['dB/km','ps/(nm·km)','ps/√km','GHz'],c:2,exp:'PMD in ps/√km because delay accumulates as √distance.'}
+],
+labDesc:'Calculate fiber loss for different fiber types and span lengths. Determine if an EDFA can compensate.',
+drillQ:'A carrier wants to upgrade their legacy G.653 fiber plant from 10G to 100G coherent DWDM. What challenges should they expect?'
+};
+
+CH_DATA[3]={
+lesson:`<h2 class="text-xl font-bold mb-4">DWDM System Components</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">A DWDM system is an assembly of precision optical and electronic components. The architect must understand each component's role and design trade-offs.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Laser Sources</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Type</th><th>Wavelength</th><th>Linewidth</th><th>DWDM Use</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">DFB</td><td>Fixed</td><td>~1 MHz</td><td>10G OOK systems</td></tr>
+<tr><td class="font-medium text-tx-1">ITLA</td><td>Tunable (C-band)</td><td>&lt;100 kHz</td><td>Coherent 100G/400G/800G</td></tr>
+<tr><td class="font-medium text-tx-1">VCSEL</td><td>850 nm</td><td>Wide</td><td>NOT used in DWDM</td></tr>
+</tbody></table></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">ROADM Architecture: CDC-F</h3>
+<div class="grid grid-cols-2 gap-2 mb-4">${[['C — Colorless','Any wavelength on any port'],['D — Directionless','Any wavelength to any direction'],['C — Contentionless','Same wavelength from different directions handled'],['F — Flex-grid','Variable-width frequency slots (12.5 GHz)']].map(([t,d])=>`<div class="bg-bg-1 rounded-lg p-3 border border-cy-4/10"><p class="text-cy-4 font-bold text-xs mb-1">${t}</p><p class="text-[11px] text-tx-3">${d}</p></div>`).join('')}</div>
+<h3 class="text-base font-bold text-cy-4 mb-2">EDFA Roles</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Role</th><th>Location</th><th>Key Spec</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">Booster</td><td>After transmitter/ROADM</td><td>High output power (+17-20 dBm)</td></tr>
+<tr><td class="font-medium text-tx-1">ILA</td><td>Mid-span</td><td>Gain range matching span loss</td></tr>
+<tr><td class="font-medium text-tx-1">Pre-amplifier</td><td>Before receiver/ROADM</td><td>Lowest noise figure (&lt;5 dB)</td></tr>
+</tbody></table></div>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">Always specify the lowest NF for pre-amplifiers. A pre-amp NF of 4.5 vs 6 dB = 1.5 dB OSNR difference — the margin between 400G 16QAM working or failing.</p></div>`,
+concepts:[
+  {t:'DFB Laser',d:'Distributed Feedback — fixed wavelength, narrow linewidth, used in 10G DWDM'},
+  {t:'ITLA',d:'Integrable Tunable Laser — tunable across C-band, ultra-narrow linewidth for coherent'},
+  {t:'MZM',d:'Mach-Zehnder Modulator — external modulator for chirp-free amplitude/phase modulation'},
+  {t:'Transponder',d:'Converts one client signal to one DWDM wavelength. 1:1 mapping'},
+  {t:'Muxponder',d:'Aggregates multiple lower-rate clients into one DWDM wavelength. N:1 mapping'},
+  {t:'WSS',d:'Wavelength Selective Switch — core ROADM element steering individual wavelengths'},
+  {t:'CDC-F',d:'Colorless, Directionless, Contentionless, Flex-grid — gold standard ROADM capability'},
+  {t:'Raman Amplifier',d:'Uses fiber itself as gain medium for distributed amplification, ~5 dB NF improvement'},
+  {t:'OSC',d:'Optical Supervisory Channel — out-of-band management at 1510/1625 nm'}
+],
+quiz:[
+  {q:'Which EDFA role has the most critical noise figure?',opts:['Booster','In-Line','Pre-amplifier','All equal'],c:2,exp:'Pre-amp NF directly impacts OSNR without preceding gain to dilute it.'},
+  {q:'What does CDC in CDC-ROADM stand for?',opts:['Channel Diversity Controller','Colorless Directionless Contentionless','Central Design Core','Cascade Dispersion Compensation'],c:1,exp:'CDC = Colorless + Directionless + Contentionless.'},
+  {q:'Direct modulation is limited at long distances due to:',opts:['PMD','Chirp','Attenuation','FEC'],c:1,exp:'Direct modulation introduces chirp — unwanted frequency modulation.'},
+  {q:'The OSC operates at what wavelength?',opts:['1550 nm','1310 nm','1510 or 1625 nm','980 nm'],c:2,exp:'OSC at 1510/1625 nm — outside the EDFA gain band.'},
+  {q:'A muxponder aggregates:',opts:['Multiple line into one client','Multiple clients into one line','Multiple λ into one degree','Multiple racks into one chassis'],c:1,exp:'Muxponder multiplexes N lower-rate clients into one DWDM wavelength.'}
+],
+labDesc:'Identify DWDM components from descriptions and assign their roles in a system diagram.',
+drillQ:'You are designing a 4-degree hub ROADM node. Explain why you would specify CDC-F over a simpler fixed OADM.'
+};
+
+CH_DATA[4]={
+lesson:`<h2 class="text-xl font-bold mb-4">Wavelength Grid and Channel Plans</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">The ITU-T wavelength grid is the foundation of every DWDM channel plan.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">ITU-T G.694.1 Grid</h3>
+<div class="formula-box mb-4">f = 193.1 + n × Δf THz<br><span class="text-xs text-tx-3">Anchor: 193.1 THz ≈ 1552.52 nm</span></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">Optical Bands</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Band</th><th>Wavelength</th><th>DWDM Use</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">S-Band</td><td>1460-1530 nm</td><td>Emerging</td></tr>
+<tr><td class="font-medium text-tx-1">C-Band</td><td>1530-1565 nm</td><td>Primary — EDFA amplified</td></tr>
+<tr><td class="font-medium text-tx-1">L-Band</td><td>1565-1625 nm</td><td>Capacity expansion</td></tr>
+</tbody></table></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">Spacing Options</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Spacing</th><th>Channels (C-band)</th><th>Typical Use</th></tr></thead><tbody>
+<tr><td>100 GHz</td><td>~40-48</td><td>10G OOK, legacy</td></tr>
+<tr><td>50 GHz</td><td>~80-96</td><td>100G coherent (standard)</td></tr>
+<tr><td>Flex-Grid (12.5 GHz)</td><td>Variable</td><td>400G/800G superchannels</td></tr>
+</tbody></table></div>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">Default to 50 GHz / flex-grid unless fiber type (G.653) or budget prohibits it. The capacity headroom is worth the investment. Deploy flex-grid capable hardware even if using fixed-grid today.</p></div>`,
+concepts:[
+  {t:'G.694.1',d:'ITU-T standard defining the DWDM frequency grid, anchored at 193.1 THz'},
+  {t:'C-Band',d:'1530-1565 nm — primary DWDM window with ~4.4 THz usable bandwidth'},
+  {t:'L-Band',d:'1565-1625 nm — capacity expansion with L-band EDFAs'},
+  {t:'50 GHz Spacing',d:'~80-96 channels in C-band. Standard for modern 100G coherent'},
+  {t:'Flex-Grid',d:'Variable-width slots in 12.5 GHz multiples for superchannels'},
+  {t:'Guard Band',d:'Unused spectrum at band edges to prevent filter crosstalk'},
+  {t:'Colorless Port',d:'ROADM port accepting any wavelength, assigned in software'},
+  {t:'Anchor Frequency',d:'193.1 THz — reference point for all DWDM channel calculations'}
+],
+quiz:[
+  {q:'What is the G.694.1 anchor frequency?',opts:['193.0 THz','193.1 THz','192.5 THz','194.1 THz'],c:1,exp:'193.1 THz ≈ 1552.52 nm.'},
+  {q:'50 GHz spacing provides how many C-band channels?',opts:['40-48','80-96','160+','32'],c:1,exp:'50 GHz across ~4.4 THz C-band ≈ 80-96 channels.'},
+  {q:'Channel 31 on the ITU grid is approximately:',opts:['1550.12 nm','1555.75 nm','1552.52 nm','1548.51 nm'],c:2,exp:'Ch31 = 193.1 THz = 1552.52 nm (the anchor).'},
+  {q:'A colored port means:',opts:['Any wavelength in software','Fixed wavelength, hardware change needed','Port glows a color','Multi-band support'],c:1,exp:'Colored port = fixed wavelength assignment.'},
+  {q:'Flex-grid slot widths are multiples of:',opts:['25 GHz','6.25 GHz','12.5 GHz','50 GHz'],c:2,exp:'Flex-grid granularity = 12.5 GHz.'}
+],
+labDesc:'Design a 48-channel C-band plan at 100 GHz spacing with appropriate guard bands.',
+drillQ:'Your customer has existing 100 GHz fixed-grid ROADMs but needs to add 400G wavelengths. What are your options and trade-offs?'
+};
+
+CH_DATA[5]={
+lesson:`<h2 class="text-xl font-bold mb-4">Optical Power and Link Budgets</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">The link budget is the architect's most fundamental calculation: "Will the signal arrive with enough quality to be decoded?"</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">dBm and dB</h3>
+<p class="text-tx-2 text-sm mb-4"><strong class="text-tx-1">dBm</strong> = absolute power vs 1 mW. 0 dBm = 1 mW. +3 dBm = 2 mW. +10 dBm = 10 mW.<br><strong class="text-tx-1">dB</strong> = relative ratio. +3 dB = double. +10 dB = 10×.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Total Span Loss Formula</h3>
+<div class="formula-box mb-4">L<sub>total</sub> = (α × D) + (N<sub>conn</sub> × L<sub>conn</sub>) + (N<sub>splice</sub> × L<sub>splice</sub>) + Margin<br><span class="text-xs text-tx-3">α=dB/km, D=km, L<sub>conn</sub>=0.5dB typ, L<sub>splice</sub>=0.1dB typ, Margin=3dB</span></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">Worked Example: 80 km Span</h3>
+<div class="bg-bg-1 rounded-lg p-3 mb-4 border border-cy-4/10 text-sm text-tx-2">
+<p>Fiber: 0.20 × 80 = <strong class="text-tx-1">16.0 dB</strong></p>
+<p>Connectors: 4 × 0.5 = <strong class="text-tx-1">2.0 dB</strong></p>
+<p>Splices: 20 × 0.1 = <strong class="text-tx-1">2.0 dB</strong></p>
+<p>Margin: <strong class="text-tx-1">3.0 dB</strong></p>
+<p class="mt-1 text-cy-4 font-bold">Total = 23.0 dB</p></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">OSNR Formula</h3>
+<div class="formula-box mb-4">OSNR ≈ 58 + P<sub>launch</sub> - NF - L<sub>span</sub> - 10×log₁₀(N)<br><span class="text-xs text-tx-3">P<sub>launch</sub>=dBm, NF=dB, L<sub>span</sub>=dB, N=spans</span></div>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">Systems with zero margin fail within 5 years. Systems with 3 dB margin operate 15-20 years. Always include aging margin — the cost at deployment is a fraction of emergency upgrades later.</p></div>`,
+concepts:[
+  {t:'dBm',d:'Decibels relative to 1 mW. 0 dBm = 1 mW, +10 dBm = 10 mW, -10 dBm = 0.1 mW'},
+  {t:'Span Loss',d:'Total optical power lost traversing a span — fiber + connectors + splices + margin'},
+  {t:'OSNR',d:'Optical Signal-to-Noise Ratio — signal vs ASE noise in 0.1 nm bandwidth'},
+  {t:'ASE Noise',d:'Amplified Spontaneous Emission — unavoidable EDFA noise, primary noise source'},
+  {t:'Noise Figure',d:'EDFA noise contribution in dB. Quantum limit 3 dB. Practical: 4.5-6 dB'},
+  {t:'Link Budget',d:'Complete accounting of gains and losses to verify signal quality at receiver'},
+  {t:'Margin',d:'Extra dB for aging, temperature, repair splices. Standard minimum: 3 dB'},
+  {t:'BER',d:'Bit Error Rate — fraction of incorrect received bits. Pre-FEC 1E-3 typical for SD-FEC'}
+],
+quiz:[
+  {q:'0 dBm equals:',opts:['0 milliwatts','1 milliwatt','10 milliwatts','100 milliwatts'],c:1,exp:'0 dBm = 10^(0/10) = 1 mW.'},
+  {q:'80 km G.652.D at 0.20 dB/km fiber-only loss:',opts:['12 dB','16 dB','20 dB','24 dB'],c:1,exp:'0.20 × 80 = 16 dB.'},
+  {q:'Doubling span count costs approximately:',opts:['1 dB','2 dB','3 dB','6 dB'],c:2,exp:'10×log₁₀(2) = 3.01 dB.'},
+  {q:'Why include aging margin?',opts:['Future expansion','Connectors degrade, splices increase','Confuse vendors','Not needed for coherent'],c:1,exp:'Real-world degradation over the system lifetime.'},
+  {q:'Which EDFA parameter appears directly in OSNR formula?',opts:['Output power','Gain flatness','Noise Figure','Pump wavelength'],c:2,exp:'NF directly reduces OSNR.'}
+],
+labDesc:'Full interactive link budget calculator. Vary fiber type, distance, connectors, splices, and calculate span loss + OSNR.',
+drillQ:'You have a 120 km span with 30 splices on G.654E fiber. The customer asks if you can eliminate the mid-span ILA. Show the math.'
+};
+
+CH_DATA[6]={
+lesson:`<h2 class="text-xl font-bold mb-4">Modulation Formats & Coherent Optics</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">Modulation format choice directly determines capacity, reach, and spectral efficiency of every wavelength.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Modulation Comparison</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Format</th><th>Bits/Sym</th><th>OSNR Req</th><th>Reach</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">DP-BPSK</td><td>2</td><td>Low</td><td>~10,000+ km</td></tr>
+<tr><td class="font-medium text-tx-1">DP-QPSK</td><td>4</td><td>Moderate</td><td>~3,000 km</td></tr>
+<tr><td class="font-medium text-tx-1">DP-8QAM</td><td>6</td><td>Higher</td><td>~1,500 km</td></tr>
+<tr><td class="font-medium text-tx-1">DP-16QAM</td><td>8</td><td>High</td><td>~600 km</td></tr>
+<tr><td class="font-medium text-tx-1">DP-64QAM</td><td>12</td><td>Very High</td><td>~100 km</td></tr>
+</tbody></table></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">Coherent Detection</h3>
+<p class="text-tx-2 text-sm mb-4">Commercially dominant since ~2010. Recovers amplitude AND phase using local oscillator + 90° optical hybrid. Enables electronic dispersion compensation and dual-polarization.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">FEC: Forward Error Correction</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>FEC Type</th><th>Pre-FEC BER</th><th>Overhead</th><th>Coding Gain</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">HD-FEC</td><td>~1×10⁻⁴</td><td>7%</td><td>~6.2 dB</td></tr>
+<tr><td class="font-medium text-tx-1">SD-FEC</td><td>~2×10⁻²</td><td>15-25%</td><td>~10-11 dB</td></tr>
+</tbody></table></div>
+<p class="text-tx-2 text-sm mb-4"><strong class="text-tx-1">Baud Rate vs Bit Rate:</strong> DP-QPSK at 32 GBaud = 32 × 2 × 2 = 128 Gbps gross ≈ 100 Gbps net after FEC.</p>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">Never over-specify modulation. 400G DP-16QAM on a 200km metro wastes spectral efficiency. Match modulation to physics — always calculate available GSNR first.</p></div>`,
+concepts:[
+  {t:'QPSK',d:'Quadrature Phase Shift Keying — 4 phase states, 2 bits/symbol. Workhorse of 100G coherent'},
+  {t:'16QAM',d:'16-point QAM — 4 bits/symbol using amplitude and phase. Metro 400G'},
+  {t:'Coherent Detection',d:'Uses local oscillator to recover full field (amplitude + phase) of the signal'},
+  {t:'DSP',d:'Digital Signal Processor — compensates CD, PMD, equalization, FEC in real-time'},
+  {t:'SD-FEC',d:'Soft-Decision FEC — ~10-11 dB coding gain, tolerates pre-FEC BER ~2×10⁻²'},
+  {t:'Baud Rate',d:'Symbol rate (GBaud). Determines optical bandwidth occupied'},
+  {t:'DP (Dual Polarization)',d:'Independent data on X and Y polarizations, doubling spectral efficiency'},
+  {t:'PCS',d:'Probabilistic Constellation Shaping — adjusts symbol probability to approach Shannon limit'}
+],
+quiz:[
+  {q:'DP-16QAM carries how many bits per symbol?',opts:['2','4','6','8'],c:3,exp:'16QAM=4 bits × 2 polarizations = 8 bits/DP-symbol.'},
+  {q:'SD-FEC outperforms HD-FEC because it uses:',opts:['More overhead','Log-likelihood ratios','Hardware decoding','Lower rates'],c:1,exp:'SD-FEC uses soft-decision information for ~10-11 dB coding gain.'},
+  {q:'Higher-order QAM requires:',opts:['Lower OSNR','Higher OSNR','No change','Shorter fiber'],c:1,exp:'Points closer together = higher OSNR needed to distinguish.'},
+  {q:'Coherent detection became dominant after:',opts:['1995','2000','2010','2020'],c:2,exp:'Commercial coherent 100G (DP-QPSK) ~2010-2012.'},
+  {q:'DP-QPSK at 32 GBaud delivers approximately:',opts:['50 Gbps','100 Gbps','200 Gbps','400 Gbps'],c:1,exp:'32×2×2=128 Gbps gross ≈ 100 Gbps net.'}
+],
+labDesc:'Given distance, channel count, and OSNR estimate — select modulation format and justify.',
+drillQ:'You need 400G over a 1200 km route. DP-16QAM fails the OSNR check. What alternatives do you have?'
+};
+
+CH_DATA[7]={
+lesson:`<h2 class="text-xl font-bold mb-4">DWDM Network Topologies</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">Topology selection constrains every subsequent design decision — protection, scaling, complexity, and cost.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Topology Comparison</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Topology</th><th>Protection</th><th>Scalability</th><th>Use Case</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">Point-to-Point</td><td>1+1 or None</td><td>Limited</td><td>DCI, Long-haul express</td></tr>
+<tr><td class="font-medium text-tx-1">Ring</td><td>Ring switch (~50ms)</td><td>Moderate</td><td>Metro/Regional</td></tr>
+<tr><td class="font-medium text-tx-1">Mesh</td><td>Mesh restoration</td><td>High</td><td>Core/National</td></tr>
+<tr><td class="font-medium text-tx-1">Hub-and-Spoke</td><td>Dual-homing</td><td>Moderate</td><td>Aggregation</td></tr>
+</tbody></table></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">Protection Mechanisms</h3>
+<p class="text-tx-2 text-sm mb-2"><strong class="text-tx-1">1+1:</strong> Signal on both working + protection. Fastest (~ms) but 50% capacity overhead.</p>
+<p class="text-tx-2 text-sm mb-2"><strong class="text-tx-1">Ring:</strong> Redirects traffic around ring on cut. Sub-50ms optical layer protection.</p>
+<p class="text-tx-2 text-sm mb-4"><strong class="text-tx-1">Mesh Restoration:</strong> Dynamic rerouting. Highest efficiency but slowest (100ms-seconds).</p>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">Route diversity on paper ≠ route diversity in the ground. SRLG awareness is critical — verify physical route diversity through GIS analysis, not just topology diagrams.</p></div>`,
+concepts:[
+  {t:'1+1 Protection',d:'Dedicated protection — identical signal on both paths. Fastest but 50% overhead'},
+  {t:'SRLG',d:'Shared Risk Link Group — fibers sharing infrastructure that could fail together'},
+  {t:'Ring Topology',d:'Circular loop supporting ring protection switching for automatic failover'},
+  {t:'Mesh Topology',d:'Multiple interconnections providing many alternate paths'},
+  {t:'ILA Spacing',d:'Distance between In-Line Amplifiers — 60-100 km terrestrial, 50-70 km submarine'},
+  {t:'ROADM Degree',d:'Number of fiber directions at a node. More degrees = more routing options'}
+],
+quiz:[
+  {q:'1+1 optical protection means:',opts:['One working + one shared','One working + one dedicated protection','One amplifier','One fiber one wavelength'],c:1,exp:'1+1 = simultaneous on working + dedicated protection path.'},
+  {q:'Typical ILA spacing in terrestrial networks:',opts:['10-20 km','60-100 km','200-300 km','500+ km'],c:1,exp:'60-100 km, limited by fiber loss and EDFA gain range.'},
+  {q:'SRLG stands for:',opts:['Shared Route Link Group','Shared Risk Link Group','System Redundancy Level Guide','Signal Routing Logic Graph'],c:1,exp:'Shared Risk Link Group.'},
+  {q:'Which topology provides most restoration paths?',opts:['P2P','Ring','Mesh','Hub-and-Spoke'],c:2,exp:'Mesh provides the most alternate paths.'},
+  {q:'Submarine DWDM uses which amplification?',opts:['EDFA only','Raman only','Hybrid EDFA + Raman','None'],c:2,exp:'Submarine uses hybrid EDFA + Raman for extreme distances.'}
+],
+labDesc:'Given a 5-node network scenario, select topology + protection scheme and justify.',
+drillQ:'Two fiber routes are shown as diverse on the network map. Describe a systematic process to verify true physical diversity.'
+};
+
+CH_DATA[8]={
+lesson:`<h2 class="text-xl font-bold mb-4">Operations & Network Management</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">A well-designed network is only as good as its operational framework. Design for operability from day one.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">NMS vs SDN</h3>
+<p class="text-tx-2 text-sm mb-2"><strong class="text-tx-1">NMS:</strong> Traditional element management. SNMP/TL1. Vendor-specific. (Ciena MCP, Nokia NSP)</p>
+<p class="text-tx-2 text-sm mb-4"><strong class="text-tx-1">SDN Controller:</strong> Open APIs (NETCONF/RESTCONF, OpenConfig). Automation-ready.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Performance Monitoring</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Parameter</th><th>Measures</th><th>Action</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">OSNR</td><td>Signal vs noise</td><td>Alarm if margin &lt;3 dB</td></tr>
+<tr><td class="font-medium text-tx-1">Pre-FEC BER</td><td>Raw error rate</td><td>Trending toward threshold</td></tr>
+<tr><td class="font-medium text-tx-1">Post-FEC BER</td><td>Corrected errors</td><td>Any non-zero = critical</td></tr>
+<tr><td class="font-medium text-tx-1">DGD/PMD</td><td>Polarization delay</td><td>Alarm approaching DSP limit</td></tr>
+</tbody></table></div>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">A network that requires the architect to troubleshoot is a failed design. Design for handoff — include alarm plans, PM thresholds, escalation matrices, and operational runbooks.</p></div>`,
+concepts:[
+  {t:'NMS',d:'Network Management System — centralized monitoring, configuration, fault management'},
+  {t:'SDN',d:'Software-Defined Networking — centralized control with open APIs for automation'},
+  {t:'GMPLS',d:'Generalized MPLS — extends MPLS to optical: wavelength, time-slot, port switching'},
+  {t:'Pre-FEC BER',d:'Raw error rate before correction — the true channel quality indicator'},
+  {t:'Post-FEC BER',d:'After correction — should be 0. Any non-zero = critical problem'},
+  {t:'OCM',d:'Optical Channel Monitor — measures per-channel power and OSNR across spectrum'},
+  {t:'ZTP',d:'Zero-Touch Provisioning — automated remote wavelength service provisioning'}
+],
+quiz:[
+  {q:'Pre-FEC BER is measured:',opts:['After correction','Before correction','At transmitter only','Lab only'],c:1,exp:'Pre-FEC shows raw channel quality before FEC correction.'},
+  {q:'GMPLS adds to MPLS the ability to switch:',opts:['IP addresses','MAC addresses','Wavelengths, time slots, ports','TCP ports'],c:2,exp:'GMPLS generalizes MPLS to optical switching types.'},
+  {q:'OCM stands for:',opts:['Optical Channel Monitor','Optical Control Module','Output Channel Mgmt','Optical Cascade Meter'],c:0,exp:'OCM = Optical Channel Monitor.'},
+  {q:'ZTP requires:',opts:['Manual patching','CDC-F ROADM','Always a technician','Fixed-grid'],c:1,exp:'ZTP needs CDC-F ROADM for software-defined wavelength assignment.'},
+  {q:'Which PM parameter indicates transmission quality margin?',opts:['Alarm count','OSNR margin vs threshold','Port temp','Uptime'],c:1,exp:'OSNR margin directly quantifies quality headroom.'}
+],
+labDesc:'Given PM data (OSNR, pre-FEC BER, CD residual), diagnose the issue and recommend action.',
+drillQ:'Your NOC reports pre-FEC BER trending from 1×10⁻³ toward 5×10⁻³ over 2 weeks on a 400G DP-16QAM wavelength. Walk through your diagnostic process.'
+};
+
+CH_DATA[9]={
+lesson:`<h2 class="text-xl font-bold mb-4">Standards & Interoperability</h2>
+<p class="text-tx-2 text-sm leading-relaxed mb-4">Standards enable multi-vendor networks. Understanding which standards define what separates operators from architects.</p>
+<h3 class="text-base font-bold text-cy-4 mb-2">Standards Bodies</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Org</th><th>Focus</th><th>Key Standards</th></tr></thead><tbody>
+<tr><td class="font-medium text-tx-1">ITU-T</td><td>Telecom</td><td>G.694.1 (grid), G.709 (OTN), G.652-656</td></tr>
+<tr><td class="font-medium text-tx-1">IEEE</td><td>Ethernet</td><td>802.3 (10GE, 100GE, 400GE)</td></tr>
+<tr><td class="font-medium text-tx-1">OIF</td><td>Interop</td><td>400ZR/ZR+ coherent pluggable</td></tr>
+<tr><td class="font-medium text-tx-1">IETF</td><td>Internet</td><td>YANG models, NETCONF, GMPLS</td></tr>
+</tbody></table></div>
+<h3 class="text-base font-bold text-cy-4 mb-2">OTN Framing (G.709)</h3>
+<div class="overflow-x-auto mb-4"><table><thead><tr><th>Level</th><th>Rate</th><th>Client</th></tr></thead><tbody>
+<tr><td>OTU1</td><td>~2.67 Gbps</td><td>STM-16</td></tr>
+<tr><td>OTU2</td><td>~10.71 Gbps</td><td>10GE</td></tr>
+<tr><td>OTU4</td><td>~111.81 Gbps</td><td>100GE</td></tr>
+<tr><td>OTUCn</td><td>n × ~105 Gbps</td><td>400GE/800GE</td></tr>
+</tbody></table></div>
+<p class="text-tx-2 text-sm mb-4"><strong class="text-tx-1">OpenROADM MSA:</strong> Standard YANG models + hardware specs for multi-vendor ROADM interoperability. <strong class="text-tx-1">Black Link:</strong> Vendor-opaque DWDM section between open ROADMs.</p>
+<div class="callout"><p class="text-sm text-vi-4 font-semibold mb-1">Architect Mindset</p><p class="text-xs text-tx-2">Budget 10-15% of project timeline for multi-vendor interoperability testing. Never assume "compliant" = "interoperable."</p></div>`,
+concepts:[
+  {t:'ITU-T',d:'International Telecommunication Union — defines optical grid, OTN, fiber standards'},
+  {t:'G.709',d:'OTN framing standard — digital wrapper providing FEC, monitoring, multiplexing'},
+  {t:'OTU4',d:'Carries 100GE at ~111.81 Gbps with G.709 overhead and FEC'},
+  {t:'OpenROADM',d:'MSA for multi-vendor ROADM interoperability using standard YANG models'},
+  {t:'NETCONF',d:'Configuration protocol over SSH — structured, transactional device config'},
+  {t:'Black Link',d:'Vendor-opaque DWDM line system between open endpoints'},
+  {t:'Interoperability',d:'Equipment from different vendors working together — requires testing beyond compliance'}
+],
+quiz:[
+  {q:'G.709 defines:',opts:['DWDM frequency grid','OTN framing','Fiber attenuation','ROADM switching'],c:1,exp:'G.709 = OTN framing structure.'},
+  {q:'OTU4 carries approximately:',opts:['10 Gbps','40 Gbps','100 Gbps','200 Gbps'],c:2,exp:'OTU4 line rate ~111.81 Gbps for 100GE client.'},
+  {q:'OpenROADM MSA aims to:',opts:['Single vendor standard','Multi-vendor interoperability','Replace ITU-T','Define submarine specs'],c:1,exp:'OpenROADM enables multi-vendor ROADM interop.'},
+  {q:'NETCONF operates over:',opts:['HTTP','SNMP','SSH','Telnet'],c:2,exp:'NETCONF uses SSH for secure transport.'},
+  {q:'A "Black Link" refers to:',opts:['Fiber with no light','Vendor-opaque DWDM link','Dark fiber lease','Failed path'],c:1,exp:'Black Link = vendor-opaque line system.'}
+],
+labDesc:'Match network requirements to correct ITU-T standards and protocol selections.',
+drillQ:'Your customer wants to deploy Ciena transponders over a Nokia line system. What standards, testing, and design considerations do you need?'
+};
+
+// ===================== STATE =====================
+let S={
+  page:'dashboard',params:{},
+  user:{name:'Domingos'},
+  xp:0,badges:[],
+  l1:{modProg:{},quizScores:{},labsDone:[],drillsDone:[],capTab:'lesson',curCh:1},
+  capstone:null,certUnlocked:false,otdrUses:0,
+  toolData:{chanPlan:new Array(96).fill(0)},
+  activity:[]
+};
+let sdk=null;
+
+async function initSDK(){
+  try{
+    if(window.AppSDK){
+      sdk=window.AppSDK;
+      const doc=await sdk.get('dwdm','state');
+      if(doc&&doc.data)S={...S,...doc.data};
+    }
+  }catch(e){console.log('SDK init:',e)}
+}
+async function save(){
+  try{if(sdk)await sdk.upsert('dwdm','state',S)}catch(e){}
+}
+
+function getRank(){
+  for(let i=RANKS.length-1;i>=0;i--){if(S.xp>=RANKS[i].min)return RANKS[i]}
+  return RANKS[0];
+}
+function getNextRank(){
+  const cur=getRank();
+  const idx=RANKS.indexOf(cur);
+  return idx<RANKS.length-1?RANKS[idx+1]:null;
+}
+
+function awardXP(amt,reason){
+  S.xp+=amt;
+  save();
+  updateXPDisplay();
+  showToast(`+${amt} XP — ${reason}`);
+  addActivity(`Earned ${amt} XP: ${reason}`);
+}
+
+function unlockBadge(id){
+  if(S.badges.includes(id))return;
+  S.badges.push(id);
+  const b=BADGES_DEF.find(x=>x.id===id);
+  if(b)showToast(`🏅 Badge Unlocked: ${b.name}`);
+  save();
+}
+
+function showToast(msg){
+  const box=document.getElementById('toast-box-u1v2');
+  const t=document.createElement('div');
+  t.className='toast';
+  t.innerHTML=`<i data-lucide="zap" class="w-4 h-4 text-am-4"></i><span class="text-sm font-semibold">${msg}</span>`;
+  box.appendChild(t);
+  lucide.createIcons({nameAttr:'data-lucide'});
+  setTimeout(()=>t.remove(),3200);
+}
+
+function addActivity(text){
+  S.activity.unshift({text,time:new Date().toLocaleString()});
+  if(S.activity.length>20)S.activity.pop();
+}
+
+function updateXPDisplay(){
+  const el=document.getElementById('xp-count-i9j0');
+  if(el)el.textContent=S.xp;
+}
+
+// ===================== NAVIGATION =====================
+function nav(page,params={}){
+  S.page=page;S.params=params;
+  renderPage();
+  window.scrollTo(0,0);
+  closeMobMenu();
+}
+
+function renderNav(){
+  const desk=document.getElementById('desk-nav-e5f6');
+  const mob=document.getElementById('mob-nav-s9t0');
+  desk.innerHTML=NAV_ITEMS.map(n=>`<button class="btn-ghost text-xs font-medium px-2 py-1 rounded ${S.page===n.id?'!text-cy-4':''}" data-nav="${n.id}">${n.label}</button>`).join('');
+  mob.innerHTML=NAV_ITEMS.map(n=>`<button class="text-left text-base font-medium py-3 px-4 rounded-lg hover:bg-bg-3 text-tx-2 ${S.page===n.id?'!text-cy-4 bg-bg-3':''}" data-nav="${n.id}">${n.label}</button>`).join('');
+  document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.nav)));
+}
+
+function closeMobMenu(){document.getElementById('mob-menu-o5p6').classList.add('hidden')}
+
+// ===================== RENDER PAGE =====================
+function renderPage(){
+  renderNav();
+  updateXPDisplay();
+  const root=document.getElementById('app-root');
+  switch(S.page){
+    case'dashboard':root.innerHTML=renderDashboard();break;
+    case'course':root.innerHTML=renderCourse();break;
+    case'labs':root.innerHTML=renderLabsPage();break;
+    case'tools':root.innerHTML=renderToolsPage();break;
+    case'capstone':root.innerHTML=renderCapstone();break;
+    case'portfolio':root.innerHTML=renderPortfolio();break;
+    case'certs':root.innerHTML=renderCerts();break;
+    case'tool_detail':root.innerHTML=renderToolDetail(S.params.id);break;
+    case'lab_detail':root.innerHTML=renderLabDetail(S.params.id);break;
+    default:root.innerHTML=renderDashboard();
+  }
+  lucide.createIcons({nameAttr:'data-lucide'});
+  attachListeners();
+}
+
+// ===================== DASHBOARD =====================
+function renderDashboard(){
+  const rank=getRank();const next=getNextRank();
+  const compCh=Object.keys(S.l1.modProg).filter(k=>S.l1.modProg[k]==='complete').length;
+  const pct=Math.round((compCh/9)*100);
+  const labsDone=S.l1.labsDone.length;
+  return`<div class="fade-up">
+  <!-- Hero Banner -->
+  <div class="relative overflow-hidden bg-gradient-to-br from-bg-2 via-bg-3 to-vi-6/20 px-4 md:px-8 py-10 md:py-16">
+    <div class="fiber-line" style="top:20%;width:60%;left:-10%;animation-duration:7s"></div>
+    <div class="fiber-line" style="top:50%;width:80%;left:5%;animation-duration:11s;animation-delay:2s"></div>
+    <div class="fiber-line" style="top:80%;width:55%;left:15%;animation-duration:9s;animation-delay:4s"></div>
+    <div class="fiber-dot" style="top:18%;left:35%"></div>
+    <div class="fiber-dot" style="top:48%;left:65%;animation-delay:1s"></div>
+    <div class="fiber-dot" style="top:75%;left:25%;animation-delay:2s"></div>
+    <div class="max-w-[1200px] mx-auto relative z-10">
+      <p class="text-tx-3 text-sm mb-1">DWDM Architect Program — 2026 Edition</p>
+      <h1 class="text-2xl md:text-4xl font-extrabold mb-3">Welcome back, <span class="text-cy-4">${S.user.name}</span></h1>
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-sm bg-bg-1/50 border border-cy-4/20 px-3 py-1 rounded-full text-cy-4 font-semibold">${rank.icon} ${rank.name}</span>
+        <span class="text-xs text-tx-3">${S.xp} XP</span>
+      </div>
+      ${next?`<div class="max-w-xs"><div class="flex justify-between text-[10px] text-tx-3 mb-1"><span>${rank.name}</span><span>${next.name} (${next.min} XP)</span></div><div class="w-full bg-bg-1/50 rounded-full h-2"><div class="h-2 rounded-full bg-gradient-to-r from-cy-4 to-vi-5 transition-all" style="width:${Math.min(100,((S.xp-rank.min)/(next.min-rank.min))*100)}%"></div></div></div>`:'<p class="text-sm text-am-4 font-bold">🏆 Maximum Rank Achieved!</p>'}
+    </div>
+  </div>
+
+  <div class="max-w-[1200px] mx-auto px-4 md:px-8 py-8">
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+      <div class="card p-4 text-center"><p class="text-2xl font-black text-cy-4">${pct}%</p><p class="text-xs text-tx-3 mt-1">Level 1 Progress</p><div class="w-full bg-bg-1 rounded-full h-1.5 mt-2"><div class="h-1.5 rounded-full bg-cy-4" style="width:${pct}%"></div></div></div>
+      <div class="card p-4 text-center"><div class="flex items-center justify-center gap-1 text-am-4"><i data-lucide="zap" class="w-5 h-5"></i><span class="text-2xl font-black">${S.xp}</span></div><p class="text-xs text-tx-3 mt-1">XP Earned</p></div>
+      <div class="card p-4 text-center"><p class="text-2xl font-black text-em-4">${labsDone}/${LABS_DEF.length}</p><p class="text-xs text-tx-3 mt-1">Labs Completed</p></div>
+      <div class="card p-4 text-center"><p class="text-2xl font-black text-vi-4">${S.badges.length}/${BADGES_DEF.length}</p><p class="text-xs text-tx-3 mt-1">Badges Earned</p></div>
+    </div>
+
+    <!-- Level Cards -->
+    <h2 class="font-bold text-lg mb-4">Program Levels</h2>
+    <div class="grid md:grid-cols-3 gap-4 mb-8">
+      <div class="card p-5 border-cy-4/25 glow-cy cursor-pointer" data-nav="course">
+        <div class="flex items-center justify-between mb-3"><span class="text-xs font-bold text-cy-4 bg-cy-4/10 px-2 py-0.5 rounded">LEVEL 1</span><span class="text-xs text-em-4 bg-em-4/10 px-2 py-0.5 rounded">${compCh>0?'In Progress':'Available'}</span></div>
+        <h3 class="font-bold mb-1">Foundations</h3>
+        <p class="text-xs text-tx-3 mb-3">9 Chapters • ${LABS_DEF.length} Labs • Capstone</p>
+        <div class="w-full bg-bg-1 rounded-full h-1.5 mb-3"><div class="h-1.5 rounded-full bg-gradient-to-r from-cy-4 to-em-4" style="width:${pct}%"></div></div>
+        <button class="btn-cy w-full py-2 rounded-lg text-xs" data-nav="course">Continue Learning →</button>
+      </div>
+      <div class="card p-5 opacity-60">
+        <div class="flex items-center justify-between mb-3"><span class="text-xs font-bold text-vi-4 bg-vi-4/10 px-2 py-0.5 rounded">LEVEL 2</span><span class="text-xs text-tx-3 bg-bg-4/50 px-2 py-0.5 rounded">🔒 Locked</span></div>
+        <h3 class="font-bold mb-1">Architecture</h3>
+        <p class="text-xs text-tx-3 mb-3">11 Chapters • 8 Design Challenges</p>
+        <p class="text-xs text-tx-3">Complete Level 1 to unlock</p>
+      </div>
+      <div class="card p-5 border-vi-5/15 opacity-50">
+        <div class="flex items-center justify-between mb-3"><span class="text-xs font-bold text-tx-3 bg-tx-3/10 px-2 py-0.5 rounded">LEVEL 3</span><span class="text-xs text-tx-3">Coming 2027</span></div>
+        <h3 class="font-bold mb-1 text-tx-3">Production</h3>
+        <p class="text-xs text-tx-3">Troubleshooting • War Stories • Real Ops</p>
+      </div>
+    </div>
+
+    <!-- Tools Quick Access -->
+    <h2 class="font-bold text-lg mb-4">Interactive Tools</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+      ${TOOL_DEFS.slice(0,4).map(t=>`<div class="card p-4 cursor-pointer glow-cy-h" data-tool="${t.id}"><i data-lucide="${t.icon}" class="w-5 h-5 text-cy-4 mb-2"></i><h4 class="text-sm font-semibold mb-1">${t.title}</h4><p class="text-[10px] text-tx-3">${t.desc}</p></div>`).join('')}
+    </div>
+
+    <!-- Badges -->
+    <h2 class="font-bold text-lg mb-4">Badges</h2>
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-8">
+      ${BADGES_DEF.map(b=>{const earned=S.badges.includes(b.id);return`<div class="card p-3 text-center ${earned?'border-am-5/30':'badge-locked'}"><div class="w-10 h-10 rounded-full ${earned?'bg-am-5/15':'bg-bg-4'} flex items-center justify-center mx-auto mb-2"><i data-lucide="${b.icon}" class="w-5 h-5 ${earned?'text-am-4':'text-tx-3'}"></i></div><p class="text-[10px] font-semibold ${earned?'text-am-4':'text-tx-3'}">${b.name}</p>${!earned?'<p class="text-[8px] text-tx-3 mt-1">LOCKED</p>':''}</div>`}).join('')}
+    </div>
+
+    <!-- Rank Progression -->
+    <h2 class="font-bold text-lg mb-4">Rank Progression</h2>
+    <div class="card p-4 mb-8">
+      <div class="flex items-center justify-between gap-2 overflow-x-auto">
+        ${RANKS.map((r,i)=>{const active=S.xp>=r.min;return`<div class="flex flex-col items-center gap-1 min-w-[80px]"><div class="w-10 h-10 rounded-full ${active?'bg-cy-4/15 border-2 border-cy-4':'bg-bg-4 border-2 border-tx-3/20'} flex items-center justify-center text-lg">${r.icon}</div><p class="text-[10px] font-semibold ${active?'text-cy-4':'text-tx-3'}">${r.name}</p><p class="text-[9px] text-tx-3">${r.min} XP</p></div>${i<RANKS.length-1?'<div class="flex-1 h-0.5 bg-bg-4 min-w-[20px] self-center -mt-4"><div class="h-0.5 bg-cy-4 transition-all" style="width:'+(S.xp>=RANKS[i+1].min?'100':'0')+'%"></div></div>':''}`}).join('')}
+      </div>
+    </div>
+
+    <!-- Activity -->
+    <h2 class="font-bold text-lg mb-4">Recent Activity</h2>
+    <div class="card p-4">
+      ${S.activity.length?S.activity.slice(0,5).map(a=>`<div class="flex items-center gap-2 py-2 border-b border-bg-4/50 last:border-0"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-em-4 flex-shrink-0"></i><span class="text-xs text-tx-2">${a.text}</span><span class="text-[10px] text-tx-3 ml-auto whitespace-nowrap">${a.time}</span></div>`).join(''):'<p class="text-sm text-tx-3 text-center py-4">No activity yet. Start a chapter to begin!</p>'}
+    </div>
+  </div>
+  <footer class="text-center py-4 text-xs text-tx-3 border-t border-bg-4/30">Made by Copilot</footer>
+</div>`;
+}
+
+// ===================== COURSE PAGE =====================
+function renderCourse(){
+  const ch=S.l1.curCh;
+  const compCh=Object.keys(S.l1.modProg).filter(k=>S.l1.modProg[k]==='complete').length;
+  const pct=Math.round((compCh/9)*100);
+  return`<div class="flex" style="min-height:calc(100vh - 56px)">
+  <div id="sb-overlay-a1" class="sb-overlay"></div>
+  <aside id="course-sidebar-b2" class="sidebar-l p-4">
+    <h3 class="font-bold text-sm mb-1">Level 1: Foundations</h3>
+    <p class="text-[10px] text-tx-3 mb-2">${compCh}/9 Chapters Complete</p>
+    <div class="w-full bg-bg-1 rounded-full h-1.5 mb-1"><div class="h-1.5 rounded-full bg-gradient-to-r from-cy-4 to-em-4" style="width:${pct}%"></div></div>
+    <p class="text-[10px] text-tx-3 mb-4">${pct}% complete</p>
+    <div class="space-y-0.5">
+      ${CHAPTERS.map(c=>{const done=S.l1.modProg[c.id]==='complete';const active=c.id===ch;const ic=done?'check-circle':'circle';const col=done?'text-em-4':active?'text-cy-4':'text-tx-3';return`<div class="sb-item ${active?'active':''}" data-ch="${c.id}"><i data-lucide="${ic}" class="w-3.5 h-3.5 ${col} flex-shrink-0"></i><span class="truncate">${c.id}. ${c.short}</span><span class="ml-auto text-[9px] text-tx-3">${c.time}</span></div>`}).join('')}
+      <div class="sb-item ${S.page==='capstone'?'active':''}" data-goto="capstone"><i data-lucide="trophy" class="w-3.5 h-3.5 text-am-4 flex-shrink-0"></i><span>Capstone Project</span></div>
+    </div>
+  </aside>
+  <main class="flex-1 overflow-y-auto">
+    <div class="max-w-4xl mx-auto px-4 md:px-8 py-6 fade-up" id="course-main-c3">
+      ${renderChapterContent(ch)}
+    </div>
+  </main>
+  <button id="sb-toggle-d4" class="md:hidden fixed bottom-5 left-5 z-30 w-11 h-11 rounded-full bg-cy-4 text-bg-1 flex items-center justify-center shadow-lg"><i data-lucide="list" class="w-5 h-5"></i></button>
+</div>`;
+}
+
+function renderChapterContent(chId){
+  const ch=CH_DATA[chId];const meta=CHAPTERS.find(c=>c.id===chId);
+  if(!ch||!meta)return'<p>Chapter not found.</p>';
+  const tab=S.l1.capTab||'lesson';
+  const tabs=[{id:'lesson',label:'Lesson',icon:'book-open'},{id:'concepts',label:'Key Concepts',icon:'layers'},{id:'lab',label:'Lab Exercise',icon:'flask-conical'},{id:'quiz',label:'Quiz',icon:'help-circle'},{id:'drill',label:'Architect Drill',icon:'brain'}];
+  return`<div class="flex items-center gap-3 mb-5">
+    <div class="w-9 h-9 rounded-xl bg-cy-4/10 flex items-center justify-center text-cy-4 font-bold text-sm">${chId}</div>
+    <div><h1 class="text-lg md:text-xl font-bold">${meta.title}</h1><p class="text-[10px] text-tx-3">Chapter ${chId} of 9 • Level 1 • ${meta.time}</p></div>
+  </div>
+  <div class="flex gap-0 border-b border-bg-4/50 mb-5 overflow-x-auto">
+    ${tabs.map(t=>`<button class="tab-b ${tab===t.id?'active':''}" data-ctab="${t.id}"><i data-lucide="${t.icon}" class="w-3.5 h-3.5 inline mr-1"></i>${t.label}</button>`).join('')}
+  </div>
+  <div class="fade-up">${renderTabContent(chId,tab)}</div>`;
+}
+
+function renderTabContent(chId,tab){
+  const ch=CH_DATA[chId];
+  if(tab==='lesson')return ch.lesson;
+  if(tab==='concepts')return renderConceptCards(ch.concepts);
+  if(tab==='lab')return renderLabInline(chId);
+  if(tab==='quiz')return renderQuizTab(chId);
+  if(tab==='drill')return renderDrillTab(chId);
+  return'';
+}
+
+function renderConceptCards(concepts){
+  return`<h3 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-cy-4"></i>Key Concepts — Tap to Flip</h3>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    ${concepts.map((c,i)=>`<div class="flashcard perspective-1000 cursor-pointer" data-flip="${i}">
+      <div class="flip-inner relative w-full h-32 transition-transform duration-500 transform-style-preserve-3d">
+        <div class="absolute inset-0 backface-hidden bg-bg-4 rounded-xl p-3 flex flex-col items-center justify-center border border-cy-4/10">
+          <p class="text-sm font-bold text-cy-4 text-center">${c.t}</p>
+          <p class="text-[9px] text-tx-3 mt-2">tap to reveal</p>
+        </div>
+        <div class="absolute inset-0 backface-hidden bg-bg-4 rounded-xl p-3 flex items-center justify-center rotate-y-180 border border-vi-5/20">
+          <p class="text-[11px] text-tx-2 text-center leading-relaxed">${c.d}</p>
+        </div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function renderQuizTab(chId){
+  const ch=CH_DATA[chId];
+  const qs=ch.quiz;
+  const key='q'+chId;
+  const saved=S.l1.quizScores[key];
+  let html=`<h3 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4 text-cy-4"></i>Chapter ${chId} Quiz</h3><p class="text-xs text-tx-3 mb-4">Score ≥3/5 to pass and complete this chapter.</p>`;
+  qs.forEach((q,qi)=>{
+    html+=`<div class="mb-4 bg-bg-4/40 rounded-xl p-4 border border-bg-4/50"><p class="font-medium text-sm mb-3">${qi+1}. ${q.q}</p><div class="space-y-2">`;
+    q.opts.forEach((o,oi)=>{
+      let cls='quiz-opt';
+      if(saved!==undefined){
+        if(oi===q.c)cls+=' correct';
+        cls+=' pointer-events-none';
+      }
+      html+=`<div class="${cls}" data-qi="${qi}" data-oi="${oi}"><span class="text-sm">${String.fromCharCode(65+oi)}) ${o}</span></div>`;
+    });
+    html+=`</div>`;
+    if(saved!==undefined)html+=`<p class="mt-2 text-[10px] ${q.c===q.c?'text-em-4':'text-tx-3'}">${q.exp}</p>`;
+    html+=`</div>`;
+  });
+  if(saved!==undefined){
+    const passed=saved>=3;
+    html+=`<div class="text-center py-4"><p class="text-xl font-bold ${passed?'text-em-4':'text-rd-4'}">${saved}/5</p><p class="text-xs text-tx-3">${passed?'Passed! Chapter complete.':'Need 3/5. Review and retry.'}</p>`;
+    html+=`<button class="btn-out px-5 py-2 rounded-lg text-xs mt-3" data-retry-quiz="${chId}">Retake Quiz</button></div>`;
+  }else{
+    html+=`<div class="text-center"><button class="btn-cy px-6 py-2.5 rounded-lg text-sm" data-submit-quiz="${chId}">Submit Quiz</button></div>`;
+  }
+  return html;
+}
+
+function renderDrillTab(chId){
+  const ch=CH_DATA[chId];
+  const done=S.l1.drillsDone.includes(chId);
+  return`<h3 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="brain" class="w-4 h-4 text-vi-4"></i>Architect Drill</h3>
+  <div class="bg-bg-4/40 rounded-xl p-4 border border-vi-5/15 mb-4"><p class="text-sm text-tx-2">${ch.drillQ}</p></div>
+  <textarea class="inp h-32 mb-3 resize-none" id="drill-input-e5" placeholder="Write your architect response (min 50 characters)..."${done?' disabled':''}></textarea>
+  ${done?'<p class="text-sm text-em-4 font-semibold">✓ Drill completed — +50 XP awarded</p>':
+  `<button class="btn-cy px-5 py-2 rounded-lg text-xs" data-submit-drill="${chId}">Submit & Complete Drill</button>`}`;
+}
+
+function renderLabInline(chId){
+  const ch=CH_DATA[chId];
+  if(chId===5)return renderLinkBudgetCalc();
+  return`<h3 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="flask-conical" class="w-4 h-4 text-em-4"></i>Lab Exercise</h3>
+  <div class="bg-bg-4/40 rounded-xl p-4 border border-em-4/15 mb-4">
+    <p class="text-sm text-tx-2 mb-2"><strong class="text-tx-1">Objective:</strong> ${ch.labDesc}</p>
+  </div>
+  <p class="text-xs text-tx-3 mb-3">Open the full lab from the Labs page for an interactive guided experience.</p>
+  <button class="btn-out px-5 py-2 rounded-lg text-xs" data-nav="labs">Open Labs Page →</button>`;
+}
+
+function renderLinkBudgetCalc(){
+  return`<h3 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="calculator" class="w-4 h-4 text-em-4"></i>Link Budget Calculator</h3>
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="space-y-3">
+      <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">Fiber Type</label><select class="inp" id="lb-fiber-f6"><option value="0.20">G.652D (0.20 dB/km)</option><option value="0.16">G.654E (0.16 dB/km)</option><option value="0.22">G.655 (0.22 dB/km)</option></select></div>
+      <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">Span Length (km)</label><input type="number" class="inp" id="lb-len-g7" value="80" min="1" max="500"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">Connector Pairs</label><input type="number" class="inp" id="lb-conn-h8" value="4" min="0" max="50"></div>
+        <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">Loss/Conn (dB)</label><input type="number" class="inp" id="lb-cl-i9" value="0.5" min="0" max="2" step="0.05"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">Splice Count</label><input type="number" class="inp" id="lb-spl-j0" value="20" min="0" max="200"></div>
+        <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">Loss/Splice (dB)</label><input type="number" class="inp" id="lb-sl-k1" value="0.10" min="0" max="1" step="0.01"></div>
+      </div>
+      <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">Aging Margin (dB)</label><input type="number" class="inp" id="lb-mgn-l2" value="3.0" min="0" max="10" step="0.5"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">Launch Power (dBm)</label><input type="number" class="inp" id="lb-pwr-m3" value="0" min="-5" max="5" step="0.5"></div>
+        <div><label class="text-[10px] text-tx-3 font-medium mb-1 block">EDFA NF (dB)</label><input type="number" class="inp" id="lb-nf-n4" value="5.5" min="3" max="8" step="0.5"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card p-4 border-em-4/20 space-y-2">
+        <h4 class="font-bold text-sm mb-2 text-em-4">Results</h4>
+        <div class="overflow-x-auto"><table id="lb-results-o5">
+          <tr><td>Fiber Loss</td><td id="lb-r-fl" class="font-mono text-right">—</td></tr>
+          <tr><td>Connector Loss</td><td id="lb-r-cl" class="font-mono text-right">—</td></tr>
+          <tr><td>Splice Loss</td><td id="lb-r-sl" class="font-mono text-right">—</td></tr>
+          <tr><td>Aging Margin</td><td id="lb-r-mg" class="font-mono text-right">—</td></tr>
+          <tr class="border-t-2 border-cy-4/20"><td class="font-bold text-tx-1">Total Span Loss</td><td id="lb-r-tot" class="font-mono text-right font-bold text-cy-4">—</td></tr>
+          <tr><td class="font-bold text-tx-1">OSNR (est.)</td><td id="lb-r-osnr" class="font-mono text-right font-bold text-cy-4">—</td></tr>
+          <tr><td class="font-bold text-tx-1">Status</td><td id="lb-r-status" class="text-right font-bold">—</td></tr>
+        </table></div>
+        <div class="mt-2 text-[10px] text-tx-3 font-mono" id="lb-r-formula"></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function calcLinkBudget(){
+  const v=id=>parseFloat(document.getElementById(id)?.value)||0;
+  const atten=v('lb-fiber-f6'),len=v('lb-len-g7'),conn=v('lb-conn-h8'),cl=v('lb-cl-i9'),spl=v('lb-spl-j0'),sl=v('lb-sl-k1'),mgn=v('lb-mgn-l2'),pwr=v('lb-pwr-m3'),nf=v('lb-nf-n4');
+  const fl=atten*len,connL=conn*cl,splL=spl*sl,tot=fl+connL+splL+mgn;
+  const osnr=58+pwr-nf-tot;
+  const set=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val};
+  set('lb-r-fl',fl.toFixed(2)+' dB');set('lb-r-cl',connL.toFixed(2)+' dB');set('lb-r-sl',splL.toFixed(2)+' dB');set('lb-r-mg',mgn.toFixed(1)+' dB');set('lb-r-tot',tot.toFixed(2)+' dB');set('lb-r-osnr',osnr.toFixed(1)+' dB');
+  const statusEl=document.getElementById('lb-r-status');
+  if(statusEl){
+    if(tot<25&&osnr>15){statusEl.textContent='PASS ✓';statusEl.className='text-right font-bold text-em-4';}
+    else if(tot<30){statusEl.textContent='MARGINAL ⚠';statusEl.className='text-right font-bold text-am-4';}
+    else{statusEl.textContent='FAIL ✗';statusEl.className='text-right font-bold text-rd-4';}
+  }
+  const fEl=document.getElementById('lb-r-formula');
+  if(fEl)fEl.textContent=`OSNR ≈ 58 + (${pwr}) - (${nf}) - (${tot.toFixed(1)}) = ${osnr.toFixed(1)} dB`;
+}
+
+// ===================== LABS PAGE =====================
+function renderLabsPage(){
+  return`<div class="max-w-[1200px] mx-auto px-4 md:px-8 py-8 fade-up">
+  <h1 class="text-2xl font-bold mb-2">Lab <span class="text-cy-4">Exercises</span></h1>
+  <p class="text-sm text-tx-3 mb-6">Hands-on exercises reinforcing each chapter's concepts.</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    ${LABS_DEF.map(l=>{const done=S.l1.labsDone.includes(l.id);return`<div class="card p-4 glow-cy-h cursor-pointer" data-openlab="${l.id}">
+      <div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-cy-4">LAB ${l.id}</span><span class="text-[10px]">${'★'.repeat(l.diff)}${'☆'.repeat(5-l.diff)}</span></div>
+      <h3 class="font-semibold text-sm mb-1">${l.title}</h3>
+      <p class="text-[10px] text-tx-3 mb-2">Chapter ${l.ch} • ${l.time}</p>
+      <div class="flex items-center justify-between">
+        ${done?'<span class="text-[10px] text-em-4 font-semibold">✓ Complete</span>':'<span class="text-[10px] text-tx-3">Not started</span>'}
+        <span class="text-[10px] text-cy-4 font-medium">Open Lab →</span>
+      </div>
+    </div>`}).join('')}
+  </div>
+  <footer class="text-center py-6 text-xs text-tx-3">Made by Copilot</footer>
+</div>`;
+}
+
+function renderLabDetail(labId){
+  const lab=LABS_DEF.find(l=>l.id===labId);
+  if(!lab)return'<p>Lab not found.</p>';
+  const done=S.l1.labsDone.includes(labId);
+  const ch=CH_DATA[lab.ch];
+  if(labId==='1.6')return`<div class="max-w-5xl mx-auto px-4 md:px-8 py-6 fade-up"><div class="flex items-center gap-2 mb-4"><button class="btn-ghost text-xs" data-nav="labs">← Back to Labs</button><span class="text-tx-3">|</span><span class="text-xs text-tx-3">Lab ${labId}: ${lab.title}</span></div>${renderLinkBudgetCalc()}<div class="text-center mt-6"><button class="btn-cy px-6 py-2 rounded-lg text-sm" data-complete-lab="${labId}">Mark Lab Complete (+150 XP)</button></div></div>`;
+  return`<div class="max-w-4xl mx-auto px-4 md:px-8 py-6 fade-up">
+    <div class="flex items-center gap-2 mb-4"><button class="btn-ghost text-xs" data-nav="labs">← Back to Labs</button><span class="text-tx-3">|</span><span class="text-xs text-tx-3">Lab ${labId}: ${lab.title}</span></div>
+    <div class="card p-5 mb-4 border-em-4/15">
+      <h2 class="font-bold text-lg mb-2">Lab ${labId}: ${lab.title}</h2>
+      <p class="text-sm text-tx-2 mb-3"><strong class="text-tx-1">Objective:</strong> ${ch?ch.labDesc:'Complete the hands-on exercise.'}</p>
+      <p class="text-xs text-tx-3">Difficulty: ${'★'.repeat(lab.diff)}${'☆'.repeat(5-lab.diff)} • Est: ${lab.time}</p>
+    </div>
+    ${done?'<div class="card p-5 border-em-4/20 text-center"><p class="text-em-4 font-bold">✓ Lab Completed</p></div>':
+    `<div class="card p-5"><p class="text-sm text-tx-2 mb-4">Work through the exercise using the chapter material and tools. When you're satisfied with your understanding, mark it complete.</p><button class="btn-cy px-6 py-2 rounded-lg text-sm" data-complete-lab="${labId}">Mark Lab Complete (+150 XP)</button></div>`}
+  </div>`;
+}
+
+// ===================== TOOLS PAGE =====================
+function renderToolsPage(){
+  return`<div class="max-w-[1200px] mx-auto px-4 md:px-8 py-8 fade-up">
+  <h1 class="text-2xl font-bold mb-2">Interactive <span class="text-cy-4">Tools</span></h1>
+  <p class="text-sm text-tx-3 mb-6">Professional DWDM design and analysis tools.</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    ${TOOL_DEFS.map(t=>`<div class="card p-5 glow-cy-h cursor-pointer" data-tool="${t.id}">
+      <div class="w-10 h-10 rounded-xl bg-cy-4/10 flex items-center justify-center mb-3"><i data-lucide="${t.icon}" class="w-5 h-5 text-cy-4"></i></div>
+      <h3 class="font-semibold text-sm mb-1">${t.title}</h3>
+      <p class="text-xs text-tx-3 mb-3">${t.desc}</p>
+      <span class="text-xs text-cy-4 font-medium">Open Tool →</span>
+    </div>`).join('')}
+  </div>
+  <footer class="text-center py-6 text-xs text-tx-3">Made by Copilot</footer>
+</div>`;
+}
+
+function renderToolDetail(toolId){
+  const tool=TOOL_DEFS.find(t=>t.id===toolId);
+  const back=`<div class="flex items-center gap-2 mb-5"><button class="btn-ghost text-xs" data-nav="tools">← Back to Tools</button><span class="text-tx-3">|</span><span class="text-xs text-tx-3">${tool?tool.title:''}</span></div>`;
+  if(toolId==='linkbudget')return`<div class="max-w-5xl mx-auto px-4 md:px-8 py-6 fade-up">${back}${renderLinkBudgetCalc()}</div>`;
+  if(toolId==='dbconv')return`<div class="max-w-3xl mx-auto px-4 md:px-8 py-6 fade-up">${back}${renderDbConv()}</div>`;
+  if(toolId==='osnrcalc')return`<div class="max-w-4xl mx-auto px-4 md:px-8 py-6 fade-up">${back}${renderOsnrCalc()}</div>`;
+  if(toolId==='chanplan')return`<div class="max-w-5xl mx-auto px-4 md:px-8 py-6 fade-up">${back}${renderChanPlan()}</div>`;
+  if(toolId==='fibersel')return`<div class="max-w-3xl mx-auto px-4 md:px-8 py-6 fade-up">${back}${renderFiberSel()}</div>`;
+  if(toolId==='otdr')return`<div class="max-w-4xl mx-auto px-4 md:px-8 py-6 fade-up">${back}${renderOtdr()}</div>`;
+  if(toolId==='roadm')return`<div class="max-w-4xl mx-auto px-4 md:px-8 py-6 fade-up">${back}${renderRoadm()}</div>`;
+  return`<div class="max-w-3xl mx-auto px-4 py-6">${back}<p class="text-tx-3">Tool not found.</p></div>`;
+}
+
+function renderDbConv(){
+  return`<h2 class="text-xl font-bold mb-4">dB / dBm <span class="text-cy-4">Converter</span></h2>
+  <div class="card p-5 mb-4">
+    <h3 class="font-bold text-sm mb-3 text-cy-4">dBm ↔ Milliwatts</h3>
+    <div class="grid grid-cols-2 gap-3 mb-3">
+      <div><label class="text-[10px] text-tx-3 block mb-1">dBm</label><input type="number" class="inp" id="db-dbm-a1" value="0" step="0.5"></div>
+      <div><label class="text-[10px] text-tx-3 block mb-1">mW</label><input type="number" class="inp" id="db-mw-b2" value="1" step="0.01"></div>
+    </div>
+    <p class="text-[10px] text-tx-3 font-mono">P(dBm) = 10 × log₁₀(P(mW))</p>
+  </div>
+  <div class="card p-5 mb-4">
+    <h3 class="font-bold text-sm mb-3 text-cy-4">dB Ratio Converter</h3>
+    <div class="grid grid-cols-2 gap-3 mb-3">
+      <div><label class="text-[10px] text-tx-3 block mb-1">dB</label><input type="number" class="inp" id="db-db-c3" value="3" step="0.5"></div>
+      <div><label class="text-[10px] text-tx-3 block mb-1">Linear Ratio</label><input type="number" class="inp" id="db-ratio-d4" value="2" step="0.01"></div>
+    </div>
+    <p class="text-[10px] text-tx-3 font-mono">dB = 10 × log₁₀(ratio)</p>
+  </div>
+  <div class="card p-5">
+    <h3 class="font-bold text-sm mb-3 text-cy-4">Common References</h3>
+    <div class="overflow-x-auto"><table><thead><tr><th>dBm</th><th>mW</th><th>Notes</th></tr></thead><tbody>
+    <tr><td>-10</td><td>0.1</td><td>Typical receiver level</td></tr>
+    <tr><td>0</td><td>1.0</td><td>Reference point</td></tr>
+    <tr><td>+3</td><td>2.0</td><td>Double power</td></tr>
+    <tr><td>+10</td><td>10</td><td>10× power</td></tr>
+    <tr><td>+17</td><td>50</td><td>Typical EDFA booster out</td></tr>
+    <tr><td>+20</td><td>100</td><td>High-power EDFA</td></tr>
+    </tbody></table></div>
+  </div>`;
+}
+
+function renderOsnrCalc(){
+  return`<h2 class="text-xl font-bold mb-4">OSNR <span class="text-cy-4">Calculator</span></h2>
+  <div class="card p-5 mb-4">
+    <div class="grid grid-cols-3 gap-3 mb-4">
+      <div><label class="text-[10px] text-tx-3 block mb-1">Number of Spans</label><input type="number" class="inp" id="os-spans-a1" value="5" min="1" max="40"></div>
+      <div><label class="text-[10px] text-tx-3 block mb-1">Launch Power (dBm)</label><input type="number" class="inp" id="os-pwr-b2" value="0" min="-5" max="5" step="0.5"></div>
+      <div><label class="text-[10px] text-tx-3 block mb-1">EDFA NF (dB)</label><input type="number" class="inp" id="os-nf-c3" value="5.5" min="3" max="8" step="0.5"></div>
+    </div>
+    <div><label class="text-[10px] text-tx-3 block mb-1">Span Loss (dB per span)</label><input type="number" class="inp" id="os-loss-d4" value="20" min="5" max="40" step="0.5"></div>
+  </div>
+  <div class="card p-5">
+    <h3 class="font-bold text-sm mb-3 text-em-4">Results</h3>
+    <div id="os-results-e5"></div>
+  </div>`;
+}
+
+function calcOsnr(){
+  const spans=parseInt(document.getElementById('os-spans-a1')?.value)||5;
+  const pwr=parseFloat(document.getElementById('os-pwr-b2')?.value)||0;
+  const nf=parseFloat(document.getElementById('os-nf-c3')?.value)||5.5;
+  const loss=parseFloat(document.getElementById('os-loss-d4')?.value)||20;
+  const perSpan=58+pwr-nf-loss;
+  const total=perSpan-10*Math.log10(spans);
+  const el=document.getElementById('os-results-e5');
+  if(!el)return;
+  const status=total>15?'PASS ✓':total>12?'MARGINAL ⚠':'FAIL ✗';
+  const col=total>15?'text-em-4':total>12?'text-am-4':'text-rd-4';
+  el.innerHTML=`<div class="space-y-2 text-sm">
+    <div class="flex justify-between"><span class="text-tx-2">OSNR per span:</span><span class="font-mono text-tx-1">${perSpan.toFixed(1)} dB</span></div>
+    <div class="flex justify-between"><span class="text-tx-2">Cascade penalty (${spans} spans):</span><span class="font-mono text-tx-1">-${(10*Math.log10(spans)).toFixed(1)} dB</span></div>
+    <div class="flex justify-between border-t border-bg-4/50 pt-2"><span class="font-bold text-tx-1">Total OSNR:</span><span class="font-mono font-bold text-cy-4">${total.toFixed(1)} dB</span></div>
+    <div class="flex justify-between"><span class="font-bold text-tx-1">Status:</span><span class="font-bold ${col}">${status}</span></div>
+    <div class="flex justify-between"><span class="text-tx-2">Margin vs 15 dB:</span><span class="font-mono text-tx-1">${(total-15).toFixed(1)} dB</span></div>
+  </div>`;
+}
+
+function renderChanPlan(){
+  const plan=S.toolData.chanPlan;
+  const allocCount=plan.filter(x=>x>0).length;
+  return`<h2 class="text-xl font-bold mb-4">Channel Plan <span class="text-cy-4">Builder</span></h2>
+  <div class="card p-5 mb-4">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <span class="text-xs text-tx-2 font-semibold">${allocCount}/96 channels allocated</span>
+      <div class="flex items-center gap-2 text-[9px] text-tx-3"><span class="w-3 h-3 rounded bg-cy-4/30 inline-block"></span>Allocated <span class="w-3 h-3 rounded bg-am-5/30 inline-block ml-2"></span>Protected <span class="w-3 h-3 rounded bg-tx-3/30 inline-block ml-2"></span>Reserved</div>
+      <button class="btn-out px-3 py-1 rounded text-[10px] ml-auto" data-preset-40ch>Load 40ch (100GHz)</button>
+      <button class="btn-ghost px-3 py-1 text-[10px]" data-clear-ch>Clear All</button>
+    </div>
+    <div class="grid grid-cols-12 md:grid-cols-16 lg:grid-cols-24 gap-0.5" id="ch-grid-f6">
+      ${plan.map((v,i)=>{const f=(191.4+i*0.05).toFixed(2);const cls=v===1?'alloc':v===2?'prot':v===3?'resv':'';return`<div class="ch-slot ${cls}" data-chidx="${i}" title="Ch${i+1} ${f}THz">${i+1}</div>`}).join('')}
+    </div>
+  </div>`;
+}
+
+function renderFiberSel(){
+  return`<h2 class="text-xl font-bold mb-4">Fiber Type <span class="text-cy-4">Selector</span></h2>
+  <div class="card p-5">
+    <div class="space-y-4">
+      <div><label class="text-xs text-tx-2 font-semibold mb-2 block">1. Distance Range</label>
+        <div class="flex flex-wrap gap-2">${['<40km Short','40-200km Metro','200-1000km Regional','>1000km Long-haul'].map(d=>`<button class="btn-out px-3 py-1.5 rounded-lg text-xs fiber-dist" data-val="${d}">${d}</button>`).join('')}</div>
+      </div>
+      <div><label class="text-xs text-tx-2 font-semibold mb-2 block">2. Application</label>
+        <div class="flex flex-wrap gap-2">${['Access','Metro Core','Backbone','Submarine','DCI'].map(d=>`<button class="btn-out px-3 py-1.5 rounded-lg text-xs fiber-app" data-val="${d}">${d}</button>`).join('')}</div>
+      </div>
+      <div><label class="text-xs text-tx-2 font-semibold mb-2 block">3. Channel Count</label>
+        <div class="flex flex-wrap gap-2">${['<40','40-80','80-96','96+'].map(d=>`<button class="btn-out px-3 py-1.5 rounded-lg text-xs fiber-ch" data-val="${d}">${d}</button>`).join('')}</div>
+      </div>
+    </div>
+    <div id="fiber-result-g7" class="mt-4"></div>
+  </div>`;
+}
+
+function renderOtdr(){
+  S.otdrUses=(S.otdrUses||0)+1;save();
+  if(S.otdrUses>=3)unlockBadge('otdr');
+  return`<h2 class="text-xl font-bold mb-4">OTDR Trace <span class="text-cy-4">Simulator</span></h2>
+  <div class="card p-5 mb-4">
+    <canvas id="otdr-canvas-h8" width="700" height="280" class="w-full rounded-lg bg-bg-1 border border-bg-4/30 mb-3"></canvas>
+    <div class="grid grid-cols-3 gap-3 mb-3">
+      <div><label class="text-[10px] text-tx-3 block mb-1">Span (km)</label><input type="number" class="inp" id="otdr-len-i9" value="80" min="10" max="200"></div>
+      <div><label class="text-[10px] text-tx-3 block mb-1">Attenuation (dB/km)</label><input type="number" class="inp" id="otdr-att-j0" value="0.20" step="0.01" min="0.1" max="0.5"></div>
+      <div><label class="text-[10px] text-tx-3 block mb-1">Splices</label><input type="number" class="inp" id="otdr-spl-k1" value="5" min="0" max="20"></div>
+    </div>
+    <button class="btn-cy px-4 py-2 rounded-lg text-xs" id="otdr-draw-l2">Generate Trace</button>
+  </div>
+  <div class="card p-4" id="otdr-events-m3"><p class="text-xs text-tx-3">Generate a trace to see detected events.</p></div>`;
+}
+
+function drawOtdr(){
+  const c=document.getElementById('otdr-canvas-h8');if(!c)return;
+  const ctx=c.getContext('2d');const W=c.width,H=c.height;
+  ctx.clearRect(0,0,W,H);
+  const len=parseFloat(document.getElementById('otdr-len-i9')?.value)||80;
+  const att=parseFloat(document.getElementById('otdr-att-j0')?.value)||0.2;
+  const spl=parseInt(document.getElementById('otdr-spl-k1')?.value)||5;
+  const launch=0;const totalLoss=att*len;
+  // Draw grid
+  ctx.strokeStyle='rgba(0,212,255,0.08)';ctx.lineWidth=1;
+  for(let i=0;i<10;i++){const y=H*0.1+i*(H*0.8/9);ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(W-10,y);ctx.stroke();}
+  for(let i=0;i<=8;i++){const x=40+i*((W-50)/8);ctx.beginPath();ctx.moveTo(x,H*0.1);ctx.lineTo(x,H*0.9);ctx.stroke();}
+  // Labels
+  ctx.fillStyle='#64748b';ctx.font='9px Inter';
+  ctx.fillText('dBm',5,15);ctx.fillText('Distance (km)',W/2-30,H-2);
+  for(let i=0;i<=4;i++){ctx.fillText((-i*totalLoss/4).toFixed(0),5,H*0.1+i*(H*0.8/4)+3);}
+  for(let i=0;i<=4;i++){ctx.fillText((i*len/4).toFixed(0),40+i*((W-50)/4)-8,H*0.95);}
+  // Draw trace
+  ctx.strokeStyle='#00d4ff';ctx.lineWidth=2;ctx.beginPath();
+  const xScale=(W-50)/len;const yScale=(H*0.8)/Math.max(totalLoss+5,30);
+  const x0=40,y0=H*0.1;
+  ctx.moveTo(x0,y0);
+  // launch pulse
+  ctx.lineTo(x0+2,y0-10);ctx.lineTo(x0+5,y0);
+  let events=[];let curLoss=0;
+  const splicePos=[];for(let i=1;i<=spl;i++)splicePos.push(len*i/(spl+1));
+  for(let d=0;d<=len;d+=0.5){
+    let segLoss=att*d;
+    let extra=0;
+    splicePos.forEach(sp=>{if(d>=sp)extra+=0.1});
+    const tl=segLoss+extra;
+    const x=x0+d*xScale;const y=y0+tl*yScale;
+    ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  // Mark splices
+  ctx.fillStyle='#f59e0b';
+  splicePos.forEach((sp,i)=>{
+    const x=x0+sp*xScale;const segLoss=att*sp+i*0.1;const y=y0+segLoss*yScale;
+    ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
+    events.push({type:'Splice',dist:sp.toFixed(1),loss:'0.10 dB'});
+  });
+  // End of fiber
+  const endX=x0+len*xScale;const endLoss=totalLoss+spl*0.1;const endY=y0+endLoss*yScale;
+  ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(endX,endY,4,0,Math.PI*2);ctx.fill();
+  events.push({type:'End of Fiber',dist:len.toFixed(1),loss:(endLoss).toFixed(2)+' dB total'});
+  // Events table
+  const evEl=document.getElementById('otdr-events-m3');
+  if(evEl)evEl.innerHTML=`<h4 class="font-bold text-sm mb-2">Detected Events</h4><table><thead><tr><th>Type</th><th>Distance</th><th>Loss</th></tr></thead><tbody>${events.map(e=>`<tr><td>${e.type}</td><td>${e.dist} km</td><td>${e.loss}</td></tr>`).join('')}</tbody></table>`;
+}
+
+function renderRoadm(){
+  return`<h2 class="text-xl font-bold mb-4">ROADM Degree <span class="text-cy-4">Planner</span></h2>
+  <div class="card p-5 mb-4">
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <div><label class="text-[10px] text-tx-3 block mb-1">ROADM Degrees</label><select class="inp" id="roadm-deg-a1"><option value="2">2-Degree</option><option value="4" selected>4-Degree</option><option value="8">8-Degree</option></select></div>
+      <div><label class="text-[10px] text-tx-3 block mb-1">Add/Drop Ports per Degree</label><input type="number" class="inp" id="roadm-ad-b2" value="8" min="1" max="20"></div>
+    </div>
+    <div class="flex flex-wrap gap-2 mb-4">
+      ${['Colorless','Directionless','Contentionless','Flex-grid'].map(c=>`<label class="flex items-center gap-1.5 text-xs text-tx-2 cursor-pointer"><input type="checkbox" class="accent-cy-4" checked data-cdcf="${c}">${c}</label>`).join('')}
+    </div>
+    <div id="roadm-result-c3"></div>
+  </div>`;
+}
+
+function calcRoadm(){
+  const deg=parseInt(document.getElementById('roadm-deg-a1')?.value)||4;
+  const ad=parseInt(document.getElementById('roadm-ad-b2')?.value)||8;
+  const checks=document.querySelectorAll('[data-cdcf]');
+  let cdcf=[];checks.forEach(c=>{if(c.checked)cdcf.push(c.dataset.cdcf)});
+  const totalPorts=deg*ad;const wssCount=deg;
+  const el=document.getElementById('roadm-result-c3');
+  if(!el)return;
+  el.innerHTML=`<h4 class="font-bold text-sm mb-2 text-em-4">Node Configuration</h4>
+  <div class="grid grid-cols-2 gap-3 text-sm">
+    <div class="bg-bg-1 p-3 rounded-lg"><p class="text-tx-3 text-[10px]">Total Degrees</p><p class="font-bold text-lg text-cy-4">${deg}</p></div>
+    <div class="bg-bg-1 p-3 rounded-lg"><p class="text-tx-3 text-[10px]">WSS Modules</p><p class="font-bold text-lg text-cy-4">${wssCount}</p></div>
+    <div class="bg-bg-1 p-3 rounded-lg"><p class="text-tx-3 text-[10px]">Add/Drop Ports</p><p class="font-bold text-lg text-cy-4">${totalPorts}</p></div>
+    <div class="bg-bg-1 p-3 rounded-lg"><p class="text-tx-3 text-[10px]">CDC-F Status</p><p class="font-bold text-xs">${cdcf.length===4?'<span class="text-em-4">Full CDC-F ✓</span>':'<span class="text-am-4">Partial ('+cdcf.join(', ')+')</span>'}</p></div>
+  </div>`;
+}
+
+// ===================== CAPSTONE =====================
+function renderCapstone(){
+  if(S.capstone&&S.capstone.submitted)return renderCapstoneResult();
+  const step=S.capstone?.step||1;
+  return`<div class="max-w-4xl mx-auto px-4 md:px-8 py-8 fade-up">
+  <h1 class="text-2xl font-bold mb-2">Level 1 <span class="text-cy-4">Capstone Project</span></h1>
+  <p class="text-sm text-tx-3 mb-6">Design a complete DWDM network from requirements to link budget.</p>
+  <!-- Steps -->
+  <div class="flex items-center justify-center gap-2 mb-8">
+    ${[1,2,3,4,5].map(s=>`<div class="step-dot ${s<step?'done':s===step?'cur':''}">${s}</div>${s<5?'<div class="w-8 h-0.5 '+(s<step?'bg-em-4':'bg-bg-4')+'"></div>':''}`).join('')}
+  </div>
+  <div class="card p-6">${renderCapstoneStep(step)}</div>
+</div>`;
+}
+
+function renderCapstoneStep(step){
+  if(!S.capstone)S.capstone={step:1,data:{}};
+  const d=S.capstone.data;
+  if(step===1)return`<h3 class="font-bold mb-4">Step 1: Network Requirements</h3>
+    <div class="space-y-3">
+      <div><label class="text-xs text-tx-2 block mb-1">Project Name</label><input class="inp" id="cap-name-a1" value="${d.name||''}" placeholder="My DWDM Network"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="text-xs text-tx-2 block mb-1">Number of Nodes</label><input type="number" class="inp" id="cap-nodes-b2" value="${d.nodes||5}" min="2" max="10"></div>
+        <div><label class="text-xs text-tx-2 block mb-1">Max Route Distance (km)</label><input type="number" class="inp" id="cap-dist-c3" value="${d.dist||300}" min="10" max="5000"></div>
+      </div>
+      <div><label class="text-xs text-tx-2 block mb-1">Topology</label><select class="inp" id="cap-topo-d4"><option ${d.topo==='ring'?'selected':''} value="ring">Ring</option><option ${d.topo==='mesh'?'selected':''} value="mesh">Mesh</option><option ${d.topo==='p2p'?'selected':''} value="p2p">Point-to-Point</option></select></div>
+      <div><label class="text-xs text-tx-2 block mb-1">Service Rate</label><select class="inp" id="cap-rate-e5"><option ${d.rate==='100G'?'selected':''} value="100G">100G</option><option ${d.rate==='400G'?'selected':''} value="400G">400G</option></select></div>
+      <div><label class="text-xs text-tx-2 block mb-1">Protection</label><select class="inp" id="cap-prot-f6"><option ${d.prot==='1+1'?'selected':''} value="1+1">1+1 Dedicated</option><option ${d.prot==='ring'?'selected':''} value="ring">Ring</option><option ${d.prot==='none'?'selected':''} value="none">None</option></select></div>
+    </div>
+    <div class="mt-4 text-right"><button class="btn-cy px-6 py-2 rounded-lg text-sm" data-cap-next="1">Next Step →</button></div>`;
+  if(step===2)return`<h3 class="font-bold mb-4">Step 2: Fiber Selection</h3>
+    <div class="space-y-3">
+      <div><label class="text-xs text-tx-2 block mb-1">Fiber Type</label><select class="inp" id="cap-fiber-g7"><option ${d.fiber==='G.652D'?'selected':''} value="G.652D">G.652D (0.20 dB/km)</option><option ${d.fiber==='G.654E'?'selected':''} value="G.654E">G.654E (0.16 dB/km)</option><option ${d.fiber==='G.655'?'selected':''} value="G.655">G.655 (0.22 dB/km)</option></select></div>
+      <div><label class="text-xs text-tx-2 block mb-1">Average Span Length (km)</label><input type="number" class="inp" id="cap-span-h8" value="${d.span||80}" min="10" max="200"></div>
+      <div><label class="text-xs text-tx-2 block mb-1">Connector Type</label><select class="inp" id="cap-conntype-i9"><option value="APC" selected>APC (preferred)</option><option value="UPC">UPC</option></select></div>
+      <div><label class="text-xs text-tx-2 block mb-1">Justification</label><textarea class="inp h-20 resize-none" id="cap-fiberj-j0" placeholder="Why did you choose this fiber type?">${d.fiberJ||''}</textarea></div>
+    </div>
+    <div class="mt-4 flex justify-between"><button class="btn-out px-5 py-2 rounded-lg text-sm" data-cap-prev="2">← Back</button><button class="btn-cy px-6 py-2 rounded-lg text-sm" data-cap-next="2">Next Step →</button></div>`;
+  if(step===3)return`<h3 class="font-bold mb-4">Step 3: Link Budget</h3>
+    <p class="text-xs text-tx-3 mb-3">Complete the link budget calculation. Must achieve PASS to proceed.</p>
+    ${renderLinkBudgetCalc()}
+    <div class="mt-4 flex justify-between"><button class="btn-out px-5 py-2 rounded-lg text-sm" data-cap-prev="3">← Back</button><button class="btn-cy px-6 py-2 rounded-lg text-sm" data-cap-next="3">Next Step →</button></div>`;
+  if(step===4)return`<h3 class="font-bold mb-4">Step 4: Channel Plan</h3>
+    <div class="mb-3"><label class="text-xs text-tx-2 block mb-1">Grid Technology</label><select class="inp" id="cap-grid-k1"><option value="50GHz">50 GHz (80-96 channels)</option><option value="100GHz">100 GHz (40-48 channels)</option><option value="flex">Flex-Grid</option></select></div>
+    <div class="mb-3"><label class="text-xs text-tx-2 block mb-1">Channels Required</label><input type="number" class="inp" id="cap-chcount-l2" value="${d.chCount||40}" min="1" max="96"></div>
+    <div class="mt-4 flex justify-between"><button class="btn-out px-5 py-2 rounded-lg text-sm" data-cap-prev="4">← Back</button><button class="btn-cy px-6 py-2 rounded-lg text-sm" data-cap-next="4">Next Step →</button></div>`;
+  if(step===5)return`<h3 class="font-bold mb-4">Step 5: Design Justification</h3>
+    <textarea class="inp h-32 resize-none mb-3" id="cap-just-m3" placeholder="Explain your key design decisions and trade-offs (min 100 characters)...">${d.justification||''}</textarea>
+    <div class="mt-4 flex justify-between"><button class="btn-out px-5 py-2 rounded-lg text-sm" data-cap-prev="5">← Back</button><button class="btn-cy px-6 py-2 rounded-lg text-sm" data-cap-submit>Submit Capstone</button></div>`;
+  return'';
+}
+
+function renderCapstoneResult(){
+  const d=S.capstone.data;
+  const certId='DWDM-L1-2026-'+Math.random().toString(36).substr(2,6).toUpperCase();
+  return`<div class="max-w-3xl mx-auto px-4 md:px-8 py-8 fade-up">
+  <div class="cert-card">
+    <p class="text-am-4 text-sm mb-1">═══════════════════════════════</p>
+    <h2 class="text-lg font-bold text-am-4 mb-1">DWDM ARCHITECT PROGRAM</h2>
+    <p class="text-xs text-tx-3 mb-3">Level 1 — Portfolio Artifact</p>
+    <p class="text-am-4 text-sm mb-3">═══════════════════════════════</p>
+    <div class="text-left text-xs text-tx-2 space-y-1 mb-3">
+      <p><strong>Project:</strong> ${d.name||'Untitled'}</p>
+      <p><strong>Submitted by:</strong> ${S.user.name}</p>
+      <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+      <p><strong>Certificate ID:</strong> ${certId}</p>
+    </div>
+    <p class="text-am-4 text-sm mb-3">═══════════════════════════════</p>
+    <div class="text-left text-xs text-tx-2 space-y-1 mb-3">
+      <p class="font-bold text-tx-1">DESIGN SUMMARY</p>
+      <p>Topology: ${d.topo||'—'} | Nodes: ${d.nodes||'—'}</p>
+      <p>Max Distance: ${d.dist||'—'} km | Service: ${d.rate||'—'}</p>
+      <p>Fiber: ${d.fiber||'—'} | Protection: ${d.prot||'—'}</p>
+    </div>
+    <p class="text-am-4 text-sm mb-3">═══════════════════════════════</p>
+    <p class="text-em-4 font-bold text-sm">STATUS: LEVEL 1 CAPSTONE COMPLETE ✓</p>
+  </div>
+  <div class="text-center mt-6"><button class="btn-out px-5 py-2 rounded-lg text-xs" data-nav="dashboard">Return to Dashboard</button></div>
+  <footer class="text-center py-6 text-xs text-tx-3">Made by Copilot</footer>
+</div>`;
+}
+
+// ===================== PORTFOLIO =====================
+function renderPortfolio(){
+  return`<div class="max-w-[1000px] mx-auto px-4 md:px-8 py-8 fade-up">
+  <h1 class="text-2xl font-bold mb-2">Your <span class="text-cy-4">Portfolio</span></h1>
+  <p class="text-sm text-tx-3 mb-6">All completed artifacts, labs, and drills in one place.</p>
+  ${S.capstone&&S.capstone.submitted?`<div class="card p-4 mb-4 border-am-5/20"><div class="flex items-center gap-3"><i data-lucide="trophy" class="w-5 h-5 text-am-4"></i><div><h3 class="font-semibold text-sm">Level 1 Capstone: ${S.capstone.data.name||'Untitled'}</h3><p class="text-[10px] text-tx-3">Submitted • Capstone Project</p></div><button class="btn-ghost text-xs ml-auto" data-nav="capstone">View →</button></div></div>`:''}
+  ${S.l1.labsDone.length?S.l1.labsDone.map(id=>{const lab=LABS_DEF.find(l=>l.id===id);return lab?`<div class="card p-4 mb-3"><div class="flex items-center gap-3"><i data-lucide="flask-conical" class="w-4 h-4 text-em-4"></i><div><h4 class="text-sm font-semibold">Lab ${lab.id}: ${lab.title}</h4><p class="text-[10px] text-tx-3">Completed • Lab Exercise</p></div></div></div>`:''}).join(''):''}
+  ${S.l1.drillsDone.length?S.l1.drillsDone.map(id=>{const ch=CHAPTERS.find(c=>c.id===id);return ch?`<div class="card p-4 mb-3"><div class="flex items-center gap-3"><i data-lucide="brain" class="w-4 h-4 text-vi-4"></i><div><h4 class="text-sm font-semibold">Ch${ch.id} Drill: ${ch.short}</h4><p class="text-[10px] text-tx-3">Completed • Architect Drill</p></div></div></div>`:''}).join(''):''}
+  ${!S.capstone?.submitted&&!S.l1.labsDone.length&&!S.l1.drillsDone.length?'<div class="text-center py-12"><i data-lucide="folder-open" class="w-12 h-12 text-tx-3 mx-auto mb-3"></i><p class="text-tx-3">No artifacts yet. Complete labs, drills, and the capstone to build your portfolio.</p></div>':''}
+  <footer class="text-center py-6 text-xs text-tx-3">Made by Copilot</footer>
+</div>`;
+}
+
+// ===================== CERTIFICATIONS =====================
+function renderCerts(){
+  const compCh=Object.keys(S.l1.modProg).filter(k=>S.l1.modProg[k]==='complete').length;
+  const quizAll=Object.keys(S.l1.quizScores).length===9&&Object.values(S.l1.quizScores).every(v=>v>=4);
+  const labsAll=S.l1.labsDone.length>=LABS_DEF.length;
+  const capDone=S.capstone&&S.capstone.submitted;
+  const reqs=[
+    {label:`Complete all 9 chapters (${compCh}/9)`,done:compCh>=9},
+    {label:`All quiz scores ≥ 80% (${Object.keys(S.l1.quizScores).filter(k=>S.l1.quizScores[k]>=4).length}/9)`,done:quizAll},
+    {label:`All labs completed (${S.l1.labsDone.length}/${LABS_DEF.length})`,done:labsAll},
+    {label:'Capstone submitted',done:!!capDone}
+  ];
+  const metCount=reqs.filter(r=>r.done).length;
+  const allMet=metCount===reqs.length;
+  if(allMet&&!S.certUnlocked){S.certUnlocked=true;unlockBadge('l1_cert');awardXP(200,'Level 1 Certified!');}
+  const pct=Math.round((metCount/reqs.length)*100);
+  return`<div class="max-w-[1000px] mx-auto px-4 md:px-8 py-8 fade-up">
+  <h1 class="text-2xl font-bold mb-6">Certifications</h1>
+  <div class="card p-6 mb-6 ${allMet?'border-am-5/30':''}">
+    <div class="flex items-start gap-4 flex-col md:flex-row">
+      <div class="w-16 h-16 rounded-full bg-cy-4/10 flex items-center justify-center flex-shrink-0">
+        <svg width="40" height="40" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/><circle cx="50" cy="50" r="40" fill="none" stroke="var(--cy)" stroke-width="8" stroke-dasharray="${2*Math.PI*40}" stroke-dashoffset="${2*Math.PI*40*(1-pct/100)}" transform="rotate(-90 50 50)" style="transition:stroke-dashoffset .5s"/></svg>
+        <span class="absolute text-sm font-bold text-cy-4">${pct}%</span>
+      </div>
+      <div class="flex-1">
+        <h2 class="font-bold text-lg mb-1">DWDM Foundations — Level 1</h2>
+        <p class="text-xs text-tx-3 mb-3">${metCount}/${reqs.length} requirements met</p>
+        <div class="space-y-2">
+          ${reqs.map(r=>`<div class="flex items-center gap-2 text-sm"><i data-lucide="${r.done?'check-circle':'circle'}" class="w-4 h-4 ${r.done?'text-em-4':'text-tx-3'} flex-shrink-0"></i><span class="${r.done?'text-em-4':'text-tx-3'}">${r.label}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    ${allMet?`<div class="mt-6 cert-card"><p class="text-am-4 font-bold text-sm mb-2">🎓 CERTIFICATE UNLOCKED</p><p class="text-xs text-tx-2">DWDM Architect Program</p><p class="text-xs text-tx-2">Level 1 Certified: Foundations</p><p class="text-sm font-bold text-tx-1 my-2">${S.user.name.toUpperCase()}</p><p class="text-[10px] text-tx-3">Date: ${new Date().toLocaleDateString()}</p></div>`:''}
+  </div>
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="card p-5 opacity-50"><div class="flex items-center gap-2 mb-2"><i data-lucide="lock" class="w-4 h-4 text-tx-3"></i><span class="text-xs font-bold text-vi-4 bg-vi-4/10 px-2 py-0.5 rounded">LEVEL 2</span></div><h3 class="font-bold">Architecture</h3><p class="text-xs text-tx-3">Complete Level 1 to unlock</p></div>
+    <div class="card p-5 opacity-50"><div class="flex items-center gap-2 mb-2"><i data-lucide="lock" class="w-4 h-4 text-tx-3"></i><span class="text-xs font-bold text-tx-3 bg-tx-3/10 px-2 py-0.5 rounded">LEVEL 3</span></div><h3 class="font-bold text-tx-3">Production</h3><p class="text-xs text-tx-3">Coming 2027</p></div>
+  </div>
+  <footer class="text-center py-6 text-xs text-tx-3">Made by Copilot</footer>
+</div>`;
+}
+
+// ===================== EVENT LISTENERS =====================
+function attachListeners(){
+  // Nav
+  document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.nav)));
+  document.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>nav('tool_detail',{id:b.dataset.tool})));
+  document.querySelectorAll('[data-openlab]').forEach(b=>b.addEventListener('click',()=>nav('lab_detail',{id:b.dataset.openlab})));
+  // Course sidebar chapters
+  document.querySelectorAll('[data-ch]').forEach(b=>b.addEventListener('click',()=>{S.l1.curCh=parseInt(b.dataset.ch);S.l1.capTab='lesson';renderPage();}));
+  document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.goto)));
+  // Course tabs
+  document.querySelectorAll('[data-ctab]').forEach(b=>b.addEventListener('click',()=>{S.l1.capTab=b.dataset.ctab;renderPage();}));
+  // Flashcards
+  document.querySelectorAll('.flashcard').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('flipped')));
+  // Quiz
+  document.querySelectorAll('.quiz-opt:not(.pointer-events-none)').forEach(o=>o.addEventListener('click',()=>{
+    const qi=o.dataset.qi;
+    document.querySelectorAll(`.quiz-opt[data-qi="${qi}"]`).forEach(x=>x.classList.remove('sel'));
+    o.classList.add('sel');
+  }));
+  document.querySelectorAll('[data-submit-quiz]').forEach(b=>b.addEventListener('click',()=>{
+    const chId=parseInt(b.dataset.submitQuiz);const ch=CH_DATA[chId];
+    let score=0;
+    ch.quiz.forEach((_,qi)=>{
+      const sel=document.querySelector(`.quiz-opt.sel[data-qi="${qi}"]`);
+      if(sel&&parseInt(sel.dataset.oi)===ch.quiz[qi].c)score++;
+    });
+    S.l1.quizScores['q'+chId]=score;
+    if(score>=3){
+      if(S.l1.modProg[chId]!=='complete'){
+        S.l1.modProg[chId]='complete';
+        awardXP(100,`Chapter ${chId} Quiz Passed (${score}/5)`);
+        addActivity(`Completed Chapter ${chId}: ${CHAPTERS.find(c=>c.id===chId)?.short}`);
+        if(chId===3&&score>=4)unlockBadge('roadm_ready');
+      }
+    }
+    save();renderPage();
+  }));
+  document.querySelectorAll('[data-retry-quiz]').forEach(b=>b.addEventListener('click',()=>{
+    delete S.l1.quizScores['q'+b.dataset.retryQuiz];save();renderPage();
+  }));
+  // Drill
+  document.querySelectorAll('[data-submit-drill]').forEach(b=>b.addEventListener('click',()=>{
+    const chId=parseInt(b.dataset.submitDrill);
+    const inp=document.getElementById('drill-input-e5');
+    if(!inp||inp.value.length<50){showToast('Write at least 50 characters.');return;}
+    if(!S.l1.drillsDone.includes(chId)){S.l1.drillsDone.push(chId);awardXP(50,`Ch${chId} Architect Drill`);}
+    save();renderPage();
+  }));
+  // Lab complete
+  document.querySelectorAll('[data-complete-lab]').forEach(b=>b.addEventListener('click',()=>{
+    const labId=b.dataset.completeLab;
+    if(!S.l1.labsDone.includes(labId)){
+      S.l1.labsDone.push(labId);
+      awardXP(150,`Lab ${labId} Completed`);
+      addActivity(`Completed Lab ${labId}`);
+      if(labId==='1.6')unlockBadge('link_budget');
+    }
+    save();renderPage();
+  }));
+  // Link budget calc inputs
+  ['lb-fiber-f6','lb-len-g7','lb-conn-h8','lb-cl-i9','lb-spl-j0','lb-sl-k1','lb-mgn-l2','lb-pwr-m3','lb-nf-n4'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.addEventListener('input',calcLinkBudget);
+  });
+  if(document.getElementById('lb-fiber-f6'))calcLinkBudget();
+  // dB converter
+  const dbmIn=document.getElementById('db-dbm-a1');const mwIn=document.getElementById('db-mw-b2');
+  if(dbmIn)dbmIn.addEventListener('input',()=>{const v=parseFloat(dbmIn.value);if(!isNaN(v))mwIn.value=Math.pow(10,v/10).toFixed(4);});
+  if(mwIn)mwIn.addEventListener('input',()=>{const v=parseFloat(mwIn.value);if(v>0)dbmIn.value=(10*Math.log10(v)).toFixed(2);});
+  const dbIn=document.getElementById('db-db-c3');const ratIn=document.getElementById('db-ratio-d4');
+  if(dbIn)dbIn.addEventListener('input',()=>{const v=parseFloat(dbIn.value);if(!isNaN(v))ratIn.value=Math.pow(10,v/10).toFixed(4);});
+  if(ratIn)ratIn.addEventListener('input',()=>{const v=parseFloat(ratIn.value);if(v>0)dbIn.value=(10*Math.log10(v)).toFixed(2);});
+  // OSNR calc
+  ['os-spans-a1','os-pwr-b2','os-nf-c3','os-loss-d4'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.addEventListener('input',calcOsnr);
+  });
+  if(document.getElementById('os-spans-a1'))calcOsnr();
+  // Channel plan
+  document.querySelectorAll('[data-chidx]').forEach(s=>s.addEventListener('click',()=>{
+    const i=parseInt(s.dataset.chidx);
+    S.toolData.chanPlan[i]=(S.toolData.chanPlan[i]+1)%4;save();renderPage();
+  }));
+  document.querySelectorAll('[data-preset-40ch]').forEach(b=>b.addEventListener('click',()=>{
+    S.toolData.chanPlan=new Array(96).fill(0);for(let i=0;i<96;i+=2)S.toolData.chanPlan[i]=1;save();renderPage();
+  }));
+  document.querySelectorAll('[data-clear-ch]').forEach(b=>b.addEventListener('click',()=>{
+    S.toolData.chanPlan=new Array(96).fill(0);save();renderPage();
+  }));
+  // Fiber selector
+  document.querySelectorAll('.fiber-dist,.fiber-app,.fiber-ch').forEach(b=>b.addEventListener('click',()=>{
+    b.classList.toggle('!bg-cy-4/15');b.classList.toggle('!border-cy-4');b.classList.toggle('!text-cy-4');
+    unlockBadge('fiber_spec');
+    const el=document.getElementById('fiber-result-g7');
+    if(el)el.innerHTML=`<div class="bg-bg-1 rounded-lg p-4 border border-em-4/15"><h4 class="font-bold text-sm text-em-4 mb-2">Recommendation</h4><p class="text-sm text-tx-2"><strong class="text-tx-1">G.652D</strong> is recommended for most terrestrial DWDM deployments. It offers the best balance of cost, performance (0.20 dB/km, 17 ps/nm·km CD), and compatibility with all vendor platforms. Consider <strong class="text-tx-1">G.654E</strong> for ultra-long-haul or submarine applications where the lower 0.16 dB/km loss provides significant span budget improvement.</p></div>`;
+  }));
+  // OTDR
+  const otdrBtn=document.getElementById('otdr-draw-l2');
+  if(otdrBtn)otdrBtn.addEventListener('click',drawOtdr);
+  // ROADM
+  ['roadm-deg-a1','roadm-ad-b2'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',calcRoadm)});
+  document.querySelectorAll('[data-cdcf]').forEach(c=>c.addEventListener('change',calcRoadm));
+  if(document.getElementById('roadm-deg-a1'))calcRoadm();
+  // Capstone
+  document.querySelectorAll('[data-cap-next]').forEach(b=>b.addEventListener('click',()=>{
+    if(!S.capstone)S.capstone={step:1,data:{}};
+    const step=parseInt(b.dataset.capNext);
+    // Save current step data
+    if(step===1){
+      S.capstone.data.name=document.getElementById('cap-name-a1')?.value||'';
+      S.capstone.data.nodes=document.getElementById('cap-nodes-b2')?.value||5;
+      S.capstone.data.dist=document.getElementById('cap-dist-c3')?.value||300;
+      S.capstone.data.topo=document.getElementById('cap-topo-d4')?.value||'ring';
+      S.capstone.data.rate=document.getElementById('cap-rate-e5')?.value||'100G';
+      S.capstone.data.prot=document.getElementById('cap-prot-f6')?.value||'ring';
+    }
+    if(step===2){
+      S.capstone.data.fiber=document.getElementById('cap-fiber-g7')?.value||'G.652D';
+      S.capstone.data.span=document.getElementById('cap-span-h8')?.value||80;
+      S.capstone.data.fiberJ=document.getElementById('cap-fiberj-j0')?.value||'';
+    }
+    if(step===4){
+      S.capstone.data.grid=document.getElementById('cap-grid-k1')?.value||'50GHz';
+      S.capstone.data.chCount=document.getElementById('cap-chcount-l2')?.value||40;
+    }
+    S.capstone.step=step+1;save();renderPage();
+  }));
+  document.querySelectorAll('[data-cap-prev]').forEach(b=>b.addEventListener('click',()=>{
+    S.capstone.step=parseInt(b.dataset.capPrev)-1;save();renderPage();
+  }));
+  document.querySelectorAll('[data-cap-submit]').forEach(b=>b.addEventListener('click',()=>{
+    const just=document.getElementById('cap-just-m3')?.value||'';
+    if(just.length<100){showToast('Write at least 100 characters in your justification.');return;}
+    S.capstone.data.justification=just;
+    S.capstone.submitted=true;
+    awardXP(500,'Capstone Submitted!');
+    unlockBadge('capstone_done');
+    addActivity('Level 1 Capstone submitted!');
+    save();renderPage();
+  }));
+  // Sidebar toggle mobile
+  const sbToggle=document.getElementById('sb-toggle-d4');
+  const sbEl=document.getElementById('course-sidebar-b2');
+  const sbOv=document.getElementById('sb-overlay-a1');
+  if(sbToggle&&sbEl){
+    sbToggle.addEventListener('click',()=>{sbEl.classList.toggle('open');sbOv?.classList.toggle('open')});
+  }
+  if(sbOv)sbOv.addEventListener('click',()=>{sbEl?.classList.remove('open');sbOv.classList.remove('open')});
+  // Logo
+  document.getElementById('logo-btn-c3d4')?.addEventListener('click',()=>nav('dashboard'));
+  // Mobile menu
+  document.getElementById('mob-menu-btn-m3n4')?.addEventListener('click',()=>document.getElementById('mob-menu-o5p6').classList.remove('hidden'));
+  document.getElementById('mob-close-q7r8')?.addEventListener('click',closeMobMenu);
+}
+
+// ===================== INIT =====================
+async function boot(){
+  await initSDK();
+  renderPage();
+}
+boot();
+</script>
+</body>
+</html>
