@@ -1,0 +1,6 @@
+DATABASE_FILE=./data/dwdm-architect-center.db
+JWT_SECRET=replace-with-a-long-random-secret-at-least-32-chars
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
