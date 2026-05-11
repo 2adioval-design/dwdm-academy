@@ -802,7 +802,7 @@ function renderCerts(){document.getElementById('certs-root').innerHTML=CERTS.map
 // ═══════════════════════════ UTILS ═══════════════════════════
 window.STRIPE_PRO_LINK='https://buy.stripe.com/bJe6oJ0tLdls6GPaiB7ss0a';
 window.STRIPE_ENT_LINK='https://buy.stripe.com/3cIaEZ0tL3KSe9h3Ud7ss0b';
-window.STRIPE_LIVE_LINK='';
+window.STRIPE_LIVE_LINK='https://buy.stripe.com/3cI5kF0tLcho1mv0I17ss0c';
 function handleSubscribe(plan){alert('Subscription checkout coming soon! Plan: '+plan+'\n\nThis will integrate with Stripe for payment processing.')}
 function doSearch(q){curCat='all';go('browse');/* search is handled by filter */}
 function showToast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:20px;right:20px;background:var(--bg3);border:1px solid var(--bdr2);border-radius:10px;padding:12px 20px;z-index:300;font-size:13px;font-weight:600;color:var(--tx0);box-shadow:var(--shadow);animation:fadeIn .3s';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000)}
