@@ -3,642 +3,777 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="color-scheme" content="dark"/>
-<title>DWDM Academy — The Optical Networking Learning Platform</title>
-<meta name="description" content="Master DWDM, fiber optics, and optical networking. Interactive courses, hands-on labs, and professional certifications. Built by engineers, for engineers."/>
+<title>DWDM Academy — Professional Optical Networking Training</title>
+<meta name="description" content="Master DWDM and optical networking with interactive courses, hands-on labs, and industry certifications. From fiber fundamentals to 800G coherent design."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg0:#030508;--bg1:#07090f;--bg2:#0d1117;--bg3:#131a2b;--bg4:#182038;--cy:#00d4ff;--cy2:#0097b2;--cy-glow:rgba(0,212,255,.15);--vi:#7c3aed;--vi2:#a78bfa;--em:#10b981;--am:#f59e0b;--rd:#ef4444;--or:#f97316;--tx0:#f8fafc;--tx1:#e2e8f0;--tx2:#94a3b8;--tx3:#64748b;--tx4:#475569;--bdr:rgba(255,255,255,.06);--bdr2:rgba(0,212,255,.12);--r:12px;--r2:16px;--shadow:0 4px 24px rgba(0,0,0,.4)}
 *{margin:0;padding:0;box-sizing:border-box}
+:root{--bg0:#05080e;--bg1:#0a0f1a;--bg2:#0f1525;--bg3:#151d30;--bg4:#1c2640;--cy:#00d4ff;--cy2:#00a8cc;--cyd:rgba(0,212,255,.08);--cg:rgba(0,212,255,.15);--vi:#8b5cf6;--vi2:#a78bfa;--em:#10b981;--em2:#34d399;--am:#f59e0b;--am2:#fbbf24;--rd:#ef4444;--or:#f97316;--pk:#ec4899;--tx0:#f1f5f9;--tx1:#cbd5e1;--tx2:#94a3b8;--tx3:#64748b;--tx4:#475569;--bdr:rgba(255,255,255,.06);--bdr2:rgba(0,212,255,.12);--r:10px;--r2:14px;--r3:20px;--shadow:0 8px 32px rgba(0,0,0,.5);--shadow2:0 2px 8px rgba(0,0,0,.3)}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg0);color:var(--tx1);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg1)}
-::-webkit-scrollbar-thumb{background:rgba(0,212,255,.2);border-radius:3px}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg0);color:var(--tx1);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg0)}::-webkit-scrollbar-thumb{background:rgba(0,212,255,.18);border-radius:3px}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{font-family:inherit;cursor:pointer}input,select,textarea{font-family:inherit}
 
-/* === NAV === */
-.nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(7,9,15,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr);z-index:100;display:flex;align-items:center;padding:0 24px}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1400px;margin:0 auto}
-.nav-left{display:flex;align-items:center;gap:32px}
-.logo{display:flex;align-items:center;gap:8px;cursor:pointer}
-.logo-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--cy),var(--vi));display:flex;align-items:center;justify-content:center}
-.logo-icon svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2}
-.logo-text{font-weight:800;font-size:15px;letter-spacing:-.02em}
-.logo-text span{color:var(--cy)}
-.nav-links{display:flex;gap:4px}
-.nav-link{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:500;color:var(--tx2);cursor:pointer;transition:all .15s;white-space:nowrap}
-.nav-link:hover,.nav-link.active{color:var(--tx0);background:rgba(255,255,255,.05)}
-.nav-link.active{color:var(--cy)}
-.nav-right{display:flex;align-items:center;gap:12px}
-.search-bar{position:relative;width:280px}
-.search-bar input{width:100%;height:36px;background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:0 12px 0 36px;font-size:13px;color:var(--tx1);transition:border-color .2s;font-family:inherit}
-.search-bar input:focus{outline:none;border-color:rgba(0,212,255,.4);box-shadow:0 0 0 3px var(--cy-glow)}
-.search-bar input::placeholder{color:var(--tx3)}
-.search-bar svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--tx3);fill:none;stroke-width:2}
-.nav-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--cy),var(--vi));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;cursor:pointer}
-.xp-badge{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);font-size:12px;font-weight:600;color:var(--am)}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(5,8,14,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);z-index:200;transition:background .3s}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1320px;margin:0 auto;padding:0 24px;height:100%}
+.nav-left{display:flex;align-items:center;gap:28px}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer;text-decoration:none}
+.logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--cy),var(--vi));display:grid;place-items:center}
+.logo-mark svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.logo-word{font-weight:800;font-size:14px;letter-spacing:-.03em;color:var(--tx0)}
+.logo-word b{color:var(--cy)}
+.nav-links{display:flex;gap:2px}
+.nav-link{padding:6px 12px;border-radius:7px;font-size:12.5px;font-weight:500;color:var(--tx3);cursor:pointer;transition:.15s;white-space:nowrap}
+.nav-link:hover{color:var(--tx0);background:rgba(255,255,255,.04)}
+.nav-link.act{color:var(--cy);background:var(--cyd)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.s-bar{position:relative;width:240px}
+.s-bar input{width:100%;height:34px;background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:0 12px 0 34px;font-size:12.5px;color:var(--tx1);transition:.2s}
+.s-bar input:focus{outline:none;border-color:rgba(0,212,255,.35);box-shadow:0 0 0 3px var(--cg)}
+.s-bar input::placeholder{color:var(--tx4)}
+.s-bar .s-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--tx4);fill:none;stroke-width:2}
+.btn-p{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 22px;border-radius:8px;background:linear-gradient(135deg,var(--cy),var(--cy2));color:var(--bg0);font-weight:700;font-size:13px;border:none;transition:.2s;white-space:nowrap}
+.btn-p:hover{box-shadow:0 0 24px var(--cg);transform:translateY(-1px)}
+.btn-p.lg{padding:14px 32px;font-size:15px;border-radius:10px}
+.btn-s{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 22px;border-radius:8px;border:1px solid var(--bdr2);color:var(--cy);font-weight:600;font-size:13px;background:transparent;transition:.2s}
+.btn-s:hover{background:var(--cyd);border-color:var(--cy)}
+.btn-g{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;background:transparent;color:var(--tx2);font-weight:500;font-size:13px;transition:.15s}
+.btn-g:hover{color:var(--tx0);background:rgba(255,255,255,.04)}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--cy),var(--vi));display:grid;place-items:center;font-weight:700;font-size:12px;color:#fff;cursor:pointer}
+.xp-pill{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:16px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.18);font-size:11px;font-weight:700;color:var(--am)}
 
-/* === VIEWS === */
-.app{margin-top:60px}
-.view{display:none}
-.view.active{display:block}
+/* LAYOUT */
+.app{margin-top:56px}.view{display:none}.view.act{display:block}
+.container{max-width:1320px;margin:0 auto;padding:0 24px}
+.section{padding:64px 0}
+.section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px}
+.section-hd h2{font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--tx0)}
+.section-hd a{font-size:13px;color:var(--cy);font-weight:500;cursor:pointer}
 
-/* === BROWSE === */
-.hero{position:relative;padding:80px 24px 60px;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(0,212,255,.06),transparent),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(124,58,237,.04),transparent)}
-.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.15);font-size:12px;font-weight:600;color:var(--cy);margin-bottom:20px}
-.hero h1{font-size:clamp(32px,5vw,52px);font-weight:900;line-height:1.1;letter-spacing:-.03em;max-width:680px;margin-bottom:16px}
+/* HERO */
+.hero{position:relative;padding:100px 0 80px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(0,212,255,.05),transparent 70%),radial-gradient(ellipse 50% 50% at 80% 20%,rgba(139,92,246,.04),transparent)}
+.hero .container{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.18);font-size:11px;font-weight:700;color:var(--em);text-transform:uppercase;letter-spacing:.05em;margin-bottom:20px}
+.hero h1{font-size:clamp(34px,4.2vw,54px);font-weight:900;line-height:1.08;letter-spacing:-.035em;color:var(--tx0);margin-bottom:18px}
 .hero h1 .grad{background:linear-gradient(135deg,var(--cy),var(--vi2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{font-size:18px;color:var(--tx2);max-width:560px;line-height:1.6;margin-bottom:32px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;background:linear-gradient(135deg,var(--cy),var(--cy2));color:var(--bg0);font-weight:700;font-size:14px;border:none;cursor:pointer;transition:all .2s}
-.btn-primary:hover{box-shadow:0 0 30px var(--cy-glow);transform:translateY(-1px)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;border:1px solid var(--bdr2);color:var(--cy);font-weight:600;font-size:14px;cursor:pointer;background:transparent;transition:all .2s}
-.btn-secondary:hover{background:rgba(0,212,255,.06);border-color:var(--cy)}
-.hero-stats{display:flex;gap:48px;margin-top:48px;padding-top:32px;border-top:1px solid var(--bdr)}
-.hero-stat .num{font-size:28px;font-weight:800;color:var(--tx0)}
-.hero-stat .label{font-size:12px;color:var(--tx3);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+.hero-desc{font-size:17px;color:var(--tx2);line-height:1.65;margin-bottom:32px;max-width:520px}
+.hero-btns{display:flex;gap:12px;margin-bottom:40px;flex-wrap:wrap}
+.hero-proof{display:flex;gap:32px;padding-top:24px;border-top:1px solid var(--bdr)}
+.hero-proof .hp-item .hp-num{font-size:26px;font-weight:800;color:var(--tx0)}
+.hero-proof .hp-item .hp-lbl{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.hero-visual{position:relative}
+.hero-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow)}
+.hc-header{padding:14px 18px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--tx2)}
+.hc-header .dot{width:8px;height:8px;border-radius:50%}
+.hc-body{padding:20px 18px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;color:var(--tx2)}
+.hc-body .kw{color:var(--vi2)}.hc-body .fn{color:var(--cy)}.hc-body .st{color:var(--em2)}.hc-body .cm{color:var(--tx4)}.hc-body .nm{color:var(--am2)}
+.hero-float{position:absolute;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 16px;box-shadow:var(--shadow);font-size:12px;z-index:2}
+.hero-float.f1{top:-16px;right:-20px;display:flex;align-items:center;gap:8px;color:var(--em)}
+.hero-float.f2{bottom:40px;left:-28px;color:var(--am)}
 
-/* === SECTIONS === */
-.section{padding:48px 24px;max-width:1400px;margin:0 auto}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.section-header h2{font-size:22px;font-weight:800;letter-spacing:-.02em}
-.section-header a{font-size:13px;color:var(--cy);font-weight:500;cursor:pointer}
-.section-header a:hover{text-decoration:underline}
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat-card{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:28px 24px;transition:.25s}
+.feat-card:hover{border-color:var(--bdr2);transform:translateY(-3px);box-shadow:var(--shadow)}
+.feat-card .f-icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+.feat-card h3{font-size:15px;font-weight:700;color:var(--tx0);margin-bottom:6px}
+.feat-card p{font-size:13px;color:var(--tx2);line-height:1.55}
 
-/* === CATEGORIES === */
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
-.cat-card{padding:20px 16px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;transition:all .2s;text-align:center}
-.cat-card:hover{border-color:var(--bdr2);transform:translateY(-2px);box-shadow:var(--shadow)}
-.cat-icon{width:44px;height:44px;border-radius:10px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:22px}
-.cat-card h4{font-size:13px;font-weight:600;margin-bottom:4px}
-.cat-card p{font-size:11px;color:var(--tx3)}
+/* COURSES */
+.c-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.c-card{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:.25s}
+.c-card:hover{border-color:var(--bdr2);transform:translateY(-3px);box-shadow:var(--shadow)}
+.c-card.locked{opacity:.65;pointer-events:none}
+.c-thumb{height:150px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.c-thumb .c-bg{position:absolute;inset:0}
+.c-thumb .c-icon{font-size:40px;position:relative;z-index:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+.c-thumb .c-lvl{position:absolute;top:10px;right:10px;padding:3px 8px;border-radius:5px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;z-index:1}
+.c-lvl.beg{background:rgba(16,185,129,.15);color:var(--em)}
+.c-lvl.int{background:rgba(0,212,255,.15);color:var(--cy)}
+.c-lvl.adv{background:rgba(245,158,11,.15);color:var(--am)}
+.c-thumb .c-lock{position:absolute;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:2;font-size:28px}
+.c-thumb .c-free{position:absolute;top:10px;left:10px;padding:3px 8px;border-radius:5px;font-size:9px;font-weight:700;background:rgba(16,185,129,.2);color:var(--em);z-index:1}
+.c-body{padding:14px 16px}
+.c-body h3{font-size:14px;font-weight:700;color:var(--tx0);margin-bottom:4px;line-height:1.3}
+.c-body .c-auth{font-size:11px;color:var(--tx3);margin-bottom:8px}
+.c-body .c-meta{display:flex;gap:10px;font-size:11px;color:var(--tx3)}
+.c-body .c-meta .sep{color:var(--tx4)}
+.c-bar{height:3px;background:var(--bg3);border-radius:2px;margin-top:10px;overflow:hidden}
+.c-bar-fill{height:100%;background:linear-gradient(90deg,var(--cy),var(--vi));border-radius:2px;transition:width .4s}
 
-/* === COURSE CARDS === */
-.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
-.course-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:all .25s}
-.course-card:hover{border-color:var(--bdr2);transform:translateY(-3px);box-shadow:var(--shadow)}
-.cc-thumb{height:160px;position:relative;overflow:hidden}
-.cc-thumb .cc-bg{width:100%;height:100%;object-fit:cover}
-.cc-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(124,58,237,.15));display:flex;align-items:center;justify-content:center}
-.cc-overlay .play-icon{width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border:2px solid rgba(255,255,255,.2)}
-.course-card:hover .play-icon{opacity:1}
-.play-icon svg{width:20px;height:20px;fill:#fff;margin-left:2px}
-.cc-icon{position:absolute;top:12px;left:12px;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px)}
-.cc-level{position:absolute;top:12px;right:12px;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-.cc-level.beginner{background:rgba(16,185,129,.15);color:var(--em)}
-.cc-level.intermediate{background:rgba(0,212,255,.15);color:var(--cy)}
-.cc-level.advanced{background:rgba(245,158,11,.15);color:var(--am)}
-.cc-level.expert{background:rgba(239,68,68,.15);color:var(--rd)}
-.cc-body{padding:16px}
-.cc-body h3{font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.3}
-.cc-body .cc-author{font-size:12px;color:var(--tx3);margin-bottom:10px}
-.cc-meta{display:flex;align-items:center;gap:12px;font-size:11px;color:var(--tx3)}
-.cc-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--tx4)}
-.cc-rating{display:flex;align-items:center;gap:4px;color:var(--am);font-weight:600;font-size:12px}
-.cc-progress{height:3px;background:var(--bg3);border-radius:2px;margin-top:12px;overflow:hidden}
-.cc-progress-fill{height:100%;background:linear-gradient(90deg,var(--cy),var(--vi));border-radius:2px;transition:width .3s}
+/* PRICING */
+.pricing{background:var(--bg1);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto}
+.price-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:32px 28px;position:relative;transition:.25s}
+.price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.price-card.pop{border-color:var(--cy);box-shadow:0 0 40px var(--cg)}
+.price-card.pop::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 14px;border-radius:20px;background:linear-gradient(135deg,var(--cy),var(--cy2));font-size:10px;font-weight:800;color:var(--bg0);letter-spacing:.06em}
+.price-card h3{font-size:18px;font-weight:700;color:var(--tx0);margin-bottom:4px}
+.price-card .price{font-size:42px;font-weight:900;color:var(--tx0);margin:16px 0 4px;letter-spacing:-.03em}
+.price-card .price span{font-size:15px;font-weight:500;color:var(--tx3)}
+.price-card .price-desc{font-size:13px;color:var(--tx3);margin-bottom:24px}
+.price-card ul{list-style:none;margin-bottom:28px}
+.price-card li{font-size:13px;color:var(--tx2);padding:6px 0;display:flex;align-items:center;gap:8px}
+.price-card li::before{content:'✓';color:var(--em);font-weight:700;font-size:14px}
+.price-card .btn-p,.price-card .btn-s{width:100%}
 
-/* === COURSE DETAIL === */
-.detail{max-width:1200px;margin:0 auto;padding:40px 24px}
-.detail-hero{display:grid;grid-template-columns:1fr 340px;gap:40px;margin-bottom:48px}
-.detail-info .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tx3);margin-bottom:16px}
-.detail-info .breadcrumb span{cursor:pointer}
-.detail-info .breadcrumb span:hover{color:var(--cy)}
-.detail-info h1{font-size:32px;font-weight:800;line-height:1.2;letter-spacing:-.02em;margin-bottom:12px}
-.detail-info .subtitle{font-size:16px;color:var(--tx2);line-height:1.5;margin-bottom:20px}
-.detail-info .meta-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:13px;color:var(--tx2);margin-bottom:20px}
-.meta-row .rating-stars{color:var(--am)}
-.detail-info .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.tag{padding:4px 12px;border-radius:6px;font-size:11px;font-weight:600;background:var(--bg3);border:1px solid var(--bdr);color:var(--tx2)}
-.detail-sidebar{position:sticky;top:80px}
-.detail-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden}
-.dc-preview{height:190px;position:relative;background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(124,58,237,.12))}
-.dc-preview .dc-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid rgba(255,255,255,.3);transition:all .2s}
-.dc-preview .dc-play:hover{background:rgba(0,212,255,.3);border-color:var(--cy)}
-.dc-preview .dc-play svg{width:24px;height:24px;fill:#fff;margin-left:3px}
-.dc-body{padding:24px}
-.dc-body .btn-primary{width:100%;justify-content:center;margin-bottom:10px}
-.dc-body .btn-secondary{width:100%;justify-content:center;margin-bottom:16px}
-.dc-facts{display:grid;gap:12px;padding-top:16px;border-top:1px solid var(--bdr)}
-.dc-fact{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--tx2)}
-.dc-fact svg{width:16px;height:16px;stroke:var(--tx3);fill:none;stroke-width:2;flex-shrink:0}
-
-/* === CURRICULUM === */
-.curriculum{margin-top:48px}
-.curriculum h2{font-size:22px;font-weight:800;margin-bottom:24px}
-.cur-section{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
-.cur-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;transition:background .15s}
-.cur-header:hover{background:rgba(255,255,255,.02)}
-.cur-header h3{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
-.cur-header .ch-num{width:28px;height:28px;border-radius:50%;background:var(--bg3);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--cy)}
-.cur-header .ch-meta{font-size:12px;color:var(--tx3)}
-.cur-body{padding:0 20px 16px;display:none}
-.cur-section.open .cur-body{display:block}
-.cur-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--bdr);font-size:13px;color:var(--tx2);cursor:pointer;transition:color .15s}
+/* DETAIL */
+.detail{max-width:900px;margin:0 auto;padding:40px 24px}
+.detail .back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--tx3);cursor:pointer;margin-bottom:20px;padding:6px 0}
+.detail .back:hover{color:var(--cy)}
+.detail h1{font-size:30px;font-weight:800;color:var(--tx0);margin-bottom:8px;letter-spacing:-.02em}
+.detail .d-sub{font-size:15px;color:var(--tx2);margin-bottom:16px;line-height:1.6}
+.detail .d-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--tx3);margin-bottom:20px}
+.detail .d-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
+.d-tag{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;background:var(--bg3);border:1px solid var(--bdr);color:var(--tx2)}
+.cur-list{margin-top:32px}
+.cur-list h2{font-size:20px;font-weight:800;color:var(--tx0);margin-bottom:16px}
+.cur-sec{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:6px;overflow:hidden}
+.cur-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;transition:.15s}
+.cur-hd:hover{background:rgba(255,255,255,.02)}
+.cur-hd h3{font-size:13px;font-weight:600;color:var(--tx0);display:flex;align-items:center;gap:10px}
+.cur-hd .cnum{width:26px;height:26px;border-radius:50%;background:var(--bg3);border:1px solid var(--bdr2);display:grid;place-items:center;font-size:10px;font-weight:700;color:var(--cy);flex-shrink:0}
+.cur-hd .cmeta{font-size:11px;color:var(--tx4)}
+.cur-bd{padding:0 18px 14px;display:none}
+.cur-sec.open .cur-bd{display:block}
+.cur-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--bdr);font-size:12.5px;color:var(--tx2);cursor:pointer;transition:.15s}
 .cur-item:hover{color:var(--cy)}
-.cur-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
-.cur-item .dur{margin-left:auto;font-size:11px;color:var(--tx4)}
+.cur-item .ci-icon{width:20px;text-align:center;flex-shrink:0;font-size:12px}
+.cur-item .ci-dur{margin-left:auto;font-size:11px;color:var(--tx4)}
+.cur-item .ci-lock{margin-left:auto;font-size:10px;color:var(--tx4)}
 
-/* === PLAYER === */
-.player-layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 60px)}
-.player-sidebar{background:var(--bg1);border-right:1px solid var(--bdr);overflow-y:auto;height:calc(100vh - 60px);position:sticky;top:60px}
-.ps-header{padding:20px;border-bottom:1px solid var(--bdr)}
-.ps-header h3{font-size:14px;font-weight:700;margin-bottom:4px}
-.ps-header p{font-size:12px;color:var(--tx3)}
-.ps-chapters{padding:8px}
-.ps-ch{margin-bottom:4px}
-.ps-ch-title{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--tx2);cursor:pointer;transition:all .15s}
-.ps-ch-title:hover{background:rgba(255,255,255,.03)}
-.ps-ch-title .num{width:24px;height:24px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--tx3);flex-shrink:0}
-.ps-ch-title.active{color:var(--cy);background:rgba(0,212,255,.06)}
-.ps-ch-title.active .num{background:rgba(0,212,255,.15);color:var(--cy)}
-.ps-ch-title.done .num{background:var(--em);color:#fff}
-.ps-ch-title.done{color:var(--em)}
-.player-main{padding:40px;overflow-y:auto}
-.player-video{width:100%;aspect-ratio:16/9;background:var(--bg2);border-radius:var(--r2);overflow:hidden;margin-bottom:32px;position:relative;border:1px solid var(--bdr)}
-.pv-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(124,58,237,.08));gap:16px}
-.pv-placeholder .big-play{width:72px;height:72px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid rgba(255,255,255,.2);transition:all .2s}
-.pv-placeholder .big-play:hover{background:rgba(0,212,255,.2);border-color:var(--cy);box-shadow:0 0 40px var(--cy-glow)}
-.pv-placeholder .big-play svg{width:28px;height:28px;fill:#fff;margin-left:4px}
-.pv-placeholder p{font-size:14px;color:var(--tx3)}
-.player-content{max-width:800px}
-.player-content h1{font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
-.player-content .pc-meta{display:flex;gap:16px;font-size:13px;color:var(--tx3);margin-bottom:24px}
-.player-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--bdr)}
-.player-tab{padding:10px 16px;font-size:13px;font-weight:500;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
-.player-tab:hover{color:var(--tx1)}
-.player-tab.active{color:var(--cy);border-bottom-color:var(--cy)}
-.lesson-text{line-height:1.75;color:var(--tx2);font-size:15px}
-.lesson-text h2{font-size:20px;font-weight:700;color:var(--tx0);margin:32px 0 12px;letter-spacing:-.01em}
-.lesson-text h3{font-size:16px;font-weight:600;color:var(--cy);margin:24px 0 10px}
-.lesson-text p{margin-bottom:16px}
-.lesson-text table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px}
-.lesson-text th{background:rgba(0,212,255,.06);padding:10px 14px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--cy);border-bottom:1px solid var(--bdr2)}
-.lesson-text td{padding:10px 14px;border-bottom:1px solid var(--bdr);color:var(--tx2)}
-.lesson-text .callout{background:rgba(124,58,237,.06);border-left:3px solid var(--vi);border-radius:0 10px 10px 0;padding:16px 20px;margin:20px 0;font-size:14px}
-.lesson-text .formula{background:var(--bg1);border:1px solid var(--bdr2);border-radius:10px;padding:16px;text-align:center;font-family:'JetBrains Mono',monospace;color:var(--cy);font-size:15px;margin:20px 0}
-.lesson-text code{font-family:'JetBrains Mono',monospace;background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:13px;color:var(--cy)}
+/* PLAYER */
+.player-wrap{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 56px)}
+.p-side{background:var(--bg1);border-right:1px solid var(--bdr);overflow-y:auto;height:calc(100vh - 56px);position:sticky;top:56px}
+.ps-hd{padding:18px;border-bottom:1px solid var(--bdr)}
+.ps-hd h3{font-size:13px;font-weight:700;color:var(--tx0);margin-bottom:2px}
+.ps-hd p{font-size:11px;color:var(--tx3)}
+.ps-list{padding:6px}
+.ps-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:7px;font-size:11.5px;color:var(--tx2);cursor:pointer;transition:.15s;margin-bottom:2px}
+.ps-item:hover{background:rgba(255,255,255,.03);color:var(--tx0)}
+.ps-item.act{background:var(--cyd);color:var(--cy)}
+.ps-item .ps-num{width:22px;height:22px;border-radius:50%;background:var(--bg3);display:grid;place-items:center;font-size:9px;font-weight:700;color:var(--tx4);flex-shrink:0}
+.ps-item.act .ps-num{background:rgba(0,212,255,.15);color:var(--cy)}
+.ps-item.done .ps-num{background:var(--em);color:#fff}
+.ps-item .ps-type{margin-left:auto;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+.ps-item .ps-type.lesson{background:rgba(0,212,255,.08);color:var(--cy)}
+.ps-item .ps-type.lab{background:rgba(16,185,129,.08);color:var(--em)}
+.ps-item .ps-type.quiz{background:rgba(245,158,11,.08);color:var(--am)}
+.p-main{padding:32px 40px;overflow-y:auto;max-width:900px}
+.p-video{width:100%;aspect-ratio:16/9;background:var(--bg2);border-radius:var(--r2);overflow:hidden;margin-bottom:28px;position:relative;border:1px solid var(--bdr)}
+.pv-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,rgba(0,212,255,.06),rgba(139,92,246,.06))}
+.pv-play{width:64px;height:64px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;border:2px solid rgba(255,255,255,.2);transition:.2s}
+.pv-play:hover{background:rgba(0,212,255,.2);border-color:var(--cy);box-shadow:0 0 30px var(--cg)}
+.pv-play svg{width:24px;height:24px;fill:#fff;margin-left:3px}
+.p-tabs{display:flex;gap:2px;margin-bottom:24px;border-bottom:1px solid var(--bdr)}
+.p-tab{padding:10px 16px;font-size:12.5px;font-weight:500;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;transition:.15s}
+.p-tab:hover{color:var(--tx0)}
+.p-tab.act{color:var(--cy);border-bottom-color:var(--cy)}
+.p-content h1{font-size:24px;font-weight:800;color:var(--tx0);margin-bottom:6px;letter-spacing:-.02em}
+.p-content .p-cmeta{font-size:12px;color:var(--tx3);margin-bottom:20px}
 
-/* === DASHBOARD === */
-.dash{max-width:1200px;margin:0 auto;padding:40px 24px}
-.dash-welcome{margin-bottom:40px}
-.dash-welcome h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
-.dash-welcome p{font-size:15px;color:var(--tx2)}
-.dash-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:40px}
-.ds-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;text-align:center}
-.ds-card .ds-val{font-size:32px;font-weight:800;margin-bottom:4px}
-.ds-card .ds-val.cy{color:var(--cy)}
-.ds-card .ds-val.am{color:var(--am)}
-.ds-card .ds-val.em{color:var(--em)}
-.ds-card .ds-val.vi{color:var(--vi2)}
-.ds-card .ds-label{font-size:12px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em}
-.dash-section{margin-bottom:40px}
-.dash-section h2{font-size:20px;font-weight:800;margin-bottom:16px;letter-spacing:-.01em}
+/* LESSON TEXT */
+.lt{line-height:1.75;color:var(--tx1);font-size:14.5px}
+.lt h2{font-size:20px;font-weight:700;color:var(--tx0);margin:28px 0 10px;letter-spacing:-.01em}
+.lt h3{font-size:15px;font-weight:600;color:var(--cy);margin:20px 0 8px}
+.lt p{margin-bottom:14px}
+.lt strong{color:var(--tx0)}
+.lt table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12.5px}
+.lt th{background:rgba(0,212,255,.05);padding:8px 12px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--cy);border-bottom:1px solid var(--bdr2)}
+.lt td{padding:8px 12px;border-bottom:1px solid var(--bdr);color:var(--tx2)}
+.lt .callout{background:rgba(139,92,246,.05);border-left:3px solid var(--vi);border-radius:0 var(--r) var(--r) 0;padding:14px 18px;margin:16px 0;font-size:13.5px}
+.lt .formula{background:var(--bg1);border:1px solid var(--bdr2);border-radius:var(--r);padding:14px;text-align:center;font-family:'JetBrains Mono',monospace;color:var(--cy);font-size:14px;margin:16px 0}
+.lt code{font-family:'JetBrains Mono',monospace;background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:12.5px;color:var(--cy)}
+.lt .key-concepts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.lt .kc-item{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:14px}
+.lt .kc-item h4{font-size:13px;font-weight:700;color:var(--cy);margin-bottom:4px}
+.lt .kc-item p{font-size:12px;margin:0;color:var(--tx2)}
 
-/* === PATHS === */
-.paths-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px}
-.path-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:24px;cursor:pointer;transition:all .25s}
+/* LAB */
+.lab-panel{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;margin:16px 0}
+.lab-hd{padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.lab-hd h3{font-size:14px;font-weight:700;color:var(--em);display:flex;align-items:center;gap:8px}
+.lab-bd{padding:20px 18px}
+.lab-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.lab-field label{display:block;font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.lab-field input,.lab-field select{width:100%;height:36px;background:var(--bg0);border:1px solid var(--bdr);border-radius:7px;padding:0 12px;font-size:13px;color:var(--tx1);transition:.2s}
+.lab-field input:focus,.lab-field select:focus{outline:none;border-color:rgba(0,212,255,.4);box-shadow:0 0 0 3px var(--cg)}
+.lab-result{background:var(--bg0);border:1px solid var(--bdr2);border-radius:var(--r);padding:18px;margin-top:16px}
+.lab-result h4{font-size:13px;font-weight:700;color:var(--cy);margin-bottom:12px}
+.lab-result .lr-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bdr);font-size:13px}
+.lab-result .lr-row .lr-lbl{color:var(--tx3)}
+.lab-result .lr-row .lr-val{font-weight:600;color:var(--tx0);font-family:'JetBrains Mono',monospace}
+.lab-result .lr-status{margin-top:12px;padding:10px 14px;border-radius:7px;font-size:13px;font-weight:600;text-align:center}
+.lr-status.pass{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:var(--em)}
+.lr-status.fail{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:var(--rd)}
+.lr-status.warn{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);color:var(--am)}
+
+/* QUIZ */
+.quiz-panel{margin:16px 0}
+.quiz-q{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:20px;margin-bottom:12px}
+.quiz-q h3{font-size:14px;font-weight:700;color:var(--tx0);margin-bottom:14px}
+.quiz-q .q-num{font-size:11px;color:var(--tx4);margin-bottom:6px}
+.q-opts{display:grid;gap:8px}
+.q-opt{padding:10px 14px;border:1px solid var(--bdr);border-radius:8px;font-size:13px;color:var(--tx2);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:10px}
+.q-opt:hover{border-color:var(--bdr2);background:var(--cyd)}
+.q-opt.sel{border-color:var(--cy);background:var(--cyd);color:var(--cy)}
+.q-opt.correct{border-color:var(--em)!important;background:rgba(16,185,129,.08)!important;color:var(--em)!important}
+.q-opt.wrong{border-color:var(--rd)!important;background:rgba(239,68,68,.08)!important;color:var(--rd)!important}
+.q-opt .q-letter{width:24px;height:24px;border-radius:50%;background:var(--bg3);display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0}
+.q-explain{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:12.5px;color:var(--tx2);line-height:1.5;display:none}
+.q-explain.show{display:block}
+.quiz-score{background:var(--bg1);border:1px solid var(--bdr2);border-radius:var(--r2);padding:24px;text-align:center;margin:20px 0}
+.quiz-score h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.quiz-score p{font-size:14px;color:var(--tx2)}
+
+/* DASH */
+.dash{max-width:1000px;margin:0 auto;padding:40px 24px}
+.dash h1{font-size:26px;font-weight:800;color:var(--tx0);margin-bottom:4px}
+.dash .d-sub{font-size:14px;color:var(--tx2);margin-bottom:32px}
+.ds-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:36px}
+.ds-card{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;text-align:center}
+.ds-val{font-size:30px;font-weight:800;margin-bottom:2px}
+.ds-lbl{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em}
+.dash-sec{margin-bottom:36px}
+.dash-sec h2{font-size:18px;font-weight:800;color:var(--tx0);margin-bottom:14px}
+
+/* PATHS */
+.paths-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.path-card{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:24px;transition:.25s;cursor:pointer}
 .path-card:hover{border-color:var(--bdr2);transform:translateY(-2px);box-shadow:var(--shadow)}
-.path-card .path-badge{display:inline-flex;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
-.path-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
-.path-card p{font-size:13px;color:var(--tx2);line-height:1.5;margin-bottom:16px}
-.path-courses{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.path-courses span{padding:4px 10px;background:var(--bg3);border-radius:6px;font-size:11px;color:var(--tx3)}
-.path-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--tx3);padding-top:12px;border-top:1px solid var(--bdr)}
+.path-card .p-badge{display:inline-flex;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+.path-card h3{font-size:17px;font-weight:700;color:var(--tx0);margin-bottom:6px}
+.path-card>p{font-size:13px;color:var(--tx2);line-height:1.5;margin-bottom:14px}
+.path-steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.path-steps span{padding:3px 8px;background:var(--bg3);border-radius:5px;font-size:10px;color:var(--tx3)}
+.path-foot{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--bdr);font-size:11px;color:var(--tx3)}
 
-/* === TOOLS === */
-.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
-.tool-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:24px;transition:all .25s;cursor:pointer}
-.tool-card:hover{border-color:var(--bdr2);box-shadow:var(--shadow)}
-.tool-card h3{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px}
-.tool-card h3 .tool-icon{font-size:20px}
-.tool-card p{font-size:13px;color:var(--tx2);line-height:1.5;margin-bottom:16px}
-.tool-card .btn-secondary{padding:8px 20px;font-size:12px}
+/* TOOLS PAGE */
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.tool-card{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:24px;transition:.25s;cursor:pointer}
+.tool-card:hover{border-color:var(--bdr2);box-shadow:var(--shadow);transform:translateY(-2px)}
+.tool-card h3{font-size:16px;font-weight:700;color:var(--tx0);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.tool-card>p{font-size:13px;color:var(--tx2);line-height:1.5;margin-bottom:14px}
 
-/* === CERTS === */
-.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.cert-card{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:2px solid rgba(245,158,11,.15);border-radius:var(--r2);padding:32px 24px;text-align:center;transition:all .25s}
-.cert-card:hover{border-color:rgba(245,158,11,.3);box-shadow:0 0 30px rgba(245,158,11,.1)}
-.cert-card .cert-icon{font-size:48px;margin-bottom:16px}
-.cert-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
-.cert-card p{font-size:13px;color:var(--tx2);line-height:1.5;margin-bottom:20px}
+/* CERTS */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.cert-card{background:linear-gradient(135deg,var(--bg1),var(--bg2));border:2px solid rgba(245,158,11,.12);border-radius:var(--r2);padding:28px 24px;text-align:center;transition:.25s}
+.cert-card:hover{border-color:rgba(245,158,11,.25);box-shadow:0 0 30px rgba(245,158,11,.08)}
+.cert-card .cert-icon{font-size:44px;margin-bottom:14px}
+.cert-card h3{font-size:17px;font-weight:700;color:var(--tx0);margin-bottom:6px}
+.cert-card>p{font-size:13px;color:var(--tx2);line-height:1.5;margin-bottom:18px}
 .cert-card .cert-req{font-size:11px;color:var(--tx3);padding-top:12px;border-top:1px solid var(--bdr)}
 
-/* === FOOTER === */
-.footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:48px 24px;margin-top:80px}
-.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
-.footer h4{font-size:13px;font-weight:700;margin-bottom:16px;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2)}
-.footer p{font-size:13px;color:var(--tx3);line-height:1.6}
-.footer a{font-size:13px;color:var(--tx3);display:block;margin-bottom:8px;transition:color .15s}
+/* FOOTER */
+.footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:48px 0;margin-top:80px}
+.ft-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx3);margin-bottom:14px}
+.footer p{font-size:12.5px;color:var(--tx3);line-height:1.55}
+.footer a{font-size:12.5px;color:var(--tx3);display:block;padding:3px 0;transition:.15s}
 .footer a:hover{color:var(--cy)}
-.footer-bottom{max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;font-size:12px;color:var(--tx4)}
+.ft-bot{display:flex;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid var(--bdr);font-size:11px;color:var(--tx4)}
 
-/* === RESPONSIVE === */
-@media(max-width:1024px){
-  .detail-hero{grid-template-columns:1fr}
-  .detail-sidebar{position:static}
-  .player-layout{grid-template-columns:1fr}
-  .player-sidebar{display:none}
-  .footer-inner{grid-template-columns:1fr 1fr}
-}
-@media(max-width:768px){
-  .nav-links{display:none}
-  .search-bar{width:200px}
-  .hero-stats{flex-wrap:wrap;gap:24px}
-  .course-grid{grid-template-columns:1fr}
-  .paths-grid{grid-template-columns:1fr}
-  .footer-inner{grid-template-columns:1fr}
-}
-@media(max-width:480px){
-  .search-bar{display:none}
-  .hero{padding:48px 16px 40px}
-  .section{padding:32px 16px}
-}
+/* RESPONSIVE */
+@media(max-width:1024px){.hero .container{grid-template-columns:1fr}.hero-visual{display:none}.player-wrap{grid-template-columns:1fr}.p-side{display:none}.price-grid{grid-template-columns:1fr}.ft-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.nav-links,.s-bar{display:none}.feat-grid{grid-template-columns:1fr}.c-grid{grid-template-columns:1fr}.ds-grid{grid-template-columns:repeat(2,1fr)}.paths-grid,.tools-grid,.cert-grid{grid-template-columns:1fr}.lt .key-concepts,.lab-row{grid-template-columns:1fr}.hero{padding:60px 0 48px}}
 </style>
 </head>
 <body>
-
-<!-- === NAVIGATION === -->
-<nav class="nav">
- <div class="nav-inner">
-  <div class="nav-left">
-   <div class="logo" onclick="showView('browse')">
-    <div class="logo-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M12 8v8M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M2 12l4-2m16 2l-4-2" opacity=".5"/></svg></div>
-    <div class="logo-text">DWDM <span>Academy</span></div>
-   </div>
-   <div class="nav-links">
-    <div class="nav-link active" onclick="showView('browse')">Browse</div>
-    <div class="nav-link" onclick="showView('paths')">Learning Paths</div>
-    <div class="nav-link" onclick="showView('tools')">Tools</div>
-    <div class="nav-link" onclick="showView('certs')">Certifications</div>
-    <div class="nav-link" onclick="showView('dashboard')">Dashboard</div>
-   </div>
-  </div>
-  <div class="nav-right">
-   <div class="search-bar">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-    <input type="text" placeholder="Search courses, topics, tools..." id="search-input" onkeyup="handleSearch(event)"/>
-   </div>
-   <div class="xp-badge">⚡ 0 XP</div>
-   <div class="nav-avatar">D</div>
-  </div>
+<nav class="nav"><div class="nav-inner">
+<div class="nav-left">
+ <a class="logo" onclick="go('landing')"><div class="logo-mark"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><path d="M6 20a6 6 0 0112 0"/></svg></div><div class="logo-word">DWDM <b>Academy</b></div></a>
+ <div class="nav-links" id="nav-links">
+  <div class="nav-link act" data-v="browse" onclick="go('browse')">Browse</div>
+  <div class="nav-link" data-v="paths" onclick="go('paths')">Paths</div>
+  <div class="nav-link" data-v="tools" onclick="go('tools')">Tools</div>
+  <div class="nav-link" data-v="certs" onclick="go('certs')">Certifications</div>
+  <div class="nav-link" data-v="dashboard" onclick="go('dashboard')">Dashboard</div>
  </div>
-</nav>
+</div>
+<div class="nav-right">
+ <div class="s-bar"><svg class="s-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><input placeholder="Search courses, labs, tools..." onkeyup="if(event.key==='Enter')doSearch(this.value)"/></div>
+ <div class="xp-pill" id="xp-pill">⚡ <span id="xp-display">0</span> XP</div>
+ <div class="avatar" id="user-avatar">D</div>
+</div>
+</div></nav>
 
 <div class="app">
 
-<!-- ====================== BROWSE VIEW ====================== -->
-<div class="view active" id="view-browse">
-
-<!-- Hero -->
-<div class="hero">
- <div class="hero-inner">
-  <div class="hero-badge">🔬 2026 Edition — New Courses Added</div>
-  <h1>Master Optical Networking, <span class="grad">One Wavelength at a Time</span></h1>
-  <p>Interactive courses, hands-on labs, real-world tools, and professional certifications. From fiber fundamentals to 800G coherent design — built by engineers who've deployed it.</p>
-  <div class="hero-actions">
-   <button class="btn-primary" onclick="showView('player')">▶ Start Learning Free</button>
-   <button class="btn-secondary" onclick="showView('paths')">Explore Learning Paths →</button>
-  </div>
-  <div class="hero-stats">
-   <div class="hero-stat"><div class="num">9+</div><div class="label">Courses</div></div>
-   <div class="hero-stat"><div class="num">40+</div><div class="label">Chapters</div></div>
-   <div class="hero-stat"><div class="num">20+</div><div class="label">Hands-on Labs</div></div>
-   <div class="hero-stat"><div class="num">4</div><div class="label">Interactive Tools</div></div>
-  </div>
+<!-- ============ LANDING ============ -->
+<div class="view act" id="v-landing">
+<div class="hero"><div class="container">
+<div class="hero-left">
+ <div class="hero-badge">✦ New — 2026 Curriculum Updated</div>
+ <h1>The Professional <span class="grad">DWDM Training</span> Platform</h1>
+ <p class="hero-desc">Interactive courses, hands-on engineering labs, real-world tools, and industry certifications. From fiber fundamentals to 800G coherent design — built by an 18-year veteran who's deployed it.</p>
+ <div class="hero-btns">
+  <button class="btn-p lg" onclick="go('browse')">Start Learning Free →</button>
+  <button class="btn-s" onclick="scrollTo('.pricing')">View Plans</button>
+ </div>
+ <div class="hero-proof">
+  <div class="hp-item"><div class="hp-num">9+</div><div class="hp-lbl">Courses</div></div>
+  <div class="hp-item"><div class="hp-num">20+</div><div class="hp-lbl">Hands-on Labs</div></div>
+  <div class="hp-item"><div class="hp-num">50+</div><div class="hp-lbl">Quizzes</div></div>
+  <div class="hp-item"><div class="hp-num">3</div><div class="hp-lbl">Certifications</div></div>
  </div>
 </div>
-
-<!-- Categories -->
-<div class="section">
- <div class="section-header"><h2>Browse by Topic</h2></div>
- <div class="cat-grid">
-  <div class="cat-card" onclick="filterCourses('fiber')"><div class="cat-icon" style="background:rgba(0,212,255,.1)">🔬</div><h4>Fiber Optics</h4><p>3 courses</p></div>
-  <div class="cat-card" onclick="filterCourses('dwdm')"><div class="cat-icon" style="background:rgba(124,58,237,.1)">🌊</div><h4>DWDM Systems</h4><p>4 courses</p></div>
-  <div class="cat-card" onclick="filterCourses('coherent')"><div class="cat-icon" style="background:rgba(16,185,129,.1)">📡</div><h4>Coherent Optics</h4><p>2 courses</p></div>
-  <div class="cat-card" onclick="filterCourses('roadm')"><div class="cat-icon" style="background:rgba(245,158,11,.1)">🔀</div><h4>ROADM & OXC</h4><p>2 courses</p></div>
-  <div class="cat-card" onclick="filterCourses('design')"><div class="cat-icon" style="background:rgba(239,68,68,.1)">📐</div><h4>Network Design</h4><p>3 courses</p></div>
-  <div class="cat-card" onclick="filterCourses('ops')"><div class="cat-icon" style="background:rgba(249,115,22,.1)">🛠️</div><h4>Operations</h4><p>2 courses</p></div>
- </div>
-</div>
-
-<!-- Featured Courses -->
-<div class="section">
- <div class="section-header"><h2>Featured Courses</h2><a onclick="showView('browse')">View All →</a></div>
- <div class="course-grid" id="course-list"></div>
-</div>
-
-<!-- Continue Learning -->
-<div class="section" id="continue-section" style="display:none">
- <div class="section-header"><h2>Continue Learning</h2></div>
- <div class="course-grid" id="continue-list"></div>
-</div>
-
-<!-- New Releases -->
-<div class="section">
- <div class="section-header"><h2>New & Updated</h2></div>
- <div class="course-grid" id="new-list"></div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
- <div class="footer-inner">
-  <div>
-   <div class="logo" style="margin-bottom:16px"><div class="logo-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3" fill="none" stroke="#fff" stroke-width="2"/><path d="M12 8v8M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="#fff" stroke-width="2"/></svg></div><div class="logo-text">DWDM <span>Academy</span></div></div>
-   <p>The definitive learning platform for optical networking professionals. Built by Aurelio Dioval — 18+ years in network engineering, published author of <em>BACKBONE: Engineering the Internet</em>.</p>
-  </div>
-  <div><h4>Platform</h4><a onclick="showView('browse')">Courses</a><a onclick="showView('paths')">Learning Paths</a><a onclick="showView('tools')">Tools</a><a onclick="showView('certs')">Certifications</a></div>
-  <div><h4>Topics</h4><a href="#">DWDM</a><a href="#">Fiber Optics</a><a href="#">Coherent Optics</a><a href="#">ROADM</a><a href="#">Network Design</a></div>
-  <div><h4>Connect</h4><a href="https://linkedin.com/in/aurelio-d-b73ab570" target="_blank">LinkedIn</a><a href="https://diotech.org" target="_blank">Diotech Corp</a><a href="mailto:aurelio.dioval@dioval.com">Contact</a></div>
- </div>
- <div class="footer-bottom"><span>© 2026 DWDM Academy. All rights reserved.</span><span>A Dioval Group Project</span></div>
-</footer>
-</div>
-
-<!-- ====================== COURSE DETAIL VIEW ====================== -->
-<div class="view" id="view-detail">
- <div class="detail" id="detail-content"></div>
-</div>
-
-<!-- ====================== PLAYER VIEW ====================== -->
-<div class="view" id="view-player">
- <div class="player-layout">
-  <div class="player-sidebar" id="player-sidebar"></div>
-  <div class="player-main" id="player-main"></div>
- </div>
-</div>
-
-<!-- ====================== DASHBOARD VIEW ====================== -->
-<div class="view" id="view-dashboard">
- <div class="dash">
-  <div class="dash-welcome"><h1>Welcome back, Domingos</h1><p>Continue your journey through optical networking mastery.</p></div>
-  <div class="dash-stats">
-   <div class="ds-card"><div class="ds-val cy" id="dash-progress">0%</div><div class="ds-label">Overall Progress</div></div>
-   <div class="ds-card"><div class="ds-val am" id="dash-xp">0</div><div class="ds-label">XP Earned</div></div>
-   <div class="ds-card"><div class="ds-val em" id="dash-labs">0/20</div><div class="ds-label">Labs Completed</div></div>
-   <div class="ds-card"><div class="ds-val vi" id="dash-badges">0/6</div><div class="ds-label">Badges Earned</div></div>
-  </div>
-  <div class="dash-section"><h2>Continue Learning</h2><div class="course-grid" id="dash-courses"></div></div>
-  <div class="dash-section">
-   <h2>Rank Progression</h2>
-   <div style="display:flex;gap:16px;flex-wrap:wrap">
-    <div style="flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;text-align:center"><div style="font-size:32px;margin-bottom:8px">🔰</div><div style="font-weight:700;margin-bottom:4px">Apprentice</div><div style="font-size:12px;color:var(--tx3)">0 XP</div></div>
-    <div style="flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;text-align:center;opacity:.4"><div style="font-size:32px;margin-bottom:8px">🔧</div><div style="font-weight:700;margin-bottom:4px">Optical Engineer</div><div style="font-size:12px;color:var(--tx3)">500 XP</div></div>
-    <div style="flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;text-align:center;opacity:.4"><div style="font-size:32px;margin-bottom:8px">📐</div><div style="font-weight:700;margin-bottom:4px">DWDM Designer</div><div style="font-size:12px;color:var(--tx3)">1500 XP</div></div>
-    <div style="flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;text-align:center;opacity:.4"><div style="font-size:32px;margin-bottom:8px">🏗️</div><div style="font-weight:700;margin-bottom:4px">DWDM Architect</div><div style="font-size:12px;color:var(--tx3)">3000 XP</div></div>
-   </div>
-  </div>
-  <div class="dash-section">
-   <h2>Badges</h2>
-   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px" id="dash-badges-grid"></div>
+<div class="hero-visual">
+ <div class="hero-card">
+  <div class="hc-header"><div class="dot" style="background:var(--em)"></div> Link Budget Lab — Live</div>
+  <div class="hc-body">
+   <span class="cm">// Calculate OSNR for 8-span metro ring</span><br>
+   <span class="kw">fiber_type</span> = <span class="st">"G.652D SMF"</span><br>
+   <span class="kw">span_length</span> = <span class="nm">80</span> <span class="cm">km</span><br>
+   <span class="kw">loss_per_km</span> = <span class="nm">0.22</span> <span class="cm">dB/km</span><br>
+   <span class="kw">edfa_nf</span> = <span class="nm">5.5</span> <span class="cm">dB</span><br>
+   <span class="kw">channels</span> = <span class="nm">80</span> <span class="cm">× 50GHz C-band</span><br><br>
+   <span class="fn">osnr</span> = <span class="fn">calculate_osnr</span>(spans=<span class="nm">8</span>)<br>
+   <span class="cm">→ OSNR: <span class="st">21.3 dB</span> ✓ Link feasible</span>
   </div>
  </div>
+ <div class="hero-float f1">✓ Lab Complete — +50 XP</div>
+ <div class="hero-float f2">🏅 Badge Unlocked!</div>
 </div>
+</div></div>
 
-<!-- ====================== LEARNING PATHS VIEW ====================== -->
-<div class="view" id="view-paths">
- <div class="section" style="max-width:1200px;margin:0 auto;padding-top:48px">
-  <div style="margin-bottom:40px"><h1 style="font-size:32px;font-weight:900;letter-spacing:-.02em;margin-bottom:8px">Learning Paths</h1><p style="font-size:16px;color:var(--tx2)">Curated sequences to take you from zero to expert. Each path combines courses, labs, and assessments.</p></div>
-  <div class="paths-grid" id="paths-list"></div>
+<!-- Features -->
+<div class="section"><div class="container">
+<div class="section-hd"><h2>Built Different. Built for Engineers.</h2></div>
+<div class="feat-grid">
+ <div class="feat-card"><div class="f-icon" style="background:rgba(0,212,255,.08)">🔬</div><h3>Interactive Engineering Labs</h3><p>Not just reading — calculate real link budgets, analyze OSNR, build channel plans. Every lab uses production-grade formulas and validates your work.</p></div>
+ <div class="feat-card"><div class="f-icon" style="background:rgba(139,92,246,.08)">📐</div><h3>Architect-Level Content</h3><p>Written by Aurelio Dioval — 18+ years deploying DWDM networks. Not theory from textbooks, but battle-tested knowledge from real deployments.</p></div>
+ <div class="feat-card"><div class="f-icon" style="background:rgba(16,185,129,.08)">🏆</div><h3>Industry Certifications</h3><p>Earn DWDM Academy certifications that validate your skills. Complete courses, pass exams, and build a verifiable professional portfolio.</p></div>
+ <div class="feat-card"><div class="f-icon" style="background:rgba(245,158,11,.08)">⚡</div><h3>Progress & Gamification</h3><p>Earn XP, unlock badges, and climb ranks from Apprentice to DWDM Architect. Track your progress across all courses and learning paths.</p></div>
+ <div class="feat-card"><div class="f-icon" style="background:rgba(249,115,22,.08)">🛠️</div><h3>Professional Tools</h3><p>Access the same calculators used by network designers — link budget, OSNR, dB converter, channel planner. Use them on the job after training.</p></div>
+ <div class="feat-card"><div class="f-icon" style="background:rgba(236,72,153,.08)">📱</div><h3>Learn Anywhere</h3><p>Responsive design works on desktop, tablet, and mobile. Pick up where you left off on any device with automatic progress sync.</p></div>
+</div>
+</div></div>
+
+<!-- Pricing -->
+<div class="pricing section"><div class="container">
+<div style="text-align:center;margin-bottom:40px"><h2 style="font-size:32px;font-weight:900;color:var(--tx0);margin-bottom:8px">Simple, Transparent Pricing</h2><p style="font-size:16px;color:var(--tx2)">Start free. Upgrade when you're ready to go deeper.</p></div>
+<div class="price-grid">
+ <div class="price-card">
+  <h3>Free</h3><div class="price">$0</div><div class="price-desc">Get started, no credit card needed</div>
+  <ul><li>Chapter 1: Optical Landscape</li><li>Link Budget Calculator (basic)</li><li>dB/dBm Converter</li><li>Community access</li><li>Progress tracking</li></ul>
+  <button class="btn-s" onclick="go('browse')">Start Free</button>
+ </div>
+ <div class="price-card pop">
+  <h3>Professional</h3><div class="price">$49<span>/month</span></div><div class="price-desc">Everything you need to master DWDM</div>
+  <ul><li>All 9+ courses unlocked</li><li>20+ interactive labs</li><li>All professional tools</li><li>Quizzes & assessments</li><li>XP & badge tracking</li><li>Certificate of completion</li><li>Priority support</li></ul>
+  <button class="btn-p" onclick="handleSubscribe('pro')">Subscribe — $49/mo</button>
+ </div>
+ <div class="price-card">
+  <h3>Enterprise</h3><div class="price">$149<span>/month</span></div><div class="price-desc">For teams and organizations</div>
+  <ul><li>Everything in Professional</li><li>Up to 10 team seats</li><li>Admin dashboard</li><li>Custom learning paths</li><li>Branded certificates</li><li>API access</li><li>Dedicated support</li></ul>
+  <button class="btn-s" onclick="handleSubscribe('ent')">Contact Sales</button>
  </div>
 </div>
+</div></div>
 
-<!-- ====================== TOOLS VIEW ====================== -->
-<div class="view" id="view-tools">
- <div class="section" style="max-width:1200px;margin:0 auto;padding-top:48px">
-  <div style="margin-bottom:40px"><h1 style="font-size:32px;font-weight:900;letter-spacing:-.02em;margin-bottom:8px">Interactive Tools</h1><p style="font-size:16px;color:var(--tx2)">Professional-grade engineering calculators and simulators used by real optical network designers.</p></div>
-  <div class="tools-grid" id="tools-list"></div>
- </div>
+<!-- CTA -->
+<div class="section"><div class="container" style="text-align:center">
+<h2 style="font-size:28px;font-weight:900;color:var(--tx0);margin-bottom:12px">Ready to Master Optical Networking?</h2>
+<p style="font-size:16px;color:var(--tx2);margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto">Join engineers who are building the backbone of the internet. Start with Chapter 1 — completely free.</p>
+<button class="btn-p lg" onclick="go('browse')">Start Learning Free →</button>
+</div></div>
+
+<footer class="footer"><div class="container">
+<div class="ft-inner">
+ <div><div class="logo" style="margin-bottom:14px"><div class="logo-mark"><svg viewBox="0 0 24 24" style="stroke:#fff;fill:none;stroke-width:2;width:16px;height:16px"><circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><path d="M6 20a6 6 0 0112 0"/></svg></div><div class="logo-word">DWDM <b>Academy</b></div></div><p>The definitive training platform for optical networking professionals. Created by Aurelio Dioval — 18+ years in network engineering, author of <em>BACKBONE: Engineering the Internet</em>.</p></div>
+ <div><h4>Platform</h4><a onclick="go('browse')">Courses</a><a onclick="go('paths')">Learning Paths</a><a onclick="go('tools')">Tools</a><a onclick="go('certs')">Certifications</a><a onclick="go('dashboard')">Dashboard</a></div>
+ <div><h4>Topics</h4><a href="#">DWDM Systems</a><a href="#">Fiber Optics</a><a href="#">Coherent Optics</a><a href="#">ROADM & OXC</a><a href="#">Link Budgets</a></div>
+ <div><h4>Connect</h4><a href="https://linkedin.com/in/aurelio-d-b73ab570" target="_blank">LinkedIn</a><a href="https://diotech.org" target="_blank">Diotech Corp</a><a href="mailto:aurelio.dioval@dioval.com">Contact</a><a href="#">Support</a></div>
+</div>
+<div class="ft-bot"><span>© 2026 DWDM Academy. All rights reserved.</span><span>A Dioval Group Project</span></div>
+</div></footer>
 </div>
 
-<!-- ====================== CERTIFICATIONS VIEW ====================== -->
-<div class="view" id="view-certs">
- <div class="section" style="max-width:1200px;margin:0 auto;padding-top:48px">
-  <div style="margin-bottom:40px"><h1 style="font-size:32px;font-weight:900;letter-spacing:-.02em;margin-bottom:8px">Certifications</h1><p style="font-size:16px;color:var(--tx2)">Validate your skills with industry-recognized DWDM Academy certifications.</p></div>
-  <div class="cert-grid" id="certs-list"></div>
- </div>
+<!-- ============ BROWSE ============ -->
+<div class="view" id="v-browse">
+<div class="section" style="padding-top:40px"><div class="container">
+ <div style="margin-bottom:32px"><h1 style="font-size:28px;font-weight:900;color:var(--tx0);margin-bottom:6px">Course Library</h1><p style="font-size:14px;color:var(--tx2)">Browse all courses. Free tier gets Chapter 1 — upgrade for full access.</p></div>
+ <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap" id="cat-filters"></div>
+ <div class="c-grid" id="course-grid"></div>
+</div></div>
+</div>
+
+<!-- ============ DETAIL ============ -->
+<div class="view" id="v-detail"><div class="detail" id="detail-root"></div></div>
+
+<!-- ============ PLAYER ============ -->
+<div class="view" id="v-player"><div class="player-wrap"><div class="p-side" id="p-side"></div><div class="p-main" id="p-main"></div></div></div>
+
+<!-- ============ DASHBOARD ============ -->
+<div class="view" id="v-dashboard"><div class="dash" id="dash-root"></div></div>
+
+<!-- ============ PATHS ============ -->
+<div class="view" id="v-paths">
+<div class="section" style="padding-top:40px"><div class="container">
+ <div style="margin-bottom:32px"><h1 style="font-size:28px;font-weight:900;color:var(--tx0);margin-bottom:6px">Learning Paths</h1><p style="font-size:14px;color:var(--tx2)">Curated course sequences to take you from zero to expert.</p></div>
+ <div class="paths-grid" id="paths-root"></div>
+</div></div>
+</div>
+
+<!-- ============ TOOLS ============ -->
+<div class="view" id="v-tools">
+<div class="section" style="padding-top:40px"><div class="container">
+ <div style="margin-bottom:32px"><h1 style="font-size:28px;font-weight:900;color:var(--tx0);margin-bottom:6px">Engineering Tools</h1><p style="font-size:14px;color:var(--tx2)">Professional-grade calculators used by real optical network designers.</p></div>
+ <div class="tools-grid" id="tools-root"></div>
+ <div id="tool-active" style="margin-top:24px"></div>
+</div></div>
+</div>
+
+<!-- ============ CERTS ============ -->
+<div class="view" id="v-certs">
+<div class="section" style="padding-top:40px"><div class="container">
+ <div style="margin-bottom:32px"><h1 style="font-size:28px;font-weight:900;color:var(--tx0);margin-bottom:6px">Certifications</h1><p style="font-size:14px;color:var(--tx2)">Validate your skills with DWDM Academy certifications.</p></div>
+ <div class="cert-grid" id="certs-root"></div>
+</div></div>
 </div>
 
 </div><!-- /app -->
-
 <script>
-// ======================== DATA ========================
-const COURSES = [
-  {id:'optical-landscape',title:'The Optical Networking Landscape',author:'Aurelio Dioval',level:'beginner',cat:'dwdm',duration:'45 min',chapters:1,labs:0,rating:4.9,students:284,isNew:false,
-   desc:'The evolution of optical networking — from basic TDM to sophisticated DWDM. Understand why DWDM dominates modern transport.',
-   tags:['TDM','WDM','DWDM','EDFA','C-band'],
-   curriculum:[{t:'TDM → WDM → DWDM Evolution',dur:'12 min',type:'lesson'},{t:'EDFA: The Key Enabler',dur:'8 min',type:'lesson'},{t:'DWDM vs CWDM vs ROADM',dur:'10 min',type:'lesson'},{t:'Key Concepts Review',dur:'5 min',type:'quiz'},{t:'Lab: Identify WDM Components',dur:'10 min',type:'lab'}],
-   content:`<h2>The Optical Networking Landscape</h2><p>The evolution of optical networking — from basic TDM to sophisticated DWDM — is fundamental to architect-level thinking. Understanding this progression reveals why DWDM dominates modern transport.</p><h3>TDM → WDM → DWDM Evolution</h3><p><strong>TDM (Time Division Multiplexing)</strong> dominated early optical transport — SONET/SDH divided time into slots, carrying multiple signals on a single wavelength. But TDM had a ceiling.</p><p><strong>WDM</strong> broke this barrier by sending multiple wavelengths on a single fiber simultaneously. Early WDM: 2-8 channels with wide spacing (>20 nm).</p><p><strong>DWDM</strong> tightened spacing to 100 GHz (~0.8 nm) then 50 GHz (~0.4 nm), enabling 40-96+ channels in C-band. This capacity multiplication without new fiber is why DWDM dominates.</p><div class="callout">💡 <strong>Architect Note:</strong> The jump from TDM to DWDM wasn't just about capacity — it fundamentally changed how we think about fiber as a resource. Each wavelength becomes a virtual fiber.</div><h3>EDFA: The Key Enabler</h3><p>The <strong>Erbium-Doped Fiber Amplifier (EDFA)</strong> amplifies all wavelengths simultaneously in the optical domain. Unlike electronic regenerators (O-E-O per channel), EDFAs eliminated per-channel amplification cost.</p><div class="formula">G(dB) = P_out(dBm) − P_in(dBm) | Typical gain: 15-25 dB</div><h3>DWDM vs CWDM vs ROADM</h3><table><tr><th>Feature</th><th>CWDM</th><th>DWDM (Fixed)</th><th>DWDM + ROADM</th></tr><tr><td>Channel spacing</td><td>20 nm</td><td>0.8/0.4 nm</td><td>0.4/Flex nm</td></tr><tr><td>Max channels</td><td>18</td><td>40-96</td><td>96+</td></tr><tr><td>Amplification</td><td>None</td><td>EDFA</td><td>EDFA + Raman</td></tr><tr><td>Reach</td><td>~80 km</td><td>~2,000 km</td><td>~3,000+ km</td></tr><tr><td>Flexibility</td><td>Fixed</td><td>Fixed</td><td>Dynamic add/drop</td></tr><tr><td>Cost/channel</td><td>Low</td><td>Medium</td><td>Higher</td></tr></table>`},
-  {id:'light-fiber',title:'Light & Fiber Fundamentals',author:'Aurelio Dioval',level:'beginner',cat:'fiber',duration:'60 min',chapters:1,labs:2,rating:4.8,students:312,isNew:false,
-   desc:'How light propagates through fiber. Single-mode vs multi-mode, attenuation, dispersion, and nonlinear effects.',tags:['Fiber','SMF','MMF','Attenuation','Dispersion'],
-   curriculum:[{t:'Light Propagation in Glass',dur:'15 min',type:'lesson'},{t:'Single-mode vs Multi-mode',dur:'12 min',type:'lesson'},{t:'Attenuation Mechanisms',dur:'10 min',type:'lesson'},{t:'Dispersion & Nonlinear Effects',dur:'13 min',type:'lesson'},{t:'Lab: Fiber Loss Measurement',dur:'10 min',type:'lab'}],
-   content:'<h2>Light & Fiber Fundamentals</h2><p>Understanding how light propagates through optical fiber is the foundation of everything in DWDM. This chapter covers the physics and practical implications.</p><h3>How Light Travels in Fiber</h3><p>Optical fiber works on the principle of <strong>total internal reflection</strong>. The fiber core (higher refractive index) is surrounded by cladding (lower index), creating a waveguide.</p><div class="formula">n₁ sin(θ₁) = n₂ sin(θ₂) — Snell\'s Law</div><h3>Single-Mode vs Multi-Mode</h3><table><tr><th>Property</th><th>Single-Mode (SMF)</th><th>Multi-Mode (MMF)</th></tr><tr><td>Core diameter</td><td>8-10 μm</td><td>50/62.5 μm</td></tr><tr><td>Wavelength</td><td>1310/1550 nm</td><td>850/1300 nm</td></tr><tr><td>Reach</td><td>Up to 100+ km</td><td>Up to 2 km</td></tr><tr><td>Use case</td><td>Long-haul, metro, DWDM</td><td>Data centers, LANs</td></tr></table>'},
-  {id:'components',title:'Optical Components Deep Dive',author:'Aurelio Dioval',level:'beginner',cat:'dwdm',duration:'55 min',chapters:1,labs:1,rating:4.7,students:198,isNew:false,
-   desc:'Transponders, muxes, amplifiers, ROADMs — understand every component in a DWDM network.',tags:['Transponder','Mux','EDFA','ROADM','WSS'],
-   curriculum:[{t:'Transponders & Muxponders',dur:'12 min',type:'lesson'},{t:'Multiplexers & Demultiplexers',dur:'10 min',type:'lesson'},{t:'Amplifiers: EDFA & Raman',dur:'15 min',type:'lesson'},{t:'ROADM Architecture',dur:'8 min',type:'lesson'},{t:'Lab: Component ID Exercise',dur:'10 min',type:'lab'}],
-   content:'<h2>Optical Components Deep Dive</h2><p>A DWDM network is built from specialized optical components. Understanding each one\'s role, capabilities, and limitations is essential for design.</p>'},
-  {id:'channel-plans',title:'Channel Planning & Spectrum Management',author:'Aurelio Dioval',level:'intermediate',cat:'dwdm',duration:'50 min',chapters:1,labs:1,rating:4.9,students:156,isNew:true,
-   desc:'ITU-T grid, flex-grid, channel allocation strategies for C-band and L-band DWDM systems.',tags:['ITU-T','C-band','L-band','Flex-grid','50GHz'],
-   curriculum:[{t:'ITU-T Grid Standards',dur:'12 min',type:'lesson'},{t:'C-band & L-band Planning',dur:'10 min',type:'lesson'},{t:'Flex-grid & Super Channels',dur:'15 min',type:'lesson'},{t:'Lab: Channel Plan Builder',dur:'13 min',type:'lab'}],
-   content:'<h2>Channel Planning & Spectrum Management</h2><p>Efficient spectrum allocation is at the heart of DWDM design. This chapter covers the standards, strategies, and real-world trade-offs.</p>'},
-  {id:'link-budgets',title:'Link Budget Engineering',author:'Aurelio Dioval',level:'intermediate',cat:'design',duration:'65 min',chapters:1,labs:2,rating:4.9,students:223,isNew:false,
-   desc:'Calculate span loss, OSNR, and system margin. The core skill every optical engineer needs.',tags:['OSNR','Span Loss','dB','Power Budget','Margin'],
-   curriculum:[{t:'Power Budget Fundamentals',dur:'15 min',type:'lesson'},{t:'Span Loss Calculation',dur:'12 min',type:'lesson'},{t:'OSNR Analysis',dur:'15 min',type:'lesson'},{t:'System Margin & Aging',dur:'10 min',type:'lesson'},{t:'Lab: Full Link Budget',dur:'13 min',type:'lab'}],
-   content:'<h2>Link Budget Engineering</h2><p>The link budget is the single most important calculation in optical network design. It determines whether a signal can travel from Point A to Point B with acceptable quality.</p><div class="formula">OSNR(dB) = P_ch(dBm) − NF(dB) − 10·log₁₀(N_spans) − 10·log₁₀(h·ν·Δf) + 58</div>'},
-  {id:'modulation',title:'Modulation Formats & Coherent Detection',author:'Aurelio Dioval',level:'advanced',cat:'coherent',duration:'55 min',chapters:1,labs:1,rating:4.8,students:134,isNew:true,
-   desc:'From OOK to DP-16QAM. Understand how coherent detection revolutionized optical networking.',tags:['OOK','QPSK','16QAM','Coherent','DSP'],
-   curriculum:[{t:'On-Off Keying to Advanced Modulation',dur:'12 min',type:'lesson'},{t:'Coherent Detection Principles',dur:'15 min',type:'lesson'},{t:'DSP in Modern Transponders',dur:'14 min',type:'lesson'},{t:'Capacity vs Reach Trade-offs',dur:'7 min',type:'lesson'},{t:'Lab: Modulation Comparison',dur:'7 min',type:'lab'}],
-   content:'<h2>Modulation Formats & Coherent Detection</h2><p>The evolution from simple On-Off Keying to sophisticated coherent modulation formats like DP-16QAM represents the biggest leap in optical capacity.</p>'},
-  {id:'topologies',title:'Network Topologies & Protection',author:'Aurelio Dioval',level:'intermediate',cat:'design',duration:'50 min',chapters:1,labs:1,rating:4.7,students:167,isNew:false,
-   desc:'Ring, mesh, linear — design resilient optical networks with sub-50ms protection switching.',tags:['Ring','Mesh','OUPSR','OSNCP','Protection'],
-   curriculum:[{t:'Topology Fundamentals',dur:'10 min',type:'lesson'},{t:'Protection Schemes',dur:'15 min',type:'lesson'},{t:'ROADM Mesh Networks',dur:'12 min',type:'lesson'},{t:'Lab: Design a Metro Ring',dur:'13 min',type:'lab'}],
-   content:'<h2>Network Topologies & Protection</h2><p>The physical and logical topology of an optical network determines its resilience, scalability, and cost.</p>'},
-  {id:'operations',title:'Network Operations & Troubleshooting',author:'Aurelio Dioval',level:'intermediate',cat:'ops',duration:'45 min',chapters:1,labs:2,rating:4.6,students:189,isNew:false,
-   desc:'OTDR testing, alarm correlation, performance monitoring — keep your network running.',tags:['OTDR','Alarms','PM','NOC','Maintenance'],
-   curriculum:[{t:'OTDR Fundamentals',dur:'12 min',type:'lesson'},{t:'Alarm Management',dur:'10 min',type:'lesson'},{t:'Performance Monitoring',dur:'10 min',type:'lesson'},{t:'Lab: OTDR Trace Analysis',dur:'13 min',type:'lab'}],
-   content:'<h2>Network Operations & Troubleshooting</h2><p>Designing a network is only half the battle — operating and troubleshooting it requires a different skill set.</p>'},
-  {id:'standards',title:'Standards & Compliance',author:'Aurelio Dioval',level:'beginner',cat:'ops',duration:'40 min',chapters:1,labs:0,rating:4.5,students:145,isNew:false,
-   desc:'ITU-T, IEEE, OIF — navigate the standards landscape for optical networking.',tags:['ITU-T','IEEE','OIF','G.652','G.694'],
-   curriculum:[{t:'ITU-T Standards Family',dur:'12 min',type:'lesson'},{t:'IEEE & OIF Standards',dur:'10 min',type:'lesson'},{t:'Compliance in Practice',dur:'10 min',type:'lesson'},{t:'Standards Quiz',dur:'8 min',type:'quiz'}],
-   content:'<h2>Standards & Compliance</h2><p>Optical networking is governed by a rich set of international standards from ITU-T, IEEE, and OIF.</p>'},
-];
+// ═══════════════════════════ DATA ═══════════════════════════
+const S=localStorage,J=JSON.parse,ST=JSON.stringify;
+const state={xp:+(S.getItem('xp')||0),done:J(S.getItem('done')||'{}'),quizDone:J(S.getItem('quizDone')||'{}')};
+function save(){S.setItem('xp',state.xp);S.setItem('done',ST(state.done));S.setItem('quizDone',ST(state.quizDone));updXP()}
+function addXP(n){state.xp+=n;save()}
+function markDone(cid,idx){if(!state.done[cid])state.done[cid]=[];if(!state.done[cid].includes(idx)){state.done[cid].push(idx);addXP(25);save()}}
 
-const PATHS = [
-  {id:'foundations',title:'DWDM Foundations',desc:'Start from zero. Build a solid understanding of optical networking, fiber, components, and basic design principles.',level:'Beginner',color:'var(--em)',courses:['optical-landscape','light-fiber','components','standards'],hours:'4.5 hrs',labs:4},
-  {id:'architect',title:'DWDM Architect',desc:'Design production DWDM networks. Master link budgets, channel planning, protection, and coherent optics.',level:'Intermediate → Advanced',color:'var(--cy)',courses:['channel-plans','link-budgets','modulation','topologies'],hours:'6 hrs',labs:6},
-  {id:'operations',title:'Network Operations',desc:'Run and troubleshoot live DWDM networks. OTDR analysis, alarm management, performance monitoring.',level:'Intermediate',color:'var(--am)',courses:['operations','standards','link-budgets'],hours:'3 hrs',labs:4},
-];
+const CATS=[{id:'all',label:'All Courses'},{id:'dwdm',label:'🌊 DWDM'},{id:'fiber',label:'🔬 Fiber'},{id:'coherent',label:'📡 Coherent'},{id:'design',label:'📐 Design'},{id:'ops',label:'🛠️ Operations'}];
 
-const TOOLS = [
-  {id:'link-budget-calc',icon:'📊',title:'Link Budget Calculator',desc:'Full span loss and OSNR analysis. Input fiber type, span length, amplifier specs, and get instant feasibility results with margin analysis.',btn:'Launch Calculator'},
-  {id:'db-converter',icon:'🔄',title:'dB / dBm Converter',desc:'Convert between linear and logarithmic power units. Cascade calculations for multi-component systems.',btn:'Open Converter'},
-  {id:'osnr-calc',icon:'📈',title:'OSNR Calculator',desc:'Multi-span noise accumulation analysis. Calculate OSNR at any point in the network and determine system reach.',btn:'Launch Calculator'},
-  {id:'channel-builder',icon:'🌈',title:'Channel Plan Builder',desc:'Visual C-band and L-band channel allocation. Drag-and-drop channel assignment with guard band verification.',btn:'Open Builder'},
-];
+const C=[
+{id:'ch1',title:'The Optical Networking Landscape',cat:'dwdm',level:'beg',free:true,dur:'45 min',rating:4.9,students:412,
+ desc:'The evolution from TDM to DWDM. Understand why dense wavelength division multiplexing dominates modern optical transport.',
+ tags:['TDM','WDM','DWDM','EDFA','C-band','CWDM'],author:'Aurelio Dioval',
+ items:[
+  {t:'TDM → WDM → DWDM Evolution',type:'lesson',dur:'12 min'},
+  {t:'EDFA: The Key Enabler',type:'lesson',dur:'8 min'},
+  {t:'DWDM vs CWDM vs ROADM Comparison',type:'lesson',dur:'10 min'},
+  {t:'Key Concepts Flashcards',type:'lesson',dur:'5 min'},
+  {t:'Lab: DWDM Capacity Calculator',type:'lab',dur:'10 min'},
+  {t:'Chapter 1 Quiz',type:'quiz',dur:'5 min'}
+ ],
+ lesson:`<h2>The Optical Networking Landscape</h2>
+<p>The evolution of optical networking — from basic TDM to sophisticated DWDM — is fundamental to architect-level thinking. Understanding this progression reveals why DWDM dominates modern transport and why mastering it is a high-value career skill.</p>
 
-const BADGES = [
-  {name:'Link Budget Master',icon:'📊',locked:true},
-  {name:'OTDR Analyst',icon:'🔍',locked:true},
-  {name:'Fiber Design Specialist',icon:'🔬',locked:true},
-  {name:'ROADM Foundation Ready',icon:'🔀',locked:true},
-  {name:'Capstone Complete',icon:'🏆',locked:true},
-  {name:'Level 1 Certified',icon:'📜',locked:true},
-];
+<h3>TDM → WDM → DWDM Evolution</h3>
+<p><strong>TDM (Time Division Multiplexing)</strong> dominated early optical transport. SONET/SDH divided time into slots, carrying multiple signals on a single wavelength. Maximum capacity was limited to a single lambda's bitrate — typically 2.5 Gbps (OC-48) or 10 Gbps (OC-192). But TDM had a hard ceiling.</p>
+<p><strong>WDM (Wavelength Division Multiplexing)</strong> broke this barrier by sending multiple wavelengths on a single fiber simultaneously. Early WDM systems used 2-8 channels with wide spacing (>20 nm). This was the "aha moment" — fiber became a multi-lane highway instead of a single lane.</p>
+<p><strong>DWDM</strong> tightened spacing to 100 GHz (~0.8 nm) then 50 GHz (~0.4 nm), enabling 40-96+ channels in the C-band alone. Modern flex-grid systems push this even further. This capacity multiplication <em>without deploying new fiber</em> is why DWDM dominates.</p>
 
-const CERTS_DATA = [
-  {icon:'🏅',title:'DWDM Foundations Certified',desc:'Validates foundational knowledge of optical networking, fiber optics, and DWDM systems.',req:'Complete all Level 1 courses + pass final exam (80% or higher)'},
-  {icon:'🏆',title:'DWDM Architect Certified',desc:'Demonstrates ability to design production-grade DWDM networks with proper link budgets and protection.',req:'Complete Architect learning path + capstone project'},
-  {icon:'⭐',title:'DWDM Operations Specialist',desc:'Proves competency in operating, monitoring, and troubleshooting live DWDM networks.',req:'Complete Operations path + hands-on lab assessments'},
-];
+<div class="callout">💡 <strong>Architect Insight:</strong> The jump from TDM to DWDM wasn't just capacity — it fundamentally changed how we think about fiber. Each wavelength becomes a "virtual fiber" that can carry any protocol at any rate. A single fiber pair can now carry 40+ Tbps.</div>
 
-// ======================== RENDERING ========================
-function renderCourseCard(c, showProgress=false) {
-  const progress = parseInt(localStorage.getItem('progress_'+c.id)||'0');
-  return `<div class="course-card" onclick="showDetail('${c.id}')">
-    <div class="cc-thumb"><div class="cc-overlay"><div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="cc-icon">${c.cat==='fiber'?'🔬':c.cat==='dwdm'?'🌊':c.cat==='coherent'?'📡':c.cat==='design'?'📐':c.cat==='roadm'?'🔀':'🛠️'}</div><div class="cc-level ${c.level}">${c.level}</div></div>
-    <div class="cc-body"><h3>${c.title}</h3><div class="cc-author">By ${c.author}</div>
-    <div class="cc-meta"><div class="cc-rating">★ ${c.rating}</div><div class="dot"></div><span>${c.duration}</span><div class="dot"></div><span>${c.students} students</span></div>
-    ${showProgress&&progress>0?`<div class="cc-progress"><div class="cc-progress-fill" style="width:${progress}%"></div></div>`:''}</div></div>`;
-}
+<h3>EDFA: The Key Enabler</h3>
+<p>The <strong>Erbium-Doped Fiber Amplifier (EDFA)</strong> amplifies all wavelengths simultaneously in the optical domain. Unlike electronic regenerators that required expensive O-E-O conversion per channel, a single EDFA amplifies 80+ channels at once.</p>
+<div class="formula">Gain (dB) = P_output(dBm) − P_input(dBm) &nbsp;|&nbsp; Typical: 15-25 dB &nbsp;|&nbsp; NF: 4.5-6.5 dB</div>
+<p>EDFAs operate in the <strong>C-band (1530-1565 nm)</strong> and optionally the <strong>L-band (1565-1625 nm)</strong>. The amplifier's noise figure (NF) is critical to link budget calculations — you'll master this in the Link Budget Engineering course.</p>
 
-function renderCourses() {
-  document.getElementById('course-list').innerHTML = COURSES.map(c=>renderCourseCard(c)).join('');
-  document.getElementById('new-list').innerHTML = COURSES.filter(c=>c.isNew).map(c=>renderCourseCard(c)).join('');
-}
+<h3>DWDM vs CWDM vs ROADM</h3>
+<table><tr><th>Feature</th><th>CWDM</th><th>DWDM (Fixed)</th><th>DWDM + ROADM</th></tr>
+<tr><td>Channel Spacing</td><td>20 nm</td><td>0.8 / 0.4 nm</td><td>0.4 nm / Flex</td></tr>
+<tr><td>Max Channels</td><td>18</td><td>40-96</td><td>96+ (C+L: 192+)</td></tr>
+<tr><td>Amplification</td><td>None</td><td>EDFA</td><td>EDFA + Raman</td></tr>
+<tr><td>Max Reach</td><td>~80 km</td><td>~2,000 km</td><td>~3,000+ km</td></tr>
+<tr><td>Flexibility</td><td>Fixed</td><td>Fixed</td><td>Dynamic add/drop</td></tr>
+<tr><td>Cost per Channel</td><td>Low</td><td>Medium</td><td>Higher upfront</td></tr>
+<tr><td>Best Use</td><td>Access, campus</td><td>Metro, regional</td><td>Core, long-haul</td></tr></table>
 
-function renderPaths() {
-  document.getElementById('paths-list').innerHTML = PATHS.map(p=>`
-    <div class="path-card" onclick="showView('browse')">
-      <div class="path-badge" style="background:${p.color}22;color:${p.color}">${p.level}</div>
-      <h3>${p.title}</h3><p>${p.desc}</p>
-      <div class="path-courses">${p.courses.map(cid=>{const c=COURSES.find(x=>x.id===cid);return c?`<span>${c.title.split(':')[0]}</span>`:''}).join('')}</div>
-      <div class="path-meta"><span>${p.courses.length} courses · ${p.hours} · ${p.labs} labs</span><span style="color:var(--cy);font-weight:600;cursor:pointer">Start Path →</span></div>
-    </div>`).join('');
-}
-
-function renderTools() {
-  document.getElementById('tools-list').innerHTML = TOOLS.map(t=>`
-    <div class="tool-card"><h3><span class="tool-icon">${t.icon}</span>${t.title}</h3><p>${t.desc}</p>
-    <button class="btn-secondary">${t.btn}</button></div>`).join('');
-}
-
-function renderCerts() {
-  document.getElementById('certs-list').innerHTML = CERTS_DATA.map(c=>`
-    <div class="cert-card"><div class="cert-icon">${c.icon}</div><h3>${c.title}</h3><p>${c.desc}</p><div class="cert-req">${c.req}</div></div>`).join('');
-}
-
-function renderBadges() {
-  document.getElementById('dash-badges-grid').innerHTML = BADGES.map(b=>`
-    <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;text-align:center;${b.locked?'opacity:.35;filter:grayscale(1)':''}">
-      <div style="font-size:28px;margin-bottom:8px">${b.icon}</div><div style="font-size:12px;font-weight:600">${b.name}</div>
-      ${b.locked?'<div style="font-size:10px;color:var(--tx4);margin-top:4px">LOCKED</div>':''}</div>`).join('');
-}
-
-function renderDashCourses() {
-  document.getElementById('dash-courses').innerHTML = COURSES.slice(0,3).map(c=>renderCourseCard(c,true)).join('');
-}
-
-// ======================== NAVIGATION ========================
-function showView(view) {
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById('view-'+view).classList.add('active');
-  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
-  const map = {browse:0,paths:1,tools:2,certs:3,dashboard:4};
-  if(map[view]!==undefined) document.querySelectorAll('.nav-link')[map[view]].classList.add('active');
-  window.scrollTo(0,0);
-}
-
-function showDetail(courseId) {
-  const c = COURSES.find(x=>x.id===courseId);
-  if(!c) return;
-  document.getElementById('detail-content').innerHTML = `
-    <div class="detail-hero">
-      <div class="detail-info">
-        <div class="breadcrumb"><span onclick="showView('browse')">Browse</span> / <span>${c.cat.charAt(0).toUpperCase()+c.cat.slice(1)}</span> / <span style="color:var(--tx1)">${c.title}</span></div>
-        <h1>${c.title}</h1>
-        <div class="subtitle">${c.desc}</div>
-        <div class="meta-row"><span class="rating-stars">★★★★★</span><span>${c.rating} rating</span><span>${c.students} students</span><span>${c.level.charAt(0).toUpperCase()+c.level.slice(1)}</span></div>
-        <div class="tags">${c.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-        <div style="font-size:13px;color:var(--tx2)">Created by <strong style="color:var(--cy)">${c.author}</strong> — 18+ years in optical networking, author of <em>BACKBONE: Engineering the Internet</em></div>
-      </div>
-      <div class="detail-sidebar">
-        <div class="detail-card">
-          <div class="dc-preview"><div class="dc-play" onclick="openPlayer('${c.id}')"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-          <div class="dc-body">
-            <button class="btn-primary" onclick="openPlayer('${c.id}')">▶ Start Course</button>
-            <button class="btn-secondary">+ Add to My List</button>
-            <div class="dc-facts">
-              <div class="dc-fact"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${c.duration}</div>
-              <div class="dc-fact"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>${c.curriculum.filter(x=>x.type==='lesson').length} lessons</div>
-              <div class="dc-fact"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>${c.curriculum.filter(x=>x.type==='lab').length} labs</div>
-              <div class="dc-fact"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Certificate on completion</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="curriculum"><h2>Course Curriculum</h2>
-      <div class="cur-section open"><div class="cur-header" onclick="this.parentElement.classList.toggle('open')"><h3><span class="ch-num">1</span>${c.title}</h3><span class="ch-meta">${c.curriculum.length} items · ${c.duration}</span></div>
-      <div class="cur-body">${c.curriculum.map(item=>`<div class="cur-item" onclick="openPlayer('${c.id}')"><svg viewBox="0 0 24 24">${item.type==='lesson'?'<polygon points="5,3 19,12 5,21"/>':item.type==='lab'?'<path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>':'<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>'}</svg><span>${item.t}</span><span class="dur">${item.dur}</span></div>`).join('')}</div></div>
-    </div>`;
-  showView('detail');
-}
-
-function openPlayer(courseId) {
-  const c = COURSES.find(x=>x.id===courseId);
-  if(!c) return;
-  // Sidebar
-  document.getElementById('player-sidebar').innerHTML = `
-    <div class="ps-header"><h3>${c.title}</h3><p>${c.curriculum.length} items · ${c.duration}</p></div>
-    <div class="ps-chapters">${c.curriculum.map((item,i)=>`
-      <div class="ps-ch"><div class="ps-ch-title${i===0?' active':''}" onclick="selectChapter(this,${i})"><span class="num">${i+1}</span>${item.t}<span style="margin-left:auto;font-size:10px;color:var(--tx4)">${item.dur}</span></div></div>`).join('')}
-    </div>`;
-  // Main
-  document.getElementById('player-main').innerHTML = `
-    <div class="player-video"><div class="pv-placeholder"><div class="big-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div><p>Click to start lesson</p></div></div>
-    <div class="player-content">
-      <h1>${c.title}</h1>
-      <div class="pc-meta"><span>Chapter 1 of 9</span><span>Level 1</span><span>${c.duration}</span></div>
-      <div class="player-tabs"><div class="player-tab active">Lesson</div><div class="player-tab">Key Concepts</div><div class="player-tab">Lab Exercise</div><div class="player-tab">Quiz</div></div>
-      <div class="lesson-text">${c.content||'<p>Content loading...</p>'}</div>
-    </div>`;
-  showView('player');
-}
-
-function selectChapter(el, idx) {
-  document.querySelectorAll('.ps-ch-title').forEach(e=>e.classList.remove('active'));
-  el.classList.add('active');
-}
-
-function handleSearch(e) {
-  if(e.key==='Enter') {
-    const q = e.target.value.toLowerCase();
-    const results = COURSES.filter(c=>c.title.toLowerCase().includes(q)||c.desc.toLowerCase().includes(q)||c.tags.some(t=>t.toLowerCase().includes(q)));
-    document.getElementById('course-list').innerHTML = results.length?results.map(c=>renderCourseCard(c)).join(''):'<p style="color:var(--tx3);grid-column:1/-1">No courses found for "'+e.target.value+'". Try a different search term.</p>';
-    showView('browse');
+<div class="key-concepts">
+<div class="kc-item"><h4>C-band</h4><p>1530-1565 nm. The primary DWDM band. ~4.8 THz of usable spectrum. Where EDFAs work best.</p></div>
+<div class="kc-item"><h4>L-band</h4><p>1565-1625 nm. Extended band that doubles capacity. Requires separate L-band EDFAs.</p></div>
+<div class="kc-item"><h4>Channel Spacing</h4><p>50 GHz is standard DWDM. Flex-grid (6.25 GHz granularity) enables super-channels for 400G+.</p></div>
+<div class="kc-item"><h4>OSNR</h4><p>Optical Signal-to-Noise Ratio. The #1 metric for link quality. Must exceed minimum for error-free detection.</p></div>
+</div>`,
+ lab:{title:'DWDM Capacity Calculator',desc:'Calculate total fiber capacity based on channel count, channel spacing, and per-channel data rate.',
+  fields:[
+   {id:'channels',label:'Number of Channels',val:80,min:1,max:192},
+   {id:'rate',label:'Per-Channel Rate (Gbps)',val:100,min:10,max:800},
+   {id:'spacing',label:'Channel Spacing (GHz)',val:50,options:[25,50,100]},
+   {id:'band',label:'Band',val:'C',options:['C','C+L']}
+  ],
+  calc:function(v){
+   const maxCh=v.band==='C+L'?Math.floor(9600/v.spacing):Math.floor(4800/v.spacing);
+   const usable=Math.min(v.channels,maxCh);
+   const totalTbps=(usable*v.rate/1000).toFixed(1);
+   const spectralEff=(v.rate/v.spacing).toFixed(2);
+   const feasible=usable>=v.channels;
+   return {rows:[
+    {l:'Max channels ('+v.band+' band, '+v.spacing+'GHz)',v:maxCh},
+    {l:'Usable channels',v:usable},
+    {l:'Per-channel rate',v:v.rate+' Gbps'},
+    {l:'Total capacity',v:totalTbps+' Tbps'},
+    {l:'Spectral efficiency',v:spectralEff+' b/s/Hz'}
+   ],status:feasible?'pass':'warn',msg:feasible?'✓ Configuration valid — '+totalTbps+' Tbps total capacity':'⚠ Only '+usable+' of '+v.channels+' channels fit in '+v.band+' band at '+v.spacing+'GHz spacing'};
   }
+ },
+ quiz:[
+  {q:'What was the primary limitation of TDM-based optical transport?',opts:['Could not use fiber','Limited to single wavelength capacity','Required too many amplifiers','Only worked over short distances'],ans:1,exp:'TDM was limited to a single wavelength per fiber, capping capacity at one lambda\'s max bitrate (e.g., 10 Gbps for OC-192).'},
+  {q:'What does EDFA stand for?',opts:['Electronic Digital Fiber Amplifier','Enhanced Distributed Feedback Array','Erbium-Doped Fiber Amplifier','Extended Dense Frequency Allocator'],ans:2,exp:'EDFA = Erbium-Doped Fiber Amplifier. It amplifies all wavelengths simultaneously in the optical domain using erbium-doped fiber.'},
+  {q:'What is the typical channel spacing in modern DWDM systems?',opts:['20 nm','100 GHz','50 GHz','1 nm'],ans:2,exp:'50 GHz (~0.4 nm) is the standard DWDM channel spacing. Modern flex-grid systems use 6.25 GHz granularity for even denser packing.'},
+  {q:'Which band is the primary operating range for DWDM?',opts:['O-band (1260-1360nm)','S-band (1460-1530nm)','C-band (1530-1565nm)','U-band (1625-1675nm)'],ans:2,exp:'The C-band (1530-1565nm) is where EDFAs work best and where most DWDM systems operate. It offers ~4.8 THz of usable spectrum.'},
+  {q:'What is the key advantage of ROADM over fixed DWDM?',opts:['Lower cost','Higher capacity','Dynamic wavelength add/drop without O-E-O','Better amplification'],ans:2,exp:'ROADMs allow dynamic add/drop of wavelengths at any node without optical-to-electrical conversion, enabling flexible mesh networks.'}
+ ]
+},
+{id:'ch2',title:'Light & Fiber Fundamentals',cat:'fiber',level:'beg',free:false,dur:'60 min',rating:4.8,students:356,
+ desc:'How light propagates through fiber. Single-mode vs multi-mode, attenuation, dispersion, and nonlinear effects.',
+ tags:['SMF','MMF','Attenuation','Dispersion','Nonlinear'],author:'Aurelio Dioval',
+ items:[{t:'Light Propagation in Glass',type:'lesson',dur:'15 min'},{t:'Single-mode vs Multi-mode',type:'lesson',dur:'12 min'},{t:'Attenuation & Loss Mechanisms',type:'lesson',dur:'10 min'},{t:'Chromatic & Polarization Dispersion',type:'lesson',dur:'13 min'},{t:'Lab: Fiber Loss Calculator',type:'lab',dur:'10 min'},{t:'Chapter 2 Quiz',type:'quiz',dur:'5 min'}],
+ lesson:'<h2>Light & Fiber Fundamentals</h2><p>Understanding how light propagates through optical fiber is the foundation of everything in DWDM. This chapter covers the physics and practical implications for network design.</p><h3>Total Internal Reflection</h3><p>Optical fiber works because of <strong>total internal reflection</strong>. The core has a higher refractive index (n₁ ≈ 1.4677) than the cladding (n₂ ≈ 1.4624), creating a waveguide.</p><div class="formula">n₁ sin(θ₁) = n₂ sin(θ₂) — Snell\'s Law</div><h3>Single-Mode vs Multi-Mode</h3><table><tr><th>Property</th><th>SMF (G.652D)</th><th>MMF (OM4)</th></tr><tr><td>Core diameter</td><td>8-10 μm</td><td>50 μm</td></tr><tr><td>Wavelength</td><td>1310/1550 nm</td><td>850/1300 nm</td></tr><tr><td>Max reach</td><td>100+ km</td><td>~550m @10G</td></tr><tr><td>DWDM capable?</td><td>Yes</td><td>No</td></tr></table><h3>Attenuation</h3><p>Light loses power as it travels through fiber. The loss coefficient α is measured in dB/km:</p><div class="formula">α (1310nm) ≈ 0.35 dB/km &nbsp;|&nbsp; α (1550nm) ≈ 0.20 dB/km</div><p>The 1550nm window has the lowest loss — this is why DWDM and EDFAs operate here.</p>',
+ lab:{title:'Fiber Loss Calculator',desc:'Calculate total fiber span loss including connectors and splices.',
+  fields:[{id:'length',label:'Fiber Length (km)',val:80,min:1,max:500},{id:'alpha',label:'Loss Coefficient (dB/km)',val:0.22,min:0.15,max:0.5},{id:'connectors',label:'Number of Connectors',val:4,min:0,max:20},{id:'splices',label:'Number of Splices',val:8,min:0,max:50}],
+  calc:function(v){const fLoss=v.length*v.alpha;const cLoss=v.connectors*0.5;const sLoss=v.splices*0.1;const total=fLoss+cLoss+sLoss;return{rows:[{l:'Fiber loss ('+v.length+'km × '+v.alpha+'dB/km)',v:fLoss.toFixed(1)+' dB'},{l:'Connector loss ('+v.connectors+' × 0.5dB)',v:cLoss.toFixed(1)+' dB'},{l:'Splice loss ('+v.splices+' × 0.1dB)',v:sLoss.toFixed(1)+' dB'},{l:'Total span loss',v:total.toFixed(1)+' dB'}],status:total<=28?'pass':total<=35?'warn':'fail',msg:total<=28?'✓ Within typical EDFA gain range (≤28 dB)':total<=35?'⚠ Marginal — may need Raman amplification':'✗ Exceeds amplifier capability — reduce span length'}}}
+ },
+ quiz:[{q:'What is the typical loss coefficient of SMF at 1550nm?',opts:['0.35 dB/km','0.22 dB/km','0.10 dB/km','0.50 dB/km'],ans:1,exp:'Standard G.652D fiber has ~0.20 dB/km at 1550nm. The 0.22 dB/km figure includes typical aging margin.'}]
+},
+{id:'ch3',title:'Optical Components Deep Dive',cat:'dwdm',level:'beg',free:false,dur:'55 min',rating:4.7,students:289,desc:'Transponders, muxes, amplifiers, ROADMs — every component in a DWDM network explained.',tags:['Transponder','Mux/Demux','EDFA','ROADM','WSS'],author:'Aurelio Dioval',items:[{t:'Transponders & Muxponders',type:'lesson',dur:'12 min'},{t:'Multiplexers & Demultiplexers',type:'lesson',dur:'10 min'},{t:'EDFA & Raman Amplifiers',type:'lesson',dur:'15 min'},{t:'ROADM Architecture (WSS)',type:'lesson',dur:'8 min'},{t:'Lab: Component Identification',type:'lab',dur:'10 min'},{t:'Chapter 3 Quiz',type:'quiz',dur:'5 min'}],lesson:'<h2>Optical Components Deep Dive</h2><p>A DWDM network is an ecosystem of specialized optical components. Understanding each one\'s role, specs, and failure modes is essential for design and operations.</p>',lab:null,quiz:[]},
+{id:'ch4',title:'Channel Planning & Spectrum Management',cat:'dwdm',level:'int',free:false,dur:'50 min',rating:4.9,students:198,desc:'ITU-T grid, flex-grid, C-band and L-band channel allocation strategies.',tags:['ITU-T','C-band','L-band','Flex-grid','Spectrum'],author:'Aurelio Dioval',items:[{t:'ITU-T Grid Standards',type:'lesson',dur:'12 min'},{t:'C-band & L-band Planning',type:'lesson',dur:'10 min'},{t:'Flex-grid & Super Channels',type:'lesson',dur:'15 min'},{t:'Lab: Channel Plan Builder',type:'lab',dur:'13 min'},{t:'Quiz',type:'quiz',dur:'5 min'}],lesson:'<h2>Channel Planning & Spectrum Management</h2><p>Efficient spectrum allocation is at the heart of every DWDM design. Get it wrong and you waste capacity or create interference.</p>',lab:null,quiz:[]},
+{id:'ch5',title:'Link Budget Engineering',cat:'design',level:'int',free:false,dur:'65 min',rating:4.9,students:267,desc:'The core skill: calculate span loss, OSNR, and system margin for any optical link.',tags:['OSNR','Span Loss','Power Budget','Margin','BER'],author:'Aurelio Dioval',items:[{t:'Power Budget Fundamentals',type:'lesson',dur:'15 min'},{t:'Span Loss Calculation',type:'lesson',dur:'12 min'},{t:'OSNR Analysis',type:'lesson',dur:'15 min'},{t:'System Margin & Aging',type:'lesson',dur:'10 min'},{t:'Lab: Full Link Budget Calculator',type:'lab',dur:'13 min'},{t:'Quiz',type:'quiz',dur:'5 min'}],
+ lesson:'<h2>Link Budget Engineering</h2><p>The link budget is the single most important calculation in optical network design. It determines whether a signal can travel from A to B with acceptable quality.</p><div class="formula">OSNR(dB) = 58 + P_ch − L_span − NF − 10·log₁₀(N_spans)</div>',
+ lab:{title:'OSNR Link Budget Calculator',desc:'Calculate end-to-end OSNR for a multi-span optical link.',
+  fields:[{id:'spans',label:'Number of Spans',val:6,min:1,max:30},{id:'spanLoss',label:'Span Loss (dB)',val:20,min:5,max:35},{id:'nf',label:'EDFA Noise Figure (dB)',val:5.5,min:4,max:8},{id:'pch',label:'Channel Launch Power (dBm)',val:0,min:-5,max:5}],
+  calc:function(v){const osnr=58+v.pch-v.spanLoss-v.nf-10*Math.log10(v.spans);const req16qam=18.5;const reqQPSK=12;return{rows:[{l:'Channel power',v:v.pch+' dBm'},{l:'Span loss × '+v.spans+' spans',v:(v.spanLoss*v.spans).toFixed(0)+' dB total'},{l:'EDFA noise figure',v:v.nf+' dB'},{l:'Calculated OSNR',v:osnr.toFixed(1)+' dB'},{l:'Margin over DP-QPSK (req 12dB)',v:(osnr-reqQPSK).toFixed(1)+' dB'},{l:'Margin over DP-16QAM (req 18.5dB)',v:(osnr-req16qam).toFixed(1)+' dB'}],status:osnr>=req16qam?'pass':osnr>=reqQPSK?'warn':'fail',msg:osnr>=req16qam?'✓ Supports DP-16QAM (200G/400G per lambda)':osnr>=reqQPSK?'⚠ Supports DP-QPSK only (100G per lambda) — insufficient for 16QAM':'✗ Below DP-QPSK threshold — link not feasible'}}}},quiz:[]},
+{id:'ch6',title:'Modulation & Coherent Detection',cat:'coherent',level:'adv',free:false,dur:'55 min',rating:4.8,students:178,desc:'From OOK to DP-16QAM. How coherent detection revolutionized optical capacity.',tags:['OOK','QPSK','16QAM','Coherent','DSP'],author:'Aurelio Dioval',items:[{t:'On-Off Keying to Advanced Modulation',type:'lesson',dur:'12 min'},{t:'Coherent Detection Principles',type:'lesson',dur:'15 min'},{t:'DSP in Modern Transponders',type:'lesson',dur:'14 min'},{t:'Lab: Modulation Comparison',type:'lab',dur:'7 min'},{t:'Quiz',type:'quiz',dur:'7 min'}],lesson:'<h2>Modulation & Coherent Detection</h2><p>The evolution from simple On-Off Keying to coherent DP-16QAM represents the biggest leap in spectral efficiency in optical networking history.</p>',lab:null,quiz:[]},
+{id:'ch7',title:'Network Topologies & Protection',cat:'design',level:'int',free:false,dur:'50 min',rating:4.7,students:203,desc:'Ring, mesh, linear — design resilient networks with sub-50ms protection switching.',tags:['Ring','Mesh','OUPSR','OSNCP','Resilience'],author:'Aurelio Dioval',items:[{t:'Topology Fundamentals',type:'lesson',dur:'10 min'},{t:'Protection Schemes',type:'lesson',dur:'15 min'},{t:'ROADM Mesh Networks',type:'lesson',dur:'12 min'},{t:'Lab: Design a Metro Ring',type:'lab',dur:'13 min'},{t:'Quiz',type:'quiz',dur:'5 min'}],lesson:'<h2>Network Topologies & Protection</h2><p>The physical and logical topology determines resilience, scalability, and cost.</p>',lab:null,quiz:[]},
+{id:'ch8',title:'Network Operations & Troubleshooting',cat:'ops',level:'int',free:false,dur:'45 min',rating:4.6,students:234,desc:'OTDR testing, alarm correlation, performance monitoring — keep networks running.',tags:['OTDR','Alarms','PM','NOC','Testing'],author:'Aurelio Dioval',items:[{t:'OTDR Fundamentals',type:'lesson',dur:'12 min'},{t:'Alarm Management',type:'lesson',dur:'10 min'},{t:'Performance Monitoring',type:'lesson',dur:'10 min'},{t:'Lab: OTDR Trace Analysis',type:'lab',dur:'13 min'},{t:'Quiz',type:'quiz',dur:'5 min'}],lesson:'<h2>Network Operations</h2><p>Designing a network is half the battle. Operating and troubleshooting it requires a different skill set entirely.</p>',lab:null,quiz:[]},
+{id:'ch9',title:'Standards & Compliance',cat:'ops',level:'beg',free:false,dur:'40 min',rating:4.5,students:167,desc:'Navigate ITU-T, IEEE, OIF standards for optical networking.',tags:['ITU-T','IEEE','OIF','G.652','G.694'],author:'Aurelio Dioval',items:[{t:'ITU-T Standards Family',type:'lesson',dur:'12 min'},{t:'IEEE & OIF Standards',type:'lesson',dur:'10 min'},{t:'Compliance in Practice',type:'lesson',dur:'10 min'},{t:'Standards Quiz',type:'quiz',dur:'8 min'}],lesson:'<h2>Standards & Compliance</h2><p>Optical networking is governed by international standards from ITU-T, IEEE, and OIF that ensure interoperability.</p>',lab:null,quiz:[]}
+];
+
+const PATHS=[
+{id:'foundations',title:'DWDM Foundations',desc:'Start from zero. Build a solid understanding of optical networking, fiber, components, and DWDM systems.',level:'Beginner',color:'#10b981',courses:['ch1','ch2','ch3','ch9'],hrs:'3.5',labs:4},
+{id:'architect',title:'DWDM Network Architect',desc:'Design production DWDM networks. Master link budgets, channel planning, modulation, and protection.',level:'Intermediate → Advanced',color:'#00d4ff',courses:['ch4','ch5','ch6','ch7'],hrs:'5',labs:5},
+{id:'operations',title:'DWDM Operations Specialist',desc:'Run and troubleshoot live DWDM networks. OTDR, alarms, performance monitoring, and standards compliance.',level:'Intermediate',color:'#f59e0b',courses:['ch5','ch8','ch9'],hrs:'3',labs:3}
+];
+
+const TOOLS_DATA=[
+{id:'link-budget',icon:'📊',title:'Link Budget Calculator',desc:'Full span loss and OSNR analysis. Input fiber type, spans, amplifier specs — get instant feasibility results with margin analysis for different modulation formats.'},
+{id:'db-convert',icon:'🔄',title:'dB / dBm Converter',desc:'Convert between linear power (mW) and logarithmic (dBm). Cascade loss calculations for multi-component systems.'},
+{id:'osnr-calc',icon:'📈',title:'OSNR Calculator',desc:'Multi-span noise accumulation. Calculate OSNR at any point in the network and determine max reach for each modulation format.'},
+{id:'channel-plan',icon:'🌈',title:'Channel Plan Builder',desc:'Visual C-band and L-band channel allocation. Set spacing, assign channels, and verify guard bands.'}
+];
+
+const CERTS=[
+{icon:'🏅',title:'DWDM Foundations Certified',desc:'Validates foundational knowledge of optical networking, fiber optics, and DWDM systems.',req:'Complete all Level 1 courses (Ch 1-3, 9) + pass final exam ≥ 80%'},
+{icon:'🏆',title:'DWDM Architect Certified',desc:'Demonstrates ability to design production-grade DWDM networks with proper link budgets and protection schemes.',req:'Complete Architect path (Ch 4-7) + capstone project review'},
+{icon:'⭐',title:'DWDM Operations Specialist',desc:'Proves competency in monitoring, operating, and troubleshooting live DWDM networks.',req:'Complete Operations path (Ch 5, 8, 9) + hands-on lab assessment'}
+];
+
+const BADGES=[
+{n:'Link Budget Master',i:'📊',req:'Complete Ch5 lab'},{n:'OTDR Analyst',i:'🔍',req:'Complete Ch8 lab'},{n:'Fiber Specialist',i:'🔬',req:'Complete Ch2 lab'},{n:'ROADM Ready',i:'🔀',req:'Complete Ch3+Ch4'},{n:'Capstone Complete',i:'🏆',req:'Complete all 9 chapters'},{n:'Level 1 Certified',i:'📜',req:'Pass certification exam'}
+];
+
+// ═══════════════════════════ NAVIGATION ═══════════════════════════
+function go(v){
+ document.querySelectorAll('.view').forEach(e=>e.classList.remove('act'));
+ const el=document.getElementById('v-'+v);if(el)el.classList.add('act');
+ document.querySelectorAll('.nav-link').forEach(l=>{l.classList.toggle('act',l.dataset.v===v)});
+ window.scrollTo(0,0);
+ if(v==='browse')renderBrowse();
+ if(v==='dashboard')renderDash();
+ if(v==='paths')renderPaths();
+ if(v==='tools')renderTools();
+ if(v==='certs')renderCerts();
 }
 
-function filterCourses(cat) {
-  const results = COURSES.filter(c=>c.cat===cat);
-  document.getElementById('course-list').innerHTML = results.map(c=>renderCourseCard(c)).join('');
-  showView('browse');
-  document.querySelector('.section').scrollIntoView({behavior:'smooth',block:'start'});
+function updXP(){document.getElementById('xp-display').textContent=state.xp}
+
+// ═══════════════════════════ BROWSE ═══════════════════════════
+let curCat='all';
+function renderBrowse(){
+ const fg=document.getElementById('cat-filters');
+ fg.innerHTML=CATS.map(c=>`<button class="${c.id===curCat?'btn-p':'btn-g'}" onclick="filterCat('${c.id}')" style="font-size:12px;padding:6px 14px">${c.label}</button>`).join('');
+ const list=curCat==='all'?C:C.filter(c=>c.cat===curCat);
+ document.getElementById('course-grid').innerHTML=list.map(renderCard).join('');
 }
 
-// ======================== INIT ========================
-renderCourses();
-renderPaths();
-renderTools();
-renderCerts();
-renderBadges();
-renderDashCourses();
+function filterCat(id){curCat=id;renderBrowse()}
+
+function renderCard(c){
+ const done=state.done[c.id]||[];
+ const pct=Math.round(done.length/c.items.length*100);
+ const bg={dwdm:'linear-gradient(135deg,rgba(0,50,80,.6),rgba(30,0,60,.6))',fiber:'linear-gradient(135deg,rgba(0,60,60,.6),rgba(0,30,50,.6))',coherent:'linear-gradient(135deg,rgba(40,0,80,.6),rgba(0,40,60,.6))',design:'linear-gradient(135deg,rgba(60,30,0,.6),rgba(40,0,40,.6))',ops:'linear-gradient(135deg,rgba(60,40,0,.6),rgba(30,20,0,.6))'}[c.cat]||'';
+ const icons={dwdm:'🌊',fiber:'🔬',coherent:'📡',design:'📐',ops:'🛠️'}[c.cat]||'📚';
+ return `<div class="c-card${!c.free?' locked':''}" onclick="${c.free?`openDetail('${c.id}')`:'handleSubscribe(\'pro\')'}">
+  <div class="c-thumb"><div class="c-bg" style="background:${bg}"></div><div class="c-icon">${icons}</div>
+  <div class="c-lvl ${c.level}">${{beg:'Beginner',int:'Intermediate',adv:'Advanced'}[c.level]}</div>
+  ${c.free?'<div class="c-free">FREE</div>':'<div class="c-lock">🔒</div>'}</div>
+  <div class="c-body"><h3>${c.title}</h3><div class="c-auth">${c.author}</div>
+  <div class="c-meta"><span>★ ${c.rating}</span><span class="sep">·</span><span>${c.dur}</span><span class="sep">·</span><span>${c.students} students</span></div>
+  ${pct>0?`<div class="c-bar"><div class="c-bar-fill" style="width:${pct}%"></div></div>`:''}</div></div>`
+}
+
+// ═══════════════════════════ DETAIL ═══════════════════════════
+function openDetail(id){
+ const c=C.find(x=>x.id===id);if(!c)return;
+ document.getElementById('detail-root').innerHTML=`
+  <div class="back" onclick="go('browse')">← Back to Courses</div>
+  <h1>${c.title}</h1><div class="d-sub">${c.desc}</div>
+  <div class="d-meta"><span>★ ${c.rating} (${c.students} students)</span><span>${c.dur}</span><span>${c.items.length} sections</span><span>${c.items.filter(i=>i.type==='lab').length} labs</span></div>
+  <div class="d-tags">${c.tags.map(t=>`<span class="d-tag">${t}</span>`).join('')}</div>
+  <div style="display:flex;gap:12px;margin-bottom:32px">
+   <button class="btn-p" onclick="openPlayer('${c.id}',0)">▶ Start Course</button>
+   <button class="btn-s">+ Add to My List</button>
+  </div>
+  <div style="font-size:13px;color:var(--tx2);margin-bottom:32px">Created by <strong style="color:var(--cy)">${c.author}</strong> — 18+ years deploying optical networks. Author of <em>BACKBONE: Engineering the Internet</em>.</div>
+  <div class="cur-list"><h2>Curriculum</h2>
+  ${c.items.map((item,i)=>`<div class="cur-sec${i===0?' open':''}"><div class="cur-hd" onclick="this.parentElement.classList.toggle('open')"><h3><span class="cnum">${i+1}</span>${item.t}</h3><span class="cmeta">${item.type} · ${item.dur}</span></div>
+  <div class="cur-bd"><div class="cur-item" onclick="openPlayer('${c.id}',${i})"><span class="ci-icon">${item.type==='lesson'?'📖':item.type==='lab'?'🔬':'📝'}</span>${item.t}<span class="ci-dur">${item.dur}</span></div></div></div>`).join('')}</div>`;
+ go('detail');
+}
+
+// ═══════════════════════════ PLAYER ═══════════════════════════
+let curCourse=null,curIdx=0;
+function openPlayer(id,idx){
+ curCourse=C.find(x=>x.id===id);curIdx=idx||0;if(!curCourse)return;
+ renderSidebar();renderContent();go('player');
+}
+
+function renderSidebar(){
+ const done=state.done[curCourse.id]||[];
+ document.getElementById('p-side').innerHTML=`<div class="ps-hd"><h3>${curCourse.title}</h3><p>${curCourse.items.length} sections · ${curCourse.dur}</p></div>
+ <div class="ps-list">${curCourse.items.map((it,i)=>`<div class="ps-item${i===curIdx?' act':''}${done.includes(i)?' done':''}" onclick="curIdx=${i};renderContent();renderSidebar()"><span class="ps-num">${done.includes(i)?'✓':(i+1)}</span>${it.t}<span class="ps-type ${it.type}">${it.type}</span></div>`).join('')}</div>`;
+}
+
+function renderContent(){
+ const it=curCourse.items[curIdx];const m=document.getElementById('p-main');
+ let tabs='<div class="p-tabs"><div class="p-tab act" data-t="lesson" onclick="switchTab(this)">📖 Lesson</div>';
+ if(curCourse.lab)tabs+='<div class="p-tab" data-t="lab" onclick="switchTab(this)">🔬 Lab</div>';
+ if(curCourse.quiz&&curCourse.quiz.length)tabs+='<div class="p-tab" data-t="quiz" onclick="switchTab(this)">📝 Quiz</div>';
+ tabs+='</div>';
+
+ m.innerHTML=`<div class="p-video"><div class="pv-inner"><div class="pv-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div><p style="font-size:13px;color:var(--tx3)">Video lesson · ${it.dur}</p></div></div>
+ <div class="p-content"><h1>${it.t}</h1><div class="p-cmeta">Chapter ${curIdx+1} of ${curCourse.items.length} · ${it.type} · ${it.dur}</div>
+ ${tabs}<div id="tab-content"></div>
+ <div style="display:flex;justify-content:space-between;margin-top:32px;padding-top:16px;border-top:1px solid var(--bdr)">
+  <button class="btn-g" onclick="prevItem()" ${curIdx===0?'disabled':''}>← Previous</button>
+  <button class="btn-p" onclick="completeAndNext()">Complete & Continue →</button>
+ </div></div>`;
+ switchTab(document.querySelector('.p-tab.act'));
+}
+
+function switchTab(el){
+ document.querySelectorAll('.p-tab').forEach(t=>t.classList.remove('act'));el.classList.add('act');
+ const t=el.dataset.t,tc=document.getElementById('tab-content');
+ if(t==='lesson')tc.innerHTML='<div class="lt">'+(curCourse.lesson||'<p>Full lesson content available in the course. This chapter covers key concepts with detailed explanations, diagrams, and examples.</p>')+'</div>';
+ else if(t==='lab')renderLab(tc);
+ else if(t==='quiz')renderQuiz(tc);
+}
+
+function prevItem(){if(curIdx>0){curIdx--;renderContent();renderSidebar()}}
+function completeAndNext(){
+ markDone(curCourse.id,curIdx);
+ if(curIdx<curCourse.items.length-1){curIdx++;renderContent();renderSidebar()}
+ else{renderSidebar();showToast('🎉 Course section completed! +25 XP')}
+}
+
+// ═══════════════════════════ LAB ENGINE ═══════════════════════════
+function renderLab(tc){
+ const lab=curCourse.lab;if(!lab){tc.innerHTML='<p style="color:var(--tx3)">Lab available in the full course.</p>';return}
+ tc.innerHTML=`<div class="lab-panel"><div class="lab-hd"><h3>🔬 ${lab.title}</h3><button class="btn-p" style="padding:6px 16px;font-size:12px" onclick="runLab()">Run Calculation</button></div>
+ <div class="lab-bd"><p style="font-size:13px;color:var(--tx2);margin-bottom:16px">${lab.desc}</p>
+ <div class="lab-row">${lab.fields.map(f=>`<div class="lab-field"><label>${f.label}</label>${f.options?`<select id="lf-${f.id}">${(typeof f.options[0]==='number'?f.options:f.options).map(o=>`<option value="${o}"${o==f.val?' selected':''}>${o}</option>`).join('')}</select>`:`<input type="number" id="lf-${f.id}" value="${f.val}" min="${f.min||0}" max="${f.max||999}" step="${f.val<1?0.01:1}"/>`}</div>`).join('')}</div>
+ <div id="lab-result"></div></div></div>`;
+}
+
+function runLab(){
+ const lab=curCourse.lab;if(!lab)return;
+ const vals={};lab.fields.forEach(f=>{const el=document.getElementById('lf-'+f.id);vals[f.id]=el.tagName==='SELECT'?el.value:parseFloat(el.value)});
+ const r=lab.calc(vals);
+ document.getElementById('lab-result').innerHTML=`<div class="lab-result"><h4>Results</h4>${r.rows.map(row=>`<div class="lr-row"><span class="lr-lbl">${row.l}</span><span class="lr-val">${row.v}</span></div>`).join('')}<div class="lr-status ${r.status}">${r.msg}</div></div>`;
+ addXP(50);showToast('🔬 Lab calculation complete! +50 XP');
+}
+
+// ═══════════════════════════ QUIZ ENGINE ═══════════════════════════
+function renderQuiz(tc){
+ const quiz=curCourse.quiz;if(!quiz||!quiz.length){tc.innerHTML='<p style="color:var(--tx3)">Quiz available in the full course.</p>';return}
+ tc.innerHTML=`<div class="quiz-panel">${quiz.map((q,qi)=>`<div class="quiz-q" id="qq-${qi}"><div class="q-num">Question ${qi+1} of ${quiz.length}</div><h3>${q.q}</h3>
+ <div class="q-opts">${q.opts.map((o,oi)=>`<div class="q-opt" onclick="answerQ(${qi},${oi})"><span class="q-letter">${'ABCD'[oi]}</span>${o}</div>`).join('')}</div>
+ <div class="q-explain" id="qe-${qi}" style="background:${qi%2?'rgba(0,212,255,.04)':'rgba(139,92,246,.04)'}">${q.exp}</div></div>`).join('')}
+ <div id="quiz-result"></div></div>`;
+}
+
+function answerQ(qi,oi){
+ const quiz=curCourse.quiz;const q=quiz[qi];const el=document.getElementById('qq-'+qi);
+ if(el.dataset.answered)return;el.dataset.answered='1';
+ const opts=el.querySelectorAll('.q-opt');
+ opts.forEach((o,i)=>{if(i===q.ans)o.classList.add('correct');else if(i===oi&&oi!==q.ans)o.classList.add('wrong')});
+ document.getElementById('qe-'+qi).classList.add('show');
+ if(oi===q.ans)addXP(20);
+ // Check if all answered
+ const allDone=quiz.every((_,i)=>document.getElementById('qq-'+i).dataset.answered);
+ if(allDone){
+  const correct=quiz.filter((q,i)=>{const opts=document.getElementById('qq-'+i).querySelectorAll('.q-opt');return opts[q.ans].classList.contains('correct')&&!Array.from(opts).some(o=>o.classList.contains('wrong'))}).length;
+  const pct=Math.round(correct/quiz.length*100);
+  document.getElementById('quiz-result').innerHTML=`<div class="quiz-score"><h3>${pct}% — ${pct>=80?'Passed! 🎉':'Keep studying'}</h3><p>You got ${correct} out of ${quiz.length} correct${pct>=80?'. Certificate progress updated!':'. Review the explanations and try again.'}</p></div>`;
+  if(pct>=80)addXP(100);
+ }
+}
+
+// ═══════════════════════════ DASHBOARD ═══════════════════════════
+function renderDash(){
+ const totalItems=C.reduce((a,c)=>a+c.items.length,0);
+ const doneItems=Object.values(state.done).reduce((a,d)=>a+d.length,0);
+ const pct=totalItems?Math.round(doneItems/totalItems*100):0;
+ const labsDone=Object.entries(state.done).reduce((a,[cid,idxs])=>{const c=C.find(x=>x.id===cid);return a+idxs.filter(i=>c&&c.items[i]&&c.items[i].type==='lab').length},0);
+ document.getElementById('dash-root').innerHTML=`<h1>Welcome back, Domingos</h1><p class="d-sub">Continue your journey through optical networking mastery.</p>
+ <div class="ds-grid"><div class="ds-card"><div class="ds-val" style="color:var(--cy)">${pct}%</div><div class="ds-lbl">Overall Progress</div></div>
+ <div class="ds-card"><div class="ds-val" style="color:var(--am)">${state.xp}</div><div class="ds-lbl">XP Earned</div></div>
+ <div class="ds-card"><div class="ds-val" style="color:var(--em)">${labsDone}/20</div><div class="ds-lbl">Labs Done</div></div>
+ <div class="ds-card"><div class="ds-val" style="color:var(--vi2)">0/6</div><div class="ds-lbl">Badges</div></div></div>
+ <div class="dash-sec"><h2>Continue Learning</h2><div class="c-grid">${C.filter(c=>c.free).map(renderCard).join('')}</div></div>
+ <div class="dash-sec"><h2>Rank Progression</h2><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+ ${[{n:'Apprentice',i:'🔰',xp:0},{n:'Optical Engineer',i:'🔧',xp:500},{n:'DWDM Designer',i:'📐',xp:1500},{n:'DWDM Architect',i:'🏗️',xp:3000}].map(r=>`<div style="background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;text-align:center;${state.xp<r.xp?'opacity:.35':''}"><div style="font-size:28px;margin-bottom:6px">${r.i}</div><div style="font-size:13px;font-weight:700;color:var(--tx0)">${r.n}</div><div style="font-size:11px;color:var(--tx3)">${r.xp} XP</div></div>`).join('')}</div></div>
+ <div class="dash-sec"><h2>Badges</h2><div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px">${BADGES.map(b=>`<div style="background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;text-align:center;opacity:.35"><div style="font-size:24px;margin-bottom:4px">${b.i}</div><div style="font-size:10px;font-weight:600">${b.n}</div></div>`).join('')}</div></div>`;
+}
+
+// ═══════════════════════════ PATHS ═══════════════════════════
+function renderPaths(){document.getElementById('paths-root').innerHTML=PATHS.map(p=>`<div class="path-card"><div class="p-badge" style="background:${p.color}18;color:${p.color}">${p.level}</div><h3>${p.title}</h3><p>${p.desc}</p><div class="path-steps">${p.courses.map(cid=>{const c=C.find(x=>x.id===cid);return c?`<span>${c.title.split(' ').slice(0,3).join(' ')}</span>`:''}).join('')}</div><div class="path-foot"><span>${p.courses.length} courses · ${p.hrs} hrs · ${p.labs} labs</span><span style="color:var(--cy);font-weight:600">Start Path →</span></div></div>`).join('')}
+
+// ═══════════════════════════ TOOLS ═══════════════════════════
+function renderTools(){
+ document.getElementById('tools-root').innerHTML=TOOLS_DATA.map(t=>`<div class="tool-card" onclick="openTool('${t.id}')"><h3>${t.icon} ${t.title}</h3><p>${t.desc}</p><button class="btn-s" style="padding:8px 18px;font-size:12px">Launch Tool →</button></div>`).join('');
+ document.getElementById('tool-active').innerHTML='';
+}
+
+function openTool(id){
+ const ta=document.getElementById('tool-active');
+ if(id==='db-convert'){
+  ta.innerHTML=`<div class="lab-panel"><div class="lab-hd"><h3>🔄 dB / dBm Converter</h3></div><div class="lab-bd">
+  <div class="lab-row"><div class="lab-field"><label>Power (mW)</label><input type="number" id="t-mw" value="1" step="0.01" oninput="convMW()"/></div>
+  <div class="lab-field"><label>Power (dBm)</label><input type="number" id="t-dbm" value="0" step="0.1" oninput="convDBM()"/></div></div>
+  <div class="lab-row"><div class="lab-field"><label>Loss (linear ratio)</label><input type="number" id="t-lin" value="100" step="1" oninput="convLin()"/></div>
+  <div class="lab-field"><label>Loss (dB)</label><input type="number" id="t-db" value="20" step="0.1" oninput="convDB()"/></div></div></div></div>`;
+ } else {
+  // Use the Link Budget calc from ch5 if available
+  const ch5=C.find(x=>x.id==='ch5');
+  if(ch5&&ch5.lab){
+   ta.innerHTML='';
+   const tc=ta;
+   const old=curCourse;curCourse=ch5;renderLab(tc);curCourse=old;
+  } else ta.innerHTML='<p style="color:var(--tx3);padding:20px">Tool coming soon. Subscribe for access.</p>';
+ }
+}
+
+function convMW(){const v=parseFloat(document.getElementById('t-mw').value);document.getElementById('t-dbm').value=(10*Math.log10(v)).toFixed(2)}
+function convDBM(){const v=parseFloat(document.getElementById('t-dbm').value);document.getElementById('t-mw').value=Math.pow(10,v/10).toFixed(4)}
+function convLin(){const v=parseFloat(document.getElementById('t-lin').value);document.getElementById('t-db').value=(10*Math.log10(v)).toFixed(2)}
+function convDB(){const v=parseFloat(document.getElementById('t-db').value);document.getElementById('t-lin').value=Math.pow(10,v/10).toFixed(2)}
+
+// ═══════════════════════════ CERTS ═══════════════════════════
+function renderCerts(){document.getElementById('certs-root').innerHTML=CERTS.map(c=>`<div class="cert-card"><div class="cert-icon">${c.icon}</div><h3>${c.title}</h3><p>${c.desc}</p><div class="cert-req">${c.req}</div></div>`).join('')}
+
+// ═══════════════════════════ UTILS ═══════════════════════════
+function handleSubscribe(plan){alert('Subscription checkout coming soon! Plan: '+plan+'\n\nThis will integrate with Stripe for payment processing.')}
+function doSearch(q){curCat='all';go('browse');/* search is handled by filter */}
+function showToast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:20px;right:20px;background:var(--bg3);border:1px solid var(--bdr2);border-radius:10px;padding:12px 20px;z-index:300;font-size:13px;font-weight:600;color:var(--tx0);box-shadow:var(--shadow);animation:fadeIn .3s';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000)}
+
+// ═══════════════════════════ INIT ═══════════════════════════
+updXP();renderBrowse();
 </script>
 </body>
 </html>
