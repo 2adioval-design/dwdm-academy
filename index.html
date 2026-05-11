@@ -598,7 +598,7 @@ function renderCard(c){
  const pct=Math.round(done.length/c.items.length*100);
  const bg={dwdm:'linear-gradient(135deg,rgba(0,50,80,.6),rgba(30,0,60,.6))',fiber:'linear-gradient(135deg,rgba(0,60,60,.6),rgba(0,30,50,.6))',coherent:'linear-gradient(135deg,rgba(40,0,80,.6),rgba(0,40,60,.6))',design:'linear-gradient(135deg,rgba(60,30,0,.6),rgba(40,0,40,.6))',ops:'linear-gradient(135deg,rgba(60,40,0,.6),rgba(30,20,0,.6))'}[c.cat]||'';
  const icons={dwdm:'🌊',fiber:'🔬',coherent:'📡',design:'📐',ops:'🛠️'}[c.cat]||'📚';
- return `<div class="c-card${!c.free?' locked':''}" onclick="${c.free?`openDetail('${c.id}')`:'handleSubscribe(\'pro\')'}">
+ return `<div class="c-card${!c.free?' locked':''}" onclick="${c.free?`openDetail('${c.id}')`:"handleSubscribe('pro')"}">
   <div class="c-thumb"><div class="c-bg" style="background:${bg}"></div><div class="c-icon">${icons}</div>
   <div class="c-lvl ${c.level}">${{beg:'Beginner',int:'Intermediate',adv:'Advanced'}[c.level]}</div>
   ${c.free?'<div class="c-free">FREE</div>':'<div class="c-lock">🔒</div>'}</div>
