@@ -280,6 +280,32 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{fon
 /* RESPONSIVE */
 @media(max-width:1024px){.hero .container{grid-template-columns:1fr}.hero-visual{display:none}.player-wrap{grid-template-columns:1fr}.p-side{display:none}.price-grid{grid-template-columns:1fr}.ft-inner{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){.nav-links,.s-bar{display:none}.feat-grid{grid-template-columns:1fr}.c-grid{grid-template-columns:1fr}.ds-grid{grid-template-columns:repeat(2,1fr)}.paths-grid,.tools-grid,.cert-grid{grid-template-columns:1fr}.lt .key-concepts,.lab-row{grid-template-columns:1fr}.hero{padding:60px 0 48px}}
+
+/* Auth Modal */
+.auth-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.auth-overlay.show{opacity:1;pointer-events:all}
+.auth-box{background:#1a1f2e;border:1px solid rgba(0,212,255,.2);border-radius:16px;padding:40px;width:400px;max-width:90vw;transform:translateY(20px);transition:transform .3s}
+.auth-overlay.show .auth-box{transform:translateY(0)}
+.auth-box h2{color:#fff;font-size:1.5rem;margin-bottom:8px;text-align:center}
+.auth-box p{color:rgba(255,255,255,.6);text-align:center;margin-bottom:24px;font-size:.9rem}
+.auth-field{margin-bottom:16px}
+.auth-field label{display:block;color:rgba(255,255,255,.7);font-size:.85rem;margin-bottom:6px}
+.auth-field input{width:100%;padding:12px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-size:.95rem;outline:none;transition:border-color .2s;box-sizing:border-box}
+.auth-field input:focus{border-color:rgba(0,212,255,.5)}
+.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00d4ff,#7c3aed);border:none;border-radius:8px;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;margin-top:8px;transition:transform .15s}
+.auth-btn:hover{transform:translateY(-1px)}
+.auth-switch{text-align:center;margin-top:16px;color:rgba(255,255,255,.5);font-size:.85rem}
+.auth-switch a{color:#00d4ff;cursor:pointer;text-decoration:none}
+.auth-close{position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:1.2rem;cursor:pointer}
+.auth-error{color:#f87171;font-size:.85rem;text-align:center;margin-top:8px;min-height:20px}
+.user-menu{position:relative;display:flex;align-items:center;gap:8px;cursor:pointer}
+.user-menu .avatar-sm{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00d4ff,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem}
+.user-dropdown{position:absolute;top:44px;right:0;background:#1a1f2e;border:1px solid rgba(0,212,255,.2);border-radius:12px;padding:8px;min-width:180px;display:none;z-index:100}
+.user-dropdown.show{display:block}
+.user-dropdown a{display:block;padding:10px 16px;color:rgba(255,255,255,.8);text-decoration:none;border-radius:8px;font-size:.9rem;cursor:pointer}
+.user-dropdown a:hover{background:rgba(0,212,255,.08);color:#fff}
+.pro-badge{display:inline-block;background:linear-gradient(135deg,#f59e0b,#ef4444);padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:700;color:#fff;margin-left:6px}
+
 </style>
 </head>
 <body>
@@ -371,6 +397,12 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{fon
   <h3>Enterprise</h3><div class="price">$149<span>/month</span></div><div class="price-desc">For teams and organizations</div>
   <ul><li>Everything in Professional</li><li>Up to 10 team seats</li><li>Admin dashboard</li><li>Custom learning paths</li><li>Branded certificates</li><li>API access</li><li>Dedicated support</li></ul>
   <button class="btn-s" onclick="handleSubscribe('ent')">Contact Sales</button>
+ </div>
+ <div class="price-card" style="border:2px solid #f59e0b;position:relative;overflow:visible">
+  <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#f59e0b,#ef4444);padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;color:#fff;white-space:nowrap">🔥 PREMIUM</div>
+  <h3>Live Training</h3><div class="price">$2,000<span> one-time</span></div><div class="price-desc">Instructor-led with Aurelio Dioval</div>
+  <ul><li>Everything in Enterprise</li><li>Live instructor-led sessions</li><li>Hands-on lab walkthroughs</li><li>Real-world case studies</li><li>Direct Q&A with the author</li><li>Lifetime platform access</li><li>Signed certificate of completion</li><li>1-on-1 follow-up session</li></ul>
+  <button class="btn-p" style="background:linear-gradient(135deg,#f59e0b,#ef4444)" onclick="handleSubscribe('live')">Book Live Training — $2,000</button>
  </div>
 </div>
 </div></div>
@@ -768,12 +800,185 @@ function convDB(){const v=parseFloat(document.getElementById('t-db').value);docu
 function renderCerts(){document.getElementById('certs-root').innerHTML=CERTS.map(c=>`<div class="cert-card"><div class="cert-icon">${c.icon}</div><h3>${c.title}</h3><p>${c.desc}</p><div class="cert-req">${c.req}</div></div>`).join('')}
 
 // ═══════════════════════════ UTILS ═══════════════════════════
+window.STRIPE_PRO_LINK='https://buy.stripe.com/bJe6oJ0tLdls6GPaiB7ss0a';
+window.STRIPE_ENT_LINK='https://buy.stripe.com/3cIaEZ0tL3KSe9h3Ud7ss0b';
+window.STRIPE_LIVE_LINK='';
 function handleSubscribe(plan){alert('Subscription checkout coming soon! Plan: '+plan+'\n\nThis will integrate with Stripe for payment processing.')}
 function doSearch(q){curCat='all';go('browse');/* search is handled by filter */}
 function showToast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:20px;right:20px;background:var(--bg3);border:1px solid var(--bdr2);border-radius:10px;padding:12px 20px;z-index:300;font-size:13px;font-weight:600;color:var(--tx0);box-shadow:var(--shadow);animation:fadeIn .3s';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000)}
 
 // ═══════════════════════════ INIT ═══════════════════════════
 updXP();renderBrowse();
+
+// ═══════════════════════════ AUTH SYSTEM ═══════════════════════════
+const AUTH_KEY = 'dwdm_user';
+let currentUser = null;
+
+function loadUser() {
+  try {
+    const stored = localStorage.getItem(AUTH_KEY);
+    if (stored) { currentUser = JSON.parse(stored); updateAuthUI(); }
+  } catch(e) {}
+}
+
+function saveUser(user) {
+  currentUser = user;
+  localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+  updateAuthUI();
+}
+
+function updateAuthUI() {
+  const nav = document.querySelector('.nav-r');
+  if (!nav) return;
+  
+  // Remove existing auth elements
+  const existing = nav.querySelector('.user-menu');
+  const existingBtn = nav.querySelector('.auth-trigger');
+  if (existing) existing.remove();
+  if (existingBtn) existingBtn.remove();
+  
+  if (currentUser) {
+    const initials = currentUser.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+    const el = document.createElement('div');
+    el.className = 'user-menu';
+    el.innerHTML = '<div class="avatar-sm">' + initials + '</div>' +
+      (currentUser.plan === 'pro' ? '<span class="pro-badge">PRO</span>' : '') +
+      '<div class="user-dropdown" id="userDrop">' +
+      '<a onclick="go('dashboard')">📊 Dashboard</a>' +
+      '<a onclick="go('settings')">⚙️ Settings</a>' +
+      '<a onclick="doLogout()">🚪 Log Out</a>' +
+      '</div>';
+    el.onclick = function(e) {
+      if (!e.target.closest('.user-dropdown')) {
+        document.getElementById('userDrop').classList.toggle('show');
+      }
+    };
+    nav.appendChild(el);
+    
+    // Update dashboard name
+    if (typeof renderDashboard === 'function' && document.getElementById('app').innerHTML.includes('Welcome back')) {
+      renderDashboard();
+    }
+  } else {
+    const btn = document.createElement('button');
+    btn.className = 'btn-p auth-trigger';
+    btn.style.cssText = 'padding:8px 20px;font-size:.85rem';
+    btn.textContent = 'Sign In';
+    btn.onclick = function() { openAuth('login'); };
+    nav.appendChild(btn);
+  }
+}
+
+function openAuth(mode) {
+  const modal = document.getElementById('authModal');
+  modal.classList.add('show');
+  if (mode === 'signup') showSignup();
+  else showLogin();
+}
+
+function closeAuth() {
+  document.getElementById('authModal').classList.remove('show');
+  document.getElementById('loginError').textContent = '';
+  document.getElementById('signupError').textContent = '';
+}
+
+function showLogin() {
+  document.getElementById('authLogin').style.display = 'block';
+  document.getElementById('authSignup').style.display = 'none';
+}
+
+function showSignup() {
+  document.getElementById('authLogin').style.display = 'none';
+  document.getElementById('authSignup').style.display = 'block';
+}
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  if (!email || !pass) { document.getElementById('loginError').textContent = 'Please fill in all fields'; return; }
+  
+  // Check stored users
+  const users = JSON.parse(localStorage.getItem('dwdm_users') || '{}');
+  if (users[email] && users[email].password === btoa(pass)) {
+    saveUser(users[email]);
+    closeAuth();
+    toast('Welcome back, ' + currentUser.name.split(' ')[0] + '! 👋');
+  } else {
+    document.getElementById('loginError').textContent = 'Invalid email or password';
+  }
+}
+
+function doSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pass = document.getElementById('signupPass').value;
+  
+  if (!name || !email || !pass) { document.getElementById('signupError').textContent = 'Please fill in all fields'; return; }
+  if (pass.length < 8) { document.getElementById('signupError').textContent = 'Password must be at least 8 characters'; return; }
+  if (!email.includes('@')) { document.getElementById('signupError').textContent = 'Please enter a valid email'; return; }
+  
+  const users = JSON.parse(localStorage.getItem('dwdm_users') || '{}');
+  if (users[email]) { document.getElementById('signupError').textContent = 'An account with this email already exists'; return; }
+  
+  const user = { name: name, email: email, password: btoa(pass), plan: 'free', created: Date.now() };
+  users[email] = user;
+  localStorage.setItem('dwdm_users', JSON.stringify(users));
+  
+  saveUser(user);
+  closeAuth();
+  toast('Welcome to DWDM Academy, ' + name.split(' ')[0] + '! 🎉');
+  go('browse');
+}
+
+function doLogout() {
+  currentUser = null;
+  localStorage.removeItem(AUTH_KEY);
+  document.getElementById('userDrop')?.classList.remove('show');
+  updateAuthUI();
+  go('home');
+  toast('Logged out successfully');
+}
+
+// Override handleSubscribe to open auth or Stripe checkout
+const _origHandleSubscribe = typeof handleSubscribe === 'function' ? handleSubscribe : null;
+function handleSubscribe(plan) {
+  if (!currentUser) {
+    openAuth('signup');
+    return;
+  }
+  // Open Stripe checkout links (will be updated with real links)
+  const links = {
+    pro: window.STRIPE_PRO_LINK || '#',
+    ent: window.STRIPE_ENT_LINK || '#',
+    enterprise: window.STRIPE_ENT_LINK || '#',
+    live: window.STRIPE_LIVE_LINK || '#'
+  };
+  if (links[plan] && links[plan] !== '#') {
+    window.open(links[plan], '_blank');
+  } else {
+    toast('Payment processing coming soon! We\'ll notify you at ' + currentUser.email);
+  }
+}
+
+// Override locked course clicks to prompt auth
+const _origOpenDetail = typeof openDetail === 'function' ? openDetail : null;
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.user-menu')) {
+    const drop = document.getElementById('userDrop');
+    if (drop) drop.classList.remove('show');
+  }
+});
+
+// Close auth modal on overlay click
+document.getElementById('authModal')?.addEventListener('click', function(e) {
+  if (e.target === this) closeAuth();
+});
+
+// Load user on init
+loadUser();
+
 </script>
 </body>
 </html>
